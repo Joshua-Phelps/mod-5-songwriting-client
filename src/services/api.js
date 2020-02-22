@@ -24,6 +24,14 @@ const login = data => {
   }).then(res => res.json());
 };
 
+const signup = data => {
+  return fetch(`${API_ROOT}/users`, {
+    method: "POST",
+    headers: headers(),
+    body: JSON.stringify(data)
+  }).then(res => res.json());
+}
+
 const getCurrentUser = () => {
   // console.log("getting current user", headers);
   return fetch(`${API_ROOT}/current_user`, {
@@ -37,7 +45,8 @@ const getCurrentUser = () => {
 export const api = {
   auth: {
     login,
-    getCurrentUser
+    getCurrentUser,
+    signup
   },
 //   paintings: {
 //     getPaintings

@@ -5,13 +5,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { api } from '../services/api';
+import { Link, withRouter } from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
@@ -54,7 +55,7 @@ export default function Login(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    api.auth.login(login, password).then(res => {
+    api.auth.login({login, password}).then(res => {
       if (!res.error) {
         // const updatedState = { ...this.state.auth, user: res };
         props.onLogin(res);
@@ -85,10 +86,10 @@ export default function Login(props) {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               value={login.value}
               autoFocus
               onChange={(e) => setLogin({login: e.target.value})}
@@ -120,13 +121,16 @@ export default function Login(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                {/* <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                {/* <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
+                </Link> */}
+                <Link to="/signup" variant="body2">
+                {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>

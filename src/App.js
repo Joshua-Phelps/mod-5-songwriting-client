@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from './components/NavBar'
 import Library from './components/Library'
 import Login from './components/Login'
+import SignUp from './components/SignUp'
 import { api } from "./services/api";
 
 class App extends Component {
@@ -41,6 +42,10 @@ class App extends Component {
     localStorage.removeItem("token");
     this.setState({ auth: { user: {} } });
   };
+  
+  signup = () => {
+
+  }
 
   render() {
     return (
@@ -51,7 +56,13 @@ class App extends Component {
           <Route
               path="/login"
               exact
-              render={props => <Login {...props} />}
+              render={props => <Login {...props} onLogin={this.login} />}
+            />
+
+          <Route
+              path="/signup"
+              exact
+              render={props => <SignUp {...props} />}
             />
     
           <Route
