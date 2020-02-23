@@ -59,7 +59,7 @@ export default function Login(props) {
       if (!res.error) {
         // const updatedState = { ...this.state.auth, user: res };
         props.onLogin(res);
-        props.history.push('/');
+        props.history.push('/home');
       } else {
         setError({ error: true });
       }
@@ -121,14 +121,8 @@ export default function Login(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-                {/* <Link href="#" variant="body2">
-                  Forgot password?
-                </Link> */}
               </Grid>
               <Grid item>
-                {/* <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link> */}
                 <Link to="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
                 </Link>

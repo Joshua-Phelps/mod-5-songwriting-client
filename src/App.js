@@ -6,6 +6,7 @@ import NavBar from './components/NavBar'
 import Library from './components/Library'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
+import SongHome from './components/SongHome'
 import { api } from "./services/api";
 
 class App extends Component {
@@ -22,12 +23,12 @@ class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     if (token) {
-      // console.log('there is a token');
-      // make a request to the backend and find our user
       api.auth.getCurrentUser().then(user => {
-        // console.log(user)
         const updatedState = { ...this.state.auth, user: user };
-        this.setState({ auth: updatedState });
+        this.setState({ 
+          auth: updatedState,
+          collections: user.collections 
+         });
       });
     }
   }
@@ -43,15 +44,20 @@ class App extends Component {
     this.setState({ auth: { user: {} } });
   };
   
-  signup = () => {
-
-  }
 
   render() {
+    const { collections, songs, versions } = this.state
+    const { user } = this.state.auth
+
     return (
       <div >
         <Router>
-          <NavBar />
+          {/* <NavBar  /> */}
+
+          <Route
+              path="/"
+              render={props => <NavBar {...props} user={user} onLogin={this.login} />}
+            />
 
           <Route
               path="/login"
@@ -66,10 +72,17 @@ class App extends Component {
             />
     
           <Route
-              path="/collections"
+              path="/home"
               exact
-              render={(props) => <Library {...props} onLogin={this.login} />}
+              render={(props) => <Library {...props} collections={collections} songs={user.songs} user={user} />}
             />
+
+          <Route
+              path="/songs/:id"
+              exact
+              render={(props) => <SongHome {...props} collections={collections} songs={user.songs} user={user} />}
+            />
+
     
         </Router>
       </div>

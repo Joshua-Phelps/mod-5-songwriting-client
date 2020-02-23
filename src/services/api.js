@@ -16,6 +16,12 @@ const headers = () => {
 //   );
 // };
 
+const getUserCollections = (id) => {
+  return fetch(`${API_ROOT}/users/${id}`, { headers: headers() }).then(res =>
+    res.json()
+  );
+};
+
 const login = data => {
   return fetch(`${API_ROOT}/auth`, {
     method: "POST",
@@ -42,13 +48,22 @@ const getCurrentUser = () => {
   });
 };
 
+const getSongVersions = songId => {
+    return fetch(`${API_ROOT}/songs/${songId}`, {
+        headers: headers()
+    })
+}
+
 export const api = {
   auth: {
     login,
     getCurrentUser,
     signup
   },
-//   paintings: {
-//     getPaintings
-//   }
+  collections: {
+    getUserCollections
+  },
+  versions: {
+      getSongVersions 
+  }
 };
