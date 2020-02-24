@@ -54,6 +54,22 @@ const getSongVersions = songId => {
     })
 }
 
+const addCollection = (collectionName, userId) => {
+    return fetch(`${API_ROOT}/collections`, {
+        method: 'POST',
+        headers: headers(),
+        body: JSON.stringify({collection_name: collectionName, user_id:userId })
+    }).then(res => res.json());
+}
+
+// const createNewVersion = songId => {
+//     return fetch(`${API_ROOT}/versions`, {
+//         method: 'POST',
+//         headers: headers(),
+//         body: 
+//     })
+// }
+
 export const api = {
   auth: {
     login,
@@ -61,7 +77,8 @@ export const api = {
     signup
   },
   collections: {
-    getUserCollections
+    getUserCollections,
+    addCollection
   },
   versions: {
       getSongVersions 

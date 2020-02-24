@@ -7,6 +7,7 @@ import Library from './components/Library'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import SongHome from './components/SongHome'
+import NewRecordingDevice from './components/NewRecordingDevice'
 import { api } from "./services/api";
 
 class App extends Component {
@@ -27,7 +28,6 @@ class App extends Component {
         const updatedState = { ...this.state.auth, user: user };
         this.setState({ 
           auth: updatedState,
-          collections: user.collections 
          });
       });
     }
@@ -43,16 +43,20 @@ class App extends Component {
     localStorage.removeItem("token");
     this.setState({ auth: { user: {} } });
   };
+
+  addCollection = (collectionName, userId) => {
+    api.collections.addCollection(collectionName, userId)
+    .then(data => this.setState({ ...this.state, auth: { user: data }  }))
+  }
   
 
   render() {
-    const { collections, songs, versions } = this.state
     const { user } = this.state.auth
 
     return (
       <div >
         <Router>
-          {/* <NavBar  /> */}
+          
 
           <Route
               path="/"
@@ -74,13 +78,19 @@ class App extends Component {
           <Route
               path="/home"
               exact
-              render={(props) => <Library {...props} collections={collections} songs={user.songs} user={user} />}
+              render={(props) => <Library {...props} onAddCollection={this.addCollection} collections={user.collections} songs={user.songs} user={user} />}
             />
 
           <Route
               path="/songs/:id"
               exact
-              render={(props) => <SongHome {...props} collections={collections} songs={user.songs} user={user} />}
+              render={(props) => <SongHome {...props} collections={user.collections} songs={user.songs} user={user} />}
+            />
+
+          <Route
+              path="/recording"
+              exact
+              render={(props) => <NewRecordingDevice {...props}  />}
             />
 
     

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import CollectionForm from './CollectionForm'
+import CollectionLibrary from './CollectionLibrary'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 class Library extends Component {
 
@@ -14,7 +16,8 @@ class Library extends Component {
         this.state = {
             user: null,
             collectionId: null,
-            songs: []
+            songs: [],
+            open: false 
         }
     }
 
@@ -33,6 +36,7 @@ class Library extends Component {
                 songs: selectedSongs
             })
         } else {
+            console.log("hi")
             this.setState({
                 collectionId: null,
                 songs: this.props.user.songs
@@ -55,7 +59,6 @@ class Library extends Component {
     }
 
     handleSongSelect = e => {
-        console.log(e.target.id)
         this.props.history.push(`/songs/${e.target.id}`)
     }
 
@@ -69,6 +72,19 @@ class Library extends Component {
         })
     }
 
+    handleAddCollection = () => {
+        this.props.onAddCollection()
+    }
+
+    handleOpen = () => {
+        this.setState({ open: true })
+      };
+    
+    handleClose = () => {
+        this.setState({open: false})
+      };
+
+
 
     render(){
         return (
@@ -77,8 +93,31 @@ class Library extends Component {
                     <Grid item xs={3}>
                         <Paper >
                             <div id='allSongs' onClick={this.handleClick}>
-                            All Collections 
+                            <Button>All Songs</Button>
                             </div>
+                            <Button type="button" onClick={this.handleOpen}>
+                             + New Collection
+                            </Button>
+                            <Modal
+                                aria-labelledby="transition-modal-title"
+                                aria-describedby="transition-modal-description"
+                                open={this.state.open}
+                                onClose={this.handleClose}
+                                closeAfterTransition
+                                BackdropComponent={Backdrop}
+                                BackdropProps={{
+                                timeout: 500,
+                                }}
+                            >
+                            <Fade in={this.state.open}>
+                            <div >
+                                <CollectionForm user={this.props.user} onAddCollection={this.props.onAddCollection} />
+                                <h2 id="transition-modal-title"></h2>
+                                <p id="transition-modal-description">react-transition-group animates me.</p>
+                            </div>
+                            </Fade>
+                            </Modal>
+                            {/* <CollectionLibrary collections={this.props.collections} /> */}
                             {this.renderCollections()}
                         </Paper>
                     </Grid> 
