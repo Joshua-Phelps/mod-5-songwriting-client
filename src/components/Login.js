@@ -61,7 +61,7 @@ export default function Login(props) {
         props.onLogin(res);
         props.history.push('/home');
       } else {
-        setError({ error: true });
+        alert('try again')
       }
     });
   };
@@ -77,7 +77,7 @@ export default function Login(props) {
           </Avatar>
          
           <Typography component="h1" variant="h5">
-            {error? alert('try again') : null }
+            {/* {error? alert('try again') : null } */}
             Sign in
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>

@@ -14,7 +14,10 @@ const useStyles = makeStyles(theme => ({
     root: {
       width: '100%',
       maxWidth: 360,
+      padding: '10px',
       backgroundColor: theme.palette.background.paper,
+    //   maxHeight: 700,
+      overflow: 'auto'
      
     },
   }));

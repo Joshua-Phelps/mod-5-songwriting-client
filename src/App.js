@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar from './components/NavBar'
 import Library from './components/Library'
 import Login from './components/Login'
@@ -38,14 +38,25 @@ class App extends Component {
   }
 
   login = data => {
-    const updatedState = { ...this.state.auth, user: {id: data.id,  username: data.username} };
+    const updatedState = { ...this.state.auth, user: data }
+    // const updatedState = { ...this.state.auth, user: {id: data.id,  username: data.username} };
     localStorage.setItem("token", data.jwt);
     this.setState({ auth: updatedState });
   };
 
   logout = () => {
     localStorage.removeItem("token");
-    this.setState({ auth: { user: {} } });
+    this.setState({
+      auth: {
+        user: { 
+          collections: [],
+          id: null,
+          songs: [],
+          username: ''
+         }
+      },
+      selectedCollectionId: 0,  
+    });
   };
 
   addCollection = (collectionName, userId) => {
@@ -103,7 +114,7 @@ class App extends Component {
         <Router>
           <Route
               path="/"
-              render={props => <NavBar {...props} user={user} onLogin={this.login} />}
+              render={props => <NavBar {...props} user={user} onLogout={this.logout} onLogin={this.login} />}
             />
 
           <Route
@@ -131,7 +142,7 @@ class App extends Component {
             /> */}
 
           <Route
-              path="/lib"
+              path="/home"
               exact
               render={(props) => <NewLibrary 
                 {...props} 

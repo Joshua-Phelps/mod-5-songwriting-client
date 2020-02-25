@@ -82,14 +82,9 @@ class NewRecordingDevice extends Component {
 
   render(){
 
-    const aud = {
-      border: 'none',
-      button: <MicIcon />,
-	    backgroundColor: '#ccffe6',
-    }
     return (
           <div>
-              <audio controls src={this.state.audioUrl}  />
+              <audio src={this.state.audioUrl} controls  />
               <br></br>
               {this.state.active ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
               {this.state.audioBlob ? <VersionForm onSave={this.save} /> : null}
