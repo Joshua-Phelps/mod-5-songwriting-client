@@ -6,6 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+
 const useStyles = makeStyles(theme => ({
   modal: {
     display: 'flex',
@@ -20,11 +21,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Form(props) {
+export default function EditForm(props) {
   const classes = useStyles();
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState(props.input)
   const [open, setOpen] = useState(true);
-  const [collection, setCollection] = useState('')
+  const [collection, setCollection] = useState(props.collection)
+  
 
 
   const handleClose = () => {
@@ -38,7 +40,7 @@ export default function Form(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    props.form === 'Song' ? props.onAddInput(input, collection) : props.onAddInput(input, props.id)
+    props.form === 'Song' ? props.onEditInput(input, collection, props.songId) : props.onEditInput(input, props.id)
     setOpen(false);
   }
 
@@ -96,4 +98,3 @@ export default function Form(props) {
     </div>
   );
 }
- 

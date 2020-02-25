@@ -39,11 +39,9 @@ const signup = data => {
 }
 
 const getCurrentUser = () => {
-  // console.log("getting current user", headers);
   return fetch(`${API_ROOT}/current_user`, {
     headers: headers()
   }).then(res => {
-    // console.log(res)
     return res.json();
   });
 };
@@ -70,6 +68,14 @@ const addSong = (songTitle, collectionId) => {
     }).then(res => res.json());
 }
 
+const editSong = (songTitle, collectionId, songId) => {
+  return fetch(`${API_ROOT}/songs/${songId}`, {
+      method: 'PATCH',
+      headers: headers(),
+      body: JSON.stringify({collection_id: collectionId, song_title: songTitle })
+  }).then(res => res.json());
+}
+
 // const createNewVersion = songId => {
 //     return fetch(`${API_ROOT}/versions`, {
 //         method: 'POST',
@@ -92,6 +98,7 @@ export const api = {
       getSongVersions 
   },
   songs: {
-      addSong
+      addSong,
+      editSong
   }
 };

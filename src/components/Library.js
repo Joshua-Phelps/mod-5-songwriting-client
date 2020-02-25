@@ -25,8 +25,6 @@ class Library extends Component {
     }
 
     handleClick = (e) => {
-        console.log(e.target.id)
-        console.log(e.target.innerText)
         if (e.target.innerText !== 'ALL SONGS'){
             const selectedSongs = this.props.user.songs.filter(song => song.collection_id === parseInt(e.target.id))
             this.setState({

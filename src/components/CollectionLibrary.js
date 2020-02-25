@@ -28,9 +28,10 @@ function CollectionLibrary (props) {
 
     const renderCollections = () => {
             return props.collections.map(collection => {
+                const id = collection.id
                 return (
                     <ListItem divider key={collection.id}>
-                        <ListItem button onClick={handleClick}>
+                        <ListItem button onClick={(e) => handleClick(e, id)}>
                             <ListItemText id={collection.id} className={classes.text} primary={collection.collection_name} />
                         </ListItem> 
                        
@@ -53,14 +54,15 @@ function CollectionLibrary (props) {
     }
 
 
-    const handleClick = e => {
-        console.log("clicked")
-        props.onCollectionSelect(e.target.id)
+    const handleClick = (e, id) => {
+        props.onCollectionSelect(id)
     }
+
+    const all = 0
 
     return(
         <div>
-            <Button onClick={handleClick}>All Collections</Button>
+            <Button onClick={(e) => handleClick(e, all)}>All Collections</Button>
              <List className={classes.root} >
             {props.collections ? renderCollections(): null}
             </List>

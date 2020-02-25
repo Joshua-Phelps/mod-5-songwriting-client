@@ -22,7 +22,7 @@ class App extends Component {
         username: ''
        }
     },
-    selectedCollectionId: '',  
+    selectedCollectionId: 0,  
   }
 
   componentDidMount() {
@@ -58,18 +58,25 @@ class App extends Component {
     .then(data => this.setState({ ...this.state, auth: { user: data } }))
   }
 
+  editSong = (songTitle, collectionId, songId) => {
+    api.songs.editSong(songTitle, collectionId, songId)
+    .then(data => this.setState({ ...this.state, auth: { user: data } }))
+   
+  }
+
   collectionSelect = (id) => {
     this.setState({...this.state, selectedCollectionId: id})
   }
+
 
   render() {
     const { user } = this.state.auth
     const { selectedCollectionId } = this.state
     const songs = user.songs.filter(song => {
-      if (selectedCollectionId === ''){
+      if (selectedCollectionId === 0){
         return song
       } else {
-        if(song.collection_id === parseInt(selectedCollectionId)){
+        if(song.collection_id === selectedCollectionId){
           return song 
         }
       }
@@ -115,6 +122,10 @@ class App extends Component {
                 {...props} 
                 collections={user.collections}
                 onCollectionSelect={this.collectionSelect}
+                onAddCollection={this.addCollection}
+                onAddSong={this.addSong}
+                onEditSong={this.editSong}
+                userId={user.id}
                 songs={songs}
                />}
             />

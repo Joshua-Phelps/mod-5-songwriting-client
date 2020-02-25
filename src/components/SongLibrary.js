@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
+import EditForm from './EditForm'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -12,6 +13,10 @@ const useStyles = makeStyles(theme => ({
       width: '100%',
       maxWidth: '100%',
       backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+      height: '100%'
     },
     text: {
         paddingLeft: '20px'
@@ -24,39 +29,73 @@ const useStyles = makeStyles(theme => ({
   }));
 
 function SongLibrary (props) {
+    const [edit, setEdit] = useState(false)
+    const [openEdit, setOpenEdit] = useState(false)
+    const [title, setTitle] = useState('')
+    const [collectionId, setCollectionId] = useState('')
+    const [songId, setSongId] = useState('')
     const classes = useStyles();
+
+    const handleOpenEdit = (e, title, collectionId, songId) => {
+        setOpenEdit(true)
+        setTitle(title)
+        setCollectionId(collectionId)
+        setSongId(songId)
+    } 
+    
+    const handleCloseEdit = () => {
+        setOpenEdit(false)
+    }
+
+    const handleOpenDelete = () => {
+
+        console.log('deleting')
+    }
+    
 
     const renderSongs = () => {
             return props.songs.map(song => {
+                const {id, title, collection_id } = song
+                
                 return (
-                    <ListItem divider key={song.id} id={song.id}>
-                        <ListItem button onClick={handleShowSong}>
-                            <ListItemText className={classes.text} primary={song.title} />
+                    <Fragment>
+                        <ListItem divider key={song.id}>
+                            <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, id)}>
+                                <ListItemText className={classes.text} primary={song.title} />
+                            </ListItem>
+                            <DeleteIcon onClick={handleOpenDelete}/>
+                                <EditIcon onClick={(e) => handleOpenEdit(e, title, collection_id, id)}/>
+                            <Divider />
                         </ListItem>
-                        <DeleteIcon onClick={handleDelete}/>
-                            <EditIcon onClick={handleEdit}/>
-                        <Divider />
-                    </ListItem>
+                    </Fragment>
                 )
             })
     }
 
-    const handleShowSong = () => {
-        console.log('ok')
+    const handleSongSelect = (e, id) => {
+        props.history.push(`/songs/${id}`)
     }
-
-    const handleDelete = () => {
-        console.log('deleting')
-    }
-
-    const handleEdit = () => {
-        console.log('editing')
-    }
-
+   
     return(
-        <List className={classes.root} >
-            {props.songs ? renderSongs(): null}
-        </List>
+        <Fragment>
+            {(openEdit
+            ) ? (
+                <EditForm 
+                    input={title} 
+                    form='Song' 
+                    collections={props.collections} 
+                    onCloseForm={handleCloseEdit} 
+                    collection={collectionId} 
+                    songId={songId}
+                    onEditInput={props.onEditSong} 
+                />
+            ) : (
+                null
+            )}
+            <List className={classes.root} >
+                {props.songs ? renderSongs(): null}
+            </List>
+        </Fragment>
     )
 }
 
