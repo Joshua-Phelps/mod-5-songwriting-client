@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -43,9 +44,10 @@ export default function VersionForm(props) {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <SaveIcon onClick={handleOpen} />
+      {/* <button type="button" onClick={handleOpen}>
         Save
-      </button>
+      </button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

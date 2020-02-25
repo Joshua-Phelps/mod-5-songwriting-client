@@ -3,6 +3,14 @@ import ReactMicRecord from 'react-mic-record';
 import { api } from "../services/api";
 import Button from '@material-ui/core/Button';
 import VersionForm from './VersionForm'
+import MicIcon from '@material-ui/icons/Mic';
+import StopIcon from '@material-ui/icons/Stop';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import SaveIcon from '@material-ui/icons/Save';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 class RecordingDevice extends Component {
@@ -62,7 +70,8 @@ class RecordingDevice extends Component {
       }
 
       createFileFromBlob = () => {
-        let file = new File([this.state.audioBlob], 'audio1.wav', {type: 'audio/wav'})
+        // let file = new File([this.state.audioBlob], 'audio1.wav', {type: 'audio/wav'})
+        let file = new File([this.state.audio], 'audio1.wav', {type: 'audio/wav'})
         return file 
     }
 
@@ -72,21 +81,39 @@ class RecordingDevice extends Component {
         formData.append("id", this.props.songId)
         formData.append('recording', recording)
         formData.append('title', title)
-        fetch(`http://localhost:3000/api/v1/versions`,{
-         method: 'POST', 
-            body: formData
-        }).then(res => res.json()).then(json => this.props.onAddVersion(json))
+        console.log(this.state.audio)
+        console.log(recording)
+        // fetch(`http://localhost:3000/api/v1/versions`,{
+        //  method: 'POST', 
+        //     body: formData
+        // }).then(res => res.json()).then(json => this.props.onAddVersion(json))
       }
 
      
       render() {
         return (
           <div>
-            <button onClick={this.startRecording} type="button">Start</button>
-            <button onClick={this.stopRecording} type="button">Stop</button>
-            <button onClick={this.togglePlay} type="button">Play</button>
-            <button type="button"><VersionForm onSave={this.save} /></button>
-            <ReactMicRecord
+            <List component="nav" aria-label="mailbox folders">
+              <ListItem >
+                <ReactMicRecord
+                style={{width: '10px'}}
+                record={this.state.record}
+                className="sound-wave"
+                onStop={this.onStop}
+                onData={this.onData}
+                strokeColor="#000000"
+                backgroundColor="#ccffe6" />
+              </ListItem>
+              <ListItem divider>
+                {this.state.record ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
+                {(this.state.play) ? <PauseIcon onClick={this.togglePlay} /> : <PlayArrowIcon onClick={this.togglePlay} />}
+                {this.state.audio ? <VersionForm onSave={this.save} /> : null}
+              </ListItem>
+            </List>
+            {/* {this.state.record ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
+            {(this.state.play) ? <PauseIcon onClick={this.togglePlay} /> : <PlayArrowIcon onClick={this.togglePlay} />}
+            {this.state.audio ? <VersionForm onSave={this.save} /> : null} */}
+            {/* <ReactMicRecord
               record={this.state.record}
               className="sound-wave"
               onStop={this.onStop}
@@ -94,9 +121,9 @@ class RecordingDevice extends Component {
               strokeColor="#000000"
               backgroundColor="#ffa64d" />
               <br></br>
-            {/* <Button onClick={this.openVersionForm} type="button">Save</Button> */}
-            
-            {/* <button onClick={this.save} type="button">Save</button> */}
+              {this.state.record ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
+              {(this.state.play) ? <PauseIcon onClick={this.togglePlay} /> : <PlayArrowIcon onClick={this.togglePlay} />}
+              {this.state.audio ? <VersionForm onSave={this.save} /> : null} */}
           </div>
         )
     }

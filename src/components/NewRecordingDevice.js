@@ -1,14 +1,20 @@
 import React, { Component, Fragment } from 'react';
+import VersionForm from './VersionForm'
 import { ReactMediaRecorder } from "react-media-recorder"
 import Button from '@material-ui/core/Button';
 import ReactMicRecord from 'react-mic-record/lib/components/ReactMicRecord';
 import AudioSpectrum from 'react-audio-spectrum'
+import MicIcon from '@material-ui/icons/Mic';
+import StopIcon from '@material-ui/icons/Stop';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import SaveIcon from '@material-ui/icons/Save';
 
 class NewRecordingDevice extends Component {
     constructor(){
         super()
         this.state = {
-            active: true,
+            active: false,
             mediaRecorder: null,
             audioChunks: [],
             audioBlob: null,
@@ -60,23 +66,35 @@ class NewRecordingDevice extends Component {
       return file 
   }
 
-  postRecording = () => {
+  save = (title) => {
     let recording = this.createFileFromBlob()
     let formData = new FormData()
     formData.append("id", this.props.songId)
     formData.append('recording', recording)
+    formData.append('title', title)
       fetch(`http://localhost:3000/api/v1/versions`,{
         method: 'POST', 
         body: formData
-    }).then(res => res.json()).then(json => console.log(json))
+    })
+    .then(res => res.json()).then(json => this.props.onAddVersion(json))
+    // .then(res => res.json()).then(json => console.log(json))
   }
 
   render(){
+
+    const aud = {
+      border: 'none',
+      button: <MicIcon />,
+	    backgroundColor: '#ccffe6',
+    }
     return (
           <div>
-              <audio src={this.state.audioUrl} controls />
+              <audio controls src={this.state.audioUrl}  />
               <br></br>
-              <Button onClick={this.startRecording}>
+              {this.state.active ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
+              {this.state.audioBlob ? <VersionForm onSave={this.save} /> : null}
+              <br></br>
+              {/* <Button onClick={this.startRecording}>
                 Rec.
               </Button>
               <Button onClick={this.stopRecording} >
@@ -85,9 +103,9 @@ class NewRecordingDevice extends Component {
               <Button onClick={this.handlePlay}>
                   Play 
               </Button>
-              <Button onClick={() => this.postRecording(this.props.assignmentID)}>
+              <Button onClick={() => this.postRecording(this.props.songId)}>
                 Save
-              </Button>
+              </Button> */}
         </div>
     )
   }

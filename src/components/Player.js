@@ -17,13 +17,17 @@ class Player extends Component {
 
       play = () => {
         this.state.audio.play()
-      }
+    }
 
 
     render(){
+        const splitStart = this.props.recording.url.split('arn://')
+        const url = splitStart[1].split('?')
+
         return(
             <div>
-                <audio src={this.props.recording.url} controls />
+                {/* <audio src={'https://jugtuttle-mod-5-project.s3-us-west-2.amazonaws.com/uploads/version/recording/71/audio1.wav'} controls /> */}
+                <audio src={`https://${url[0]}`} controls />
             </div>
         )
     }
