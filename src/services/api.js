@@ -60,6 +60,20 @@ const addCollection = (collectionName, userId) => {
     }).then(res => res.json());
 }
 
+const editCollection = (collectionName, collectionId) => {
+    return fetch(`${API_ROOT}/collections/${collectionId}`, {
+      method: 'PATCH',
+      headers: headers(),
+      body: JSON.stringify({collection_name: collectionName})
+  }).then(res => res.json());
+}
+
+const deleteCollection = id => {
+    return fetch(`${API_ROOT}/collections/${id}`,{
+      method: "DELETE"
+    }).then(res => res.json())
+}
+
 const addSong = (songTitle, collectionId) => {
     return fetch(`${API_ROOT}/songs`, {
         method: 'POST',
@@ -74,6 +88,12 @@ const editSong = (songTitle, collectionId, songId) => {
       headers: headers(),
       body: JSON.stringify({collection_id: collectionId, song_title: songTitle })
   }).then(res => res.json());
+}
+
+const deleteSong = (songId) => {
+  return fetch(`${API_ROOT}/songs/${songId}`,{
+    method: "DELETE"
+  }).then(res => res.json())
 }
 
 // const createNewVersion = songId => {
@@ -92,13 +112,16 @@ export const api = {
   },
   collections: {
     getUserCollections,
-    addCollection
+    addCollection,
+    editCollection,
+    deleteCollection
   },
   versions: {
       getSongVersions 
   },
   songs: {
       addSong,
-      editSong
+      editSong,
+      deleteSong
   }
 };

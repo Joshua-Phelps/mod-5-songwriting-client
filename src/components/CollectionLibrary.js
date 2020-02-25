@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import EditForm from './EditForm'
+import DeleteForm from './DeleteForm'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -24,19 +26,23 @@ const useStyles = makeStyles(theme => ({
   }));
 
 function CollectionLibrary (props) {
+    const [openEdit, setOpenEdit] = useState(false)
+    const [openDelete, setOpenDelete] = useState(false)
+    const [collectionName, setCollectionName] = useState('')
+    const [collectionId, setCollectionId] = useState('')
     const classes = useStyles();
 
     const renderCollections = () => {
             return props.collections.map(collection => {
-                const id = collection.id
+                const {id, collection_name } = collection
                 return (
                     <ListItem divider key={collection.id}>
                         <ListItem button onClick={(e) => handleClick(e, id)}>
                             <ListItemText id={collection.id} className={classes.text} primary={collection.collection_name} />
                         </ListItem> 
                        
-                            <DeleteIcon  onClick={handleDelete}/>
-                            <EditIcon onClick={handleEdit} />
+                            <DeleteIcon  onClick={(e) => handleOpenDelete(e, collection_name, id)}/>
+                            <EditIcon onClick={(e) => handleOpenEdit(e, collection_name, id)} />
                             {/* <ListItemText  primary='Edit' /> */}
                     
                         <Divider />
@@ -45,14 +51,26 @@ function CollectionLibrary (props) {
             }) 
     }
 
-    const handleDelete = () => {
-        console.log('deleting')
+    const handleOpenEdit = (e, collectionName, collectionId) => {
+        setOpenEdit(!openEdit)
+        setCollectionName(collectionName)
+        setCollectionId(collectionId)
+    } 
+    
+    const handleCloseEdit = () => {
+        setOpenEdit(false)
     }
 
-    const handleEdit = () => {
-        console.log('editing')
+
+    const handleOpenDelete = (e, collectionName, id) => {
+        setOpenDelete(!openDelete)
+        setCollectionId(id)
+        setCollectionName(collectionName)
     }
 
+    const handleCloseDelete = () => {
+        setOpenDelete(false)
+    }
 
     const handleClick = (e, id) => {
         props.onCollectionSelect(id)
@@ -62,6 +80,21 @@ function CollectionLibrary (props) {
 
     return(
         <div>
+            {(openEdit
+            ) ? (
+                <EditForm 
+                    input={collectionName} 
+                    form='Collection' 
+                    onCloseForm={handleCloseEdit} 
+                    collectionId={collectionId} 
+                    onEditInput={props.onEditCollection} 
+                />
+            ) : (
+                null
+            )}
+
+            {(openDelete ? <DeleteForm onDelete={props.onDeleteCollection} onCloseForm={handleCloseDelete} collectionId={collectionId} title={collectionName} /> : null)}
+
             <Button onClick={(e) => handleClick(e, all)}>All Collections</Button>
              <List className={classes.root} >
             {props.collections ? renderCollections(): null}

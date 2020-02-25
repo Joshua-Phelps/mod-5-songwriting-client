@@ -100,6 +100,8 @@ function NewLibrary(props){
                 <CollectionLibrary 
                 onCollectionSelect={props.onCollectionSelect} 
                 collections={props.collections} 
+                onEditCollection={props.onEditCollection}
+                onDeleteCollection={props.onDeleteCollection}
                 />
             </Paper>
 
@@ -113,6 +115,7 @@ function NewLibrary(props){
             onCloseForm={handleCloseSongForm} 
             collections={props.collections} 
             songs={props.songs} 
+            onDeleteSong={props.onDeleteSong}
             />
           </Paper>
         </Grid>

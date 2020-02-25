@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react'
 import EditForm from './EditForm'
+import DeleteForm from './DeleteForm'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,15 +31,15 @@ const useStyles = makeStyles(theme => ({
   }));
 
 function SongLibrary (props) {
-    const [edit, setEdit] = useState(false)
     const [openEdit, setOpenEdit] = useState(false)
+    const [openSongDelete, setOpenSongDelete] = useState(false)
     const [title, setTitle] = useState('')
     const [collectionId, setCollectionId] = useState('')
     const [songId, setSongId] = useState('')
     const classes = useStyles();
 
     const handleOpenEdit = (e, title, collectionId, songId) => {
-        setOpenEdit(true)
+        setOpenEdit(!openEdit)
         setTitle(title)
         setCollectionId(collectionId)
         setSongId(songId)
@@ -47,9 +49,14 @@ function SongLibrary (props) {
         setOpenEdit(false)
     }
 
-    const handleOpenDelete = () => {
+    const handleOpenSongDelete = (e, songId, title) => {
+        setOpenSongDelete(!openSongDelete)
+        setSongId(songId)
+        setTitle(title)
+    }
 
-        console.log('deleting')
+    const handleCloseSongDelete = () => {
+        setOpenSongDelete(false)
     }
     
 
@@ -63,7 +70,7 @@ function SongLibrary (props) {
                             <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, id)}>
                                 <ListItemText className={classes.text} primary={song.title} />
                             </ListItem>
-                            <DeleteIcon onClick={handleOpenDelete}/>
+                            <DeleteIcon onClick={(e) => handleOpenSongDelete(e, id, title)}/>
                                 <EditIcon onClick={(e) => handleOpenEdit(e, title, collection_id, id)}/>
                             <Divider />
                         </ListItem>
@@ -92,6 +99,7 @@ function SongLibrary (props) {
             ) : (
                 null
             )}
+            {(openSongDelete ? <DeleteForm onDelete={props.onDeleteSong} onCloseForm={handleCloseSongDelete} songId={songId} title={title} /> : null)}
             <List className={classes.root} >
                 {props.songs ? renderSongs(): null}
             </List>

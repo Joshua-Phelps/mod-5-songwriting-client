@@ -53,6 +53,16 @@ class App extends Component {
     .then(data => this.setState({ ...this.state, auth: { user: data }  }))
   }
 
+  editCollection = (collectionName, collectionId) => {
+    api.collections.editCollection(collectionName, collectionId)
+    .then(data => this.setState({ ...this.state, auth: { user: data }  }))
+  }
+
+  deleteCollection = (id) => {
+    api.collections.deleteCollection(id)
+    .then(data => this.setState({ ...this.state, auth: { user: data }  }))
+  }
+
   addSong = (songTitle, collectionId) => {
     api.songs.addSong(songTitle, collectionId)
     .then(data => this.setState({ ...this.state, auth: { user: data } }))
@@ -61,7 +71,12 @@ class App extends Component {
   editSong = (songTitle, collectionId, songId) => {
     api.songs.editSong(songTitle, collectionId, songId)
     .then(data => this.setState({ ...this.state, auth: { user: data } }))
-   
+    // .then(data => console.log(data))
+  }
+
+  deleteSong = (songId) => {
+    api.songs.deleteSong(songId)
+    .then(data => this.setState({ ...this.state, auth: { user: data } }))
   }
 
   collectionSelect = (id) => {
@@ -127,6 +142,9 @@ class App extends Component {
                 onEditSong={this.editSong}
                 userId={user.id}
                 songs={songs}
+                onDeleteSong={this.deleteSong}
+                onEditCollection={this.editCollection}
+                onDeleteCollection={this.deleteCollection}
                />}
             />
 

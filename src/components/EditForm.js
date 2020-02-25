@@ -40,7 +40,7 @@ export default function EditForm(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    props.form === 'Song' ? props.onEditInput(input, collection, props.songId) : props.onEditInput(input, props.id)
+    props.form === 'Song' ? props.onEditInput(input, collection, props.songId) : props.onEditInput(input, props.collectionId)
     setOpen(false);
   }
 
