@@ -1,40 +1,69 @@
 import React, { useState } from 'react'
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
-function CollectionLibrary (props) {
-    const [selectedCollectionId, setSelectedCollectionId] = useState('')
-
-
-    const renderCollections = () => {
-        if (props.user.collections){
-            return props.user.collections.map(collection => {
-                return (
-                    <div key={collection.id} id={collection.id} onClick={this.handleClick}> 
-                      - {collection.collection_name}
-                    </div>
-                )
-            }) 
-        }
+const useStyles = makeStyles(theme => ({
+    root: {
+      width: '100%',
+      maxWidth: '100%',
+      backgroundColor: theme.palette.background.paper,
+    },
+    text: {
+        paddingLeft: '20px'
+    },
+    button: {
+        textAlign: 'right'
     }
 
-    const handleClick = (e) => {
-        if (e.target.id !== 'allSongs'){
-            const selectedSongs = props.user.songs.filter(song => song.collection_id === parseInt(e.target.id))
-            // this.setState({
-            //     collectionId: parseInt(e.target.id),
-            //     songs: selectedSongs
-            // })
-        } else {
-            console.log("hi")
-            // this.setState({
-            //     collectionId: null,
-            //     songs: this.props.user.songs
-            // })
-        }
+  }));
+
+function CollectionLibrary (props) {
+    const classes = useStyles();
+
+    const renderCollections = () => {
+            return props.collections.map(collection => {
+                return (
+                    <ListItem divider key={collection.id}>
+                        <ListItem button onClick={handleClick}>
+                            <ListItemText id={collection.id} className={classes.text} primary={collection.collection_name} />
+                        </ListItem> 
+                       
+                            <DeleteIcon  onClick={handleDelete}/>
+                            <EditIcon onClick={handleEdit} />
+                            {/* <ListItemText  primary='Edit' /> */}
+                    
+                        <Divider />
+                    </ListItem>
+                )
+            }) 
+    }
+
+    const handleDelete = () => {
+        console.log('deleting')
+    }
+
+    const handleEdit = () => {
+        console.log('editing')
+    }
+
+
+    const handleClick = e => {
+        console.log("clicked")
+        props.onCollectionSelect(e.target.id)
     }
 
     return(
         <div>
-            {renderCollections()}
+            <Button onClick={handleClick}>All Collections</Button>
+             <List className={classes.root} >
+            {props.collections ? renderCollections(): null}
+            </List>
         </div>
     )
 }

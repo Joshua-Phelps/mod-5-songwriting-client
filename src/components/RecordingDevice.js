@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import ReactMicRecord from 'react-mic-record';
 import { api } from "../services/api";
+import Button from '@material-ui/core/Button';
+import VersionForm from './VersionForm'
 
 
 class RecordingDevice extends Component {
@@ -11,7 +13,7 @@ class RecordingDevice extends Component {
           recordingURL: '',
           play: false,
           audio: null,
-          blob: null 
+          blob: null, 
         }
       }
 
@@ -64,20 +66,26 @@ class RecordingDevice extends Component {
         return file 
     }
 
-      save = () => {
+      save = (title) => {
         let recording = this.createFileFromBlob()
-        let formData = new FormData()
+        let formData = new FormData() 
         formData.append("id", this.props.songId)
         formData.append('recording', recording)
+        formData.append('title', title)
         fetch(`http://localhost:3000/api/v1/versions`,{
          method: 'POST', 
             body: formData
         }).then(res => res.json()).then(json => this.props.onAddVersion(json))
       }
+
      
       render() {
         return (
           <div>
+            <button onClick={this.startRecording} type="button">Start</button>
+            <button onClick={this.stopRecording} type="button">Stop</button>
+            <button onClick={this.togglePlay} type="button">Play</button>
+            <button type="button"><VersionForm onSave={this.save} /></button>
             <ReactMicRecord
               record={this.state.record}
               className="sound-wave"
@@ -86,10 +94,9 @@ class RecordingDevice extends Component {
               strokeColor="#000000"
               backgroundColor="#ffa64d" />
               <br></br>
-            <button onClick={this.startRecording} type="button">Start</button>
-            <button onClick={this.stopRecording} type="button">Stop</button>
-            <button onClick={this.togglePlay} type="button">Play</button>
-            <button onClick={this.save} type="button">Save</button>
+            {/* <Button onClick={this.openVersionForm} type="button">Save</Button> */}
+            
+            {/* <button onClick={this.save} type="button">Save</button> */}
           </div>
         )
     }

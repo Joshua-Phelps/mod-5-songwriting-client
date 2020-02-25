@@ -8,17 +8,21 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import SongHome from './components/SongHome'
 import NewRecordingDevice from './components/NewRecordingDevice'
+import NewLibrary from './components/NewLibrary'
 import { api } from "./services/api";
 
 class App extends Component {
 
   state = {
     auth: {
-      user: {}
+      user: { 
+        collections: [],
+        id: null,
+        songs: [],
+        username: ''
+       }
     },
-    collections: null, 
-    songs: null, 
-    versions: null 
+    selectedCollectionId: '',  
   }
 
   componentDidMount() {
@@ -48,16 +52,33 @@ class App extends Component {
     api.collections.addCollection(collectionName, userId)
     .then(data => this.setState({ ...this.state, auth: { user: data }  }))
   }
-  
+
+  addSong = (songTitle, collectionId) => {
+    api.songs.addSong(songTitle, collectionId)
+    .then(data => this.setState({ ...this.state, auth: { user: data } }))
+  }
+
+  collectionSelect = (id) => {
+    this.setState({...this.state, selectedCollectionId: id})
+  }
 
   render() {
     const { user } = this.state.auth
+    const { selectedCollectionId } = this.state
+    const songs = user.songs.filter(song => {
+      if (selectedCollectionId === ''){
+        return song
+      } else {
+        if(song.collection_id === parseInt(selectedCollectionId)){
+          return song 
+        }
+      }
+    })
+
 
     return (
       <div >
         <Router>
-          
-
           <Route
               path="/"
               render={props => <NavBar {...props} user={user} onLogin={this.login} />}
@@ -75,16 +96,33 @@ class App extends Component {
               render={props => <SignUp {...props} />}
             />
     
-          <Route
+          {/* <Route
               path="/home"
               exact
-              render={(props) => <Library {...props} onAddCollection={this.addCollection} collections={user.collections} songs={user.songs} user={user} />}
+              render={(props) => <Library 
+                {...props} 
+                onAddCollection={this.addCollection} 
+                onAddSong={this.addSong}
+                collections={user.collections} 
+                songs={user.songs} 
+                user={user} />}
+            /> */}
+
+          <Route
+              path="/lib"
+              exact
+              render={(props) => <NewLibrary 
+                {...props} 
+                collections={user.collections}
+                onCollectionSelect={this.collectionSelect}
+                songs={songs}
+               />}
             />
 
           <Route
               path="/songs/:id"
               exact
-              render={(props) => <SongHome {...props} collections={user.collections} songs={user.songs} user={user} />}
+              render={(props) => <SongHome {...props} />}
             />
 
           <Route

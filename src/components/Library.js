@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CollectionForm from './CollectionForm'
+import Form from './Form'
 import CollectionLibrary from './CollectionLibrary'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -8,41 +8,42 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { styled } from '@material-ui/core/styles'
+import VersionForm from './VersionForm'
+import SongForm from'./SongForm'
 
 class Library extends Component {
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
-            user: null,
             collectionId: null,
             songs: [],
-            open: false 
+            addCollection: false,
+            addSong: false
         }
     }
 
-    componentDidMount(){
-            this.setState({
-                songs: this.props.songs
-            })
-    }
-
-
     handleClick = (e) => {
-        if (e.target.id !== 'allSongs'){
+        console.log(e.target.id)
+        console.log(e.target.innerText)
+        if (e.target.innerText !== 'ALL SONGS'){
             const selectedSongs = this.props.user.songs.filter(song => song.collection_id === parseInt(e.target.id))
             this.setState({
                 collectionId: parseInt(e.target.id),
                 songs: selectedSongs
             })
         } else {
-            console.log("hi")
             this.setState({
                 collectionId: null,
                 songs: this.props.user.songs
             })
         }
      
+    }
+
+    handleOpenSongForm = () => {
+        this.setState({ addSong: true })
     }
 
 
@@ -63,28 +64,33 @@ class Library extends Component {
     }
 
     renderSongs = () => {
-        return this.state.songs.map(song => {
-            return (
-                <div key={song.id} id={song.id} onClick={this.handleSongSelect} >
-                    - {song.title}
-                </div>
-            )
-        })
+        if (this.props.songs){
+            return this.props.songs.map(song => {
+                return (
+                    <div key={song.id} id={song.id} onClick={this.handleSongSelect} >
+                        - {song.title}
+                    </div>
+                )
+            })
+        }
     }
 
-    handleAddCollection = () => {
-        this.props.onAddCollection()
-    }
-
-    handleOpen = () => {
-        this.setState({ open: true })
+    handleOpenCollectionForm = () => {
+        this.setState({ addCollection: true })
       };
     
     handleClose = () => {
         this.setState({open: false})
       };
 
+    handleAddCollection = () => {
+        this.props.onAddCollection()
+    }
 
+    handleAddSong = () => {
+
+    }
+    
 
     render(){
         return (
@@ -92,41 +98,26 @@ class Library extends Component {
                 <Grid container spacing={3}>
                     <Grid item xs={3}>
                         <Paper >
-                            <div id='allSongs' onClick={this.handleClick}>
-                            <Button>All Songs</Button>
-                            </div>
-                            <Button type="button" onClick={this.handleOpen}>
+                            <Button id='allSongs' name="allSongs" onClick={this.handleClick}>All Songs</Button>
+                            <Button type="button" onClick={this.handleOpenCollectionForm}>
                              + New Collection
                             </Button>
-                            <Modal
-                                aria-labelledby="transition-modal-title"
-                                aria-describedby="transition-modal-description"
-                                open={this.state.open}
-                                onClose={this.handleClose}
-                                closeAfterTransition
-                                BackdropComponent={Backdrop}
-                                BackdropProps={{
-                                timeout: 500,
-                                }}
-                            >
-                            <Fade in={this.state.open}>
-                            <div >
-                                <CollectionForm user={this.props.user} onAddCollection={this.props.onAddCollection} />
-                                <h2 id="transition-modal-title"></h2>
-                                <p id="transition-modal-description">react-transition-group animates me.</p>
-                            </div>
-                            </Fade>
-                            </Modal>
+                            <Button onClick={this.handleOpenSongForm}>+ New Song</Button>
+                                {this.state.addSong? <Form form={'Song'} id={this.state.collectionId} collection={this.props.collections} onAddInput={this.props.onAddSong} /> : null }
+                            {this.state.addCollection ? <Form form={'Collection'} collections={false} id={this.props.user.id} onAddInput={this.props.onAddCollection} /> : null }
                             {/* <CollectionLibrary collections={this.props.collections} /> */}
                             {this.renderCollections()}
                         </Paper>
                     </Grid> 
-                    <Grid item lg={9}>
-                        <Paper >{this.state.songs ? this.renderSongs() : null }</Paper>
+                    <Grid item lg={7}>
+                            <Paper >
+                                Songs: {this.renderSongs()}
+                            </Paper>
                     </Grid> 
-                    
-                    {/* <Typography component="div" style={{ backgroundColor: '#e0f7fa', height: '100vh' }} /> */}
-                
+                    <Grid item xs={2}>
+                            <Button onClick={this.handleOpenSongForm}>+ New Song</Button>
+                            {this.state.addSong? <Form form={'Song'} id={this.state.collectionId} collections={this.props.collections} onAddInput={this.props.onAddSong} /> : null }
+                    </Grid>
                 </Grid>
             </div>
         )
