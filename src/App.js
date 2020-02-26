@@ -22,7 +22,8 @@ class App extends Component {
         username: ''
        }
     },
-    selectedCollectionId: 0,  
+    selectedCollectionId: 0,
+    selectedSong: {collection_id: null, id: null, lyrics: null, title: null},  
   }
 
   componentDidMount() {
@@ -55,7 +56,8 @@ class App extends Component {
           username: ''
          }
       },
-      selectedCollectionId: 0,  
+      selectedCollectionId: 0,
+      selectedSong: false   
     });
   };
 
@@ -94,11 +96,16 @@ class App extends Component {
     this.setState({...this.state, selectedCollectionId: id})
   }
 
+  selectSong = (song) => {
+    this.setState({selectedSong: song})
+  }
+
 
 
   render() {
     const { user } = this.state.auth
     const { selectedCollectionId } = this.state
+    //// you should rewrite this method - looks ugly 
     const songs = user.songs.filter(song => {
       if (selectedCollectionId === 0){
         return song
@@ -108,7 +115,7 @@ class App extends Component {
         }
       }
     })
-
+    // const songs = []
 
     return (
       <div >
@@ -129,18 +136,6 @@ class App extends Component {
               exact
               render={props => <SignUp {...props} />}
             />
-    
-          {/* <Route
-              path="/home"
-              exact
-              render={(props) => <Library 
-                {...props} 
-                onAddCollection={this.addCollection} 
-                onAddSong={this.addSong}
-                collections={user.collections} 
-                songs={user.songs} 
-                user={user} />}
-            /> */}
 
           <Route
               path="/home"
@@ -163,7 +158,7 @@ class App extends Component {
           <Route
               path="/songs/:id"
               exact
-              render={(props) => <SongHome {...props} />}
+              render={(props) => <SongHome onSelectSong={this.selectSong} user={user} song={this.state.selectedSong} {...props} />}
             />
 
           <Route

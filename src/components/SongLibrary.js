@@ -67,7 +67,7 @@ function SongLibrary (props) {
                 return (
                     <Fragment>
                         <ListItem divider key={song.id}>
-                            <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, id)}>
+                            <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, song)}>
                                 <ListItemText className={classes.text} primary={song.title} />
                             </ListItem>
                             <DeleteIcon onClick={(e) => handleOpenSongDelete(e, id, title)}/>
@@ -79,8 +79,8 @@ function SongLibrary (props) {
             })
     }
 
-    const handleSongSelect = (e, id) => {
-        props.history.push(`/songs/${id}`)
+    const handleSongSelect = (e, song) => {
+        props.history.push(`/songs/${song.id}`)
     }
    
     return(

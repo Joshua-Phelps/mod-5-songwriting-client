@@ -8,6 +8,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "chordjs": "^1.1.1",
+    "chordsheetjs": "^2.9.1",
     "react": "^16.12.0",
     "react-audio-recorder": "^2.2.0",
     "react-audio-spectrum": "^0.1.0",

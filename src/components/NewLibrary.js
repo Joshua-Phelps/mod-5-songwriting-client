@@ -116,6 +116,7 @@ function NewLibrary(props){
             collections={props.collections} 
             songs={props.songs} 
             onDeleteSong={props.onDeleteSong}
+            onSongSelect={props.onSongSelect}
             />
           </Paper>
         </Grid>

@@ -90,6 +90,14 @@ const editSong = (songTitle, collectionId, songId) => {
   }).then(res => res.json());
 }
 
+const editLyrics = (songId, lyrics) => {
+  return fetch(`${API_ROOT}/songs/${songId}`, {
+    method: "PATCH",
+    headers: headers(),
+    body: JSON.stringify({id: songId, lyrics: lyrics})
+  })
+}
+
 const deleteSong = (songId) => {
   return fetch(`${API_ROOT}/songs/${songId}`,{
     method: "DELETE"
@@ -138,6 +146,7 @@ export const api = {
   songs: {
       addSong,
       editSong,
-      deleteSong
+      deleteSong,
+      editLyrics 
   }
 };

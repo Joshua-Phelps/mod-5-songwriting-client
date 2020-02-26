@@ -6,11 +6,8 @@ function LyricSheet (props) {
     
     return(
         <Fragment>
-            <textarea>
 
-            </textarea>
-
-            <ChordEditor />
+            <ChordEditor song={props.song} />
 
         </Fragment>     
     )

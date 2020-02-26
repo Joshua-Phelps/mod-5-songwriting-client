@@ -3,6 +3,7 @@ import { api } from "../services/api";
 import DeleteForm from './DeleteForm'
 import EditForm from './EditForm'
 import NewRecordingDevice from './NewRecordingDevice'
+import LyricHelpers from './LyricHelpers'
 import LyricSheet from './LyricSheet'
 import Player from './Player'
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,10 +21,10 @@ const useStyles = makeStyles(theme => ({
     root: {
     //   width: '100%',
     
-      padding: '20px',
+      padding: '30px',
       backgroundColor: theme.palette.background.paper,
     //   maxHeight: 700,
-      flexGrow: 1, 
+    //   flexGrow: 1, 
       overflow: 'auto'
      
     },
@@ -43,7 +44,11 @@ function SongHome(props){
     const fetchVersions = () => {
         api.versions.getSongVersions(props.match.params.id)
         .then(res => res.json())
-        .then(data => setVersions(data))
+        .then(data => {
+            setVersions(data.versions)
+            props.onSelectSong(data.song)
+        })
+        
     }
 
     const renderVersions = () => {
@@ -123,21 +128,25 @@ function SongHome(props){
 
         <Grid className={classes.root} container spacing={3}>
             <Grid xs={3}>
-                <List component="nav" className={classes.root} aria-label="mailbox folders">
+                <List component="nav" style={{paddingRight: '30px'}}  aria-label="mailbox folders">
                     Record New Version
                     <ListItem divider>
                         <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
                     </ListItem>
                     
                     {renderVersions()}
+
                 </List>
             </Grid>
-            <Grid xs={6}>
-                    <LyricSheet />
+
+            <Grid xs={5}>
+                    <LyricSheet song={props.song} />
             </Grid>
-            <Grid xs={3}>
-                    rhyme component 
+
+            <Grid xs={4}>
+                    <LyricHelpers />
             </Grid>
+
         </Grid>
         
     </Fragment>
