@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import SaveIcon from '@material-ui/icons/Save';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -62,10 +63,10 @@ export default function VersionForm(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
+            <h2 id="transition-modal-title">Version Title</h2>
             <form onSubmit={handleSubmit}>
             <input onChange={handleChange} value={input} ></input>
-            <button type='submit'>Submit</button>
+            <Button type='submit'>Submit</Button>
             </form>
         
           </div>

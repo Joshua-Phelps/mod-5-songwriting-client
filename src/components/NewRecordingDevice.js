@@ -9,6 +9,7 @@ import StopIcon from '@material-ui/icons/Stop';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SaveIcon from '@material-ui/icons/Save';
+import RedoIcon from '@material-ui/icons/Redo';
 
 class NewRecordingDevice extends Component {
     constructor(){
@@ -20,7 +21,7 @@ class NewRecordingDevice extends Component {
             audioBlob: null,
             audioUrl: null,
             saved: false,
-            audioCtx: null 
+            audioCtx: null,
           }
     }
 
@@ -61,13 +62,17 @@ class NewRecordingDevice extends Component {
     this.setState({ mediaRecorder: null, audioBlob: [], audioUrl: null, active: false})
   }
 
-  createFileFromBlob = () => {
-      let file = new File([this.state.audioBlob], 'audio1.wav', {type: 'audio/wav'})
+  createFileFromBlob = (title) => {
+      let file = new File([this.state.audioBlob], title , {type: 'audio/wav'})
       return file 
   }
 
+  reset = () => {
+    this.setState({ audioChunks: [], audioBlob: null, audioUrl: null })
+  }
+
   save = (title) => {
-    let recording = this.createFileFromBlob()
+    let recording = this.createFileFromBlob(title)
     let formData = new FormData()
     formData.append("id", this.props.songId)
     formData.append('recording', recording)
@@ -84,11 +89,12 @@ class NewRecordingDevice extends Component {
 
     return (
           <div>
-              <audio src={this.state.audioUrl} controls  />
-              <br></br>
+            
+              {this.state.audioBlob ? <RedoIcon onClick={this.reset} />  : null}
               {this.state.active ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
               {this.state.audioBlob ? <VersionForm onSave={this.save} /> : null}
               <br></br>
+              <audio src={this.state.audioUrl} controls  />
               {/* <Button onClick={this.startRecording}>
                 Rec.
               </Button>

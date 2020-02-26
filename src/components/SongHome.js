@@ -1,22 +1,29 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment, version } from 'react'
 import { api } from "../services/api";
+import DeleteForm from './DeleteForm'
+import EditForm from './EditForm'
 import NewRecordingDevice from './NewRecordingDevice'
-import RecordingDevice from './RecordingDevice'
+import LyricSheet from './LyricSheet'
 import Player from './Player'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+// import Divider from '@material-ui/core/Divider';
+// import RecordingDevice from './RecordingDevice'
+
 
 const useStyles = makeStyles(theme => ({
     root: {
-      width: '100%',
-      maxWidth: 360,
-      padding: '10px',
+    //   width: '100%',
+    
+      padding: '20px',
       backgroundColor: theme.palette.background.paper,
     //   maxHeight: 700,
+      flexGrow: 1, 
       overflow: 'auto'
      
     },
@@ -24,6 +31,9 @@ const useStyles = makeStyles(theme => ({
 
 function SongHome(props){
     const [versions, setVersions] = useState([])
+    const [openEditVersion, setOpenEditVersion] = useState(false)
+    const [openDeleteVersion, setOpenDeleteVersion] = useState(false)
+    const [selectedVersion, setSelectedVersion] = useState('')
     const classes = useStyles();
 
     useEffect(() => {
@@ -43,6 +53,7 @@ function SongHome(props){
             return (
                 <Fragment>
                     <ListItemText primary={display} /><br></br>
+                        <DeleteIcon onClick={(e) => handleOpenDeleteVersion(e, version)} /><EditIcon onClick={(e) => handleOpenEditVerison(e, version)} />
                     <ListItem key={id} divider >
                         {/* <ListItemText primary={title} /><br></br> */}
                         <ListItemText primary={<Player recording={version.recording} />} />
@@ -53,85 +64,83 @@ function SongHome(props){
         })
     }
 
+
+    const handleOpenDeleteVersion = (e, version) => {
+        setOpenDeleteVersion(!openDeleteVersion)
+        setSelectedVersion(version)
+    }
+
+    const handleCloseDeleteVersion = () => {
+        setOpenDeleteVersion(false)
+        setSelectedVersion('')
+    }
+
+    const handleOpenEditVerison = (e, version) => {
+        setOpenEditVersion(!openEditVersion)
+        setSelectedVersion(version)
+    }
+
+    const handleCloseEditVersion = () => {
+        setOpenEditVersion(false)
+        setSelectedVersion('')
+    }
+
     const addVersion = versions => {
         setVersions(versions)
         renderVersions()
     }
 
+    const deleteVersion = (id) => {
+        api.versions.deleteVersion(id)
+        .then(versions => setVersions(versions))       
+    }
+
+    const editVersion = (title, id) => {
+        api.versions.editVersion(id, title)
+        // .then(v => console.log(v))
+        .then(versions => setVersions(versions))
+    }
+
     return(
-       
-        <Grid className={classes.root}>
-            <Grid xs={12}>
+
+    <Fragment>
+        {openEditVersion? <EditForm 
+                    input={selectedVersion.title} 
+                    form='Version' 
+                    onCloseForm={handleCloseEditVersion} 
+                    id={selectedVersion.id} 
+                    onEditInput={editVersion} 
+                /> : null }
+
+        {openDeleteVersion ? <DeleteForm 
+                    onDelete={deleteVersion} 
+                    onCloseForm={handleCloseDeleteVersion} 
+                    id={selectedVersion.id} 
+                    title={selectedVersion.title}
+                    message={`This will permenently remove this version`} 
+                /> : null}
+
+
+        <Grid className={classes.root} container spacing={3}>
+            <Grid xs={3}>
                 <List component="nav" className={classes.root} aria-label="mailbox folders">
+                    Record New Version
                     <ListItem divider>
                         <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
                     </ListItem>
+                    
                     {renderVersions()}
                 </List>
             </Grid>
+            <Grid xs={6}>
+                    <LyricSheet />
+            </Grid>
+            <Grid xs={3}>
+                    rhyme component 
+            </Grid>
         </Grid>
         
+    </Fragment>
     )
 }
 export default SongHome 
-
-
-// import React, { Component } from 'react'
-// import { api } from "../services/api";
-// import NewRecordingDevice from './NewRecordingDevice'
-// import RecordingDevice from './RecordingDevice'
-// import Player from './Player'
-
-// class SongHome extends Component {
-
-//     constructor(){
-//         super()
-//         this.state = {
-//             versions: []
-//         }
-//     }
-
-//     componentDidMount(){
-//         this.fetchVersions()
-//     }
-
-
-//     fetchVersions = () => {
-//         api.versions.getSongVersions(this.props.match.params.id)
-//         .then(res => res.json())
-//         .then(data => this.setState({ versions: data }))
-//     }
-
-//     addVersion = version => {
-//         this.setState(prevState => ({ versions: [...prevState.versions, version]}))
-//         this.renderVersions()
-//     }
-
-//     renderVersions = () => {
-//         return this.state.versions.map(version => {
-//             return (
-//                 <div key={version.id} > {version.title} <Player recording={version.recording} /> </div>
-//             )
-//         })
-//     }
-
-
-//     render(){
-//         return (
-//             <div>
-//                 <RecordingDevice onAddVersion={this.addVersion} songId={this.props.match.params.id}/>
-//                 {this.renderVersions()}
-//             </div>
-//         )
-//     }
-
-// }
-
-// export default SongHome 
-
-// function SongHome(props){
-//     const [versions, setVersions] = useState(false)
-//     return(
-//         null 
-//     )
-// }

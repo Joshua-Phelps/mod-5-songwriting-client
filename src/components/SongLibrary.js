@@ -99,7 +99,7 @@ function SongLibrary (props) {
             ) : (
                 null
             )}
-            {(openSongDelete ? <DeleteForm onDelete={props.onDeleteSong} onCloseForm={handleCloseSongDelete} songId={songId} title={title} /> : null)}
+            {(openSongDelete ? <DeleteForm onDelete={props.onDeleteSong} message={'This will remove all versions of this song'} onCloseForm={handleCloseSongDelete} id={songId} title={title} /> : null)}
             <List className={classes.root} >
                 {props.songs ? renderSongs(): null}
             </List>

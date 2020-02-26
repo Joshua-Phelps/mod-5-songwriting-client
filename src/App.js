@@ -3,7 +3,7 @@ import './App.css';
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar from './components/NavBar'
-import Library from './components/Library'
+// import Library from './components/Library'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import SongHome from './components/SongHome'
@@ -93,6 +93,7 @@ class App extends Component {
   collectionSelect = (id) => {
     this.setState({...this.state, selectedCollectionId: id})
   }
+
 
 
   render() {

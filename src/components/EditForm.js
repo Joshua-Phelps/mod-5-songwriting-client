@@ -40,7 +40,7 @@ export default function EditForm(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    props.form === 'Song' ? props.onEditInput(input, collection, props.songId) : props.onEditInput(input, props.collectionId)
+    props.form === 'Song' ? props.onEditInput(input, collection, props.songId) : props.onEditInput(input, props.id)
     setOpen(false);
   }
 
@@ -73,7 +73,7 @@ export default function EditForm(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Create New {props.form}</h2>
+            <h2 id="transition-modal-title">Edit {props.form}</h2>
             <form onSubmit={handleSubmit}>
             <input onChange={handleChange} value={input} ></input>
             {' '}

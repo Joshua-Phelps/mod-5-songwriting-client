@@ -38,7 +38,7 @@ function CollectionLibrary (props) {
                 return (
                     <ListItem divider key={collection.id}>
                         <ListItem button onClick={(e) => handleClick(e, id)}>
-                            <ListItemText id={collection.id} className={classes.text} primary={collection.collection_name} />
+                            <ListItemText id={collection.id} className={classes.text} primary={`${collection.collection_name}`} />
                         </ListItem> 
                        
                             <DeleteIcon  onClick={(e) => handleOpenDelete(e, collection_name, id)}/>
@@ -86,14 +86,14 @@ function CollectionLibrary (props) {
                     input={collectionName} 
                     form='Collection' 
                     onCloseForm={handleCloseEdit} 
-                    collectionId={collectionId} 
+                    id={collectionId} 
                     onEditInput={props.onEditCollection} 
                 />
             ) : (
                 null
             )}
 
-            {(openDelete ? <DeleteForm onDelete={props.onDeleteCollection} onCloseForm={handleCloseDelete} collectionId={collectionId} title={collectionName} /> : null)}
+            {(openDelete ? <DeleteForm onDelete={props.onDeleteCollection} onCloseForm={handleCloseDelete} message={'This will remove all songs and versions from this collection'} id={collectionId} title={collectionName} /> : null)}
 
             <Button onClick={(e) => handleClick(e, all)}>All Collections</Button>
              <List className={classes.root} >
