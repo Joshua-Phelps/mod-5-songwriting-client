@@ -30,15 +30,30 @@ const useStyles = makeStyles(theme => ({
       textAlign: 'center',
       color: theme.palette.text.primary,
     },
+    paper2: {
+      padding: theme.spacing(1),
+      textAlign: 'left',
+      color: theme.palette.text.primary,
+    },
+    synonyms: {
+      textAlign: 'left',
+      color: theme.palette.text.primary
+    }
 }));
 
 export default function LyricHelpers() {
   const classes = useStyles();
   const [word, setWord] = useState('')
-  const [oneSylRhyme, setOneSylRhyme] = useState([])
-  const [twoSylRhyme, setTwoSylRhyme] = useState([])
-  const [threeSylRhyme, setThreeSylRhyme] = useState([])
+  const [rhymes, setRhymes] = useState([])
+  const [definitions, setDefinitions] = useState([])
+  const [synonyms, setSynonyms] = useState([])
   const [tabValue, setTabValue] = useState(0);
+  const oneSyl = rhymes.filter(word => word.numSyllables === 1)
+  const twoSyl = rhymes.filter(word => word.numSyllables === 2)
+  const threeSyl = rhymes.filter(word => word.numSyllables === 3)
+  const adjectives = definitions.filter(def => def.partOfSpeech === 'adjective')
+  const nouns = definitions.filter(def => def.partOfSpeech === 'noun')
+  const verbs = definitions.filter(def => def.partOfSpeech === 'verb')
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -50,20 +65,10 @@ export default function LyricHelpers() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    api.words.rhymes(word)
-    .then(data => setSyllables(data))
+    api.words.rhymes(word).then(data => setRhymes(data))
+    api.words.synonyms(word).then(data => setSynonyms(data.synonyms))
+    api.words.dictionary(word).then(data => setDefinitions(data.definitions))
   }
-
-
-  const setSyllables = words => {
-    const oneSyl = words.filter(word => word.numSyllables === 1)
-    const twoSyl = words.filter(word => word.numSyllables === 2)
-    const threeSyl = words.filter(word => word.numSyllables === 3)
-    setOneSylRhyme(oneSyl)
-    setTwoSylRhyme(twoSyl)
-    setThreeSylRhyme(threeSyl)
-  }
-
 
   const renderRhymes = (words) => {
     if (words){
@@ -75,6 +80,27 @@ export default function LyricHelpers() {
         )
       })
     }
+  }
+
+  const renderSynonyms = () => {
+    return synonyms.map(syn => {
+      return (
+        <Grid item xs={12}>
+          <p className={classes.synonyms} > - {syn}</p>
+        </Grid>
+      )
+    })
+  }
+
+
+  const renderDefinitions = (definitions) => {
+    return definitions.map(def => {
+      return (
+        <Grid item xs={12}>
+          <Paper className={classes.paper2} > - {def.definition}</Paper>
+        </Grid>
+      )
+    })
   }
 
   return (
@@ -97,27 +123,53 @@ export default function LyricHelpers() {
       </Tabs>
 
       <div className='word-display' >
-        {tabValue === 0 ? 'tab0' : null}
-        {(tabValue === 1 && oneSylRhyme.length > 0) ? (
+        {tabValue === 0 ? (
+          <div>
+            <Grid container spacing={1}>
+              <Grid container item xs={12} spacing={1}>
+                {renderSynonyms()}
+              </Grid>
+            </Grid>
+          </div>
+          ) : null}
+
+        {(tabValue === 1) ? (
           <div className={classes.root}>
           <Grid container spacing={1}>
-              <h3 className={classes.root}>One Syllable</h3>
+              {oneSyl.length > 0 ? <h3 className={classes.root}>One Syllable</h3> : ''}
             <Grid container item xs={12} spacing={3}>
-              {renderRhymes(oneSylRhyme)}
+              {renderRhymes(oneSyl)}
             </Grid>
-            <h3 className={classes.root}>Two Syllables</h3>
+            {twoSyl.length > 0 ? <h3 className={classes.root}>Two Syllables</h3> : ''}
             <Grid container item xs={12} spacing={3}>
-              {renderRhymes(twoSylRhyme)}
+              {renderRhymes(twoSyl)}
             </Grid>
-            <h3 className={classes.root}>Three Syllables</h3>
+            {threeSyl.length > 0 ? <h3 className={classes.root}>Three Syllables</h3> : ''}
             <Grid container item xs={12} spacing={3}>
-            {renderRhymes(threeSylRhyme)}
+            {renderRhymes(threeSyl)}
             </Grid>
           </Grid>
         </div>
           ) : null}
 
-        {tabValue === 2 ? 'tab2' : null}
+        {tabValue === 2 ? (
+          <div className={classes.root}>
+            <Grid container spacing={1}>
+              {nouns.length > 0 ? <h3 className={classes.root}>As Noun</h3> : ''}
+              <Grid container item xs={12}>
+                {renderDefinitions(nouns)}
+              </Grid>
+              {verbs.length > 0 ? <h3 className={classes.root}>As Verb</h3> : ''}
+              <Grid container item xs={12}>
+                {renderDefinitions(verbs)}
+              </Grid>
+              {adjectives.length > 0 ? <h3 className={classes.root}>As Adjective</h3> : ''}
+              <Grid container item xs={12}>
+                {renderDefinitions(adjectives)}
+              </Grid>
+            </Grid>
+          </div>
+          ) : null}
       </div>
     </Paper>
   );

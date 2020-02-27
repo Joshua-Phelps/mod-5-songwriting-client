@@ -113,7 +113,13 @@ const editVersion = (id, title) => {
 }
 
 const synonyms = word => {
-  // return fetch()
+    return fetch(`https://wordsapiv1.p.rapidapi.com/words/${word}/synonyms`, {
+    "method": "GET",
+    "headers": {
+      "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+      "x-rapidapi-key": "ad3a1c7fa9mshaa9f927e3a26915p18212cjsnf354076fa9bb"
+    }
+  }).then(res => res.json())
 }
 
 const rhymes = word => {
@@ -122,7 +128,13 @@ const rhymes = word => {
 }
 
 const dictionary = word => {
-  // return fetch()
+  return fetch(`https://wordsapiv1.p.rapidapi.com/words/${word}/definitions`, {
+    "method": "GET",
+    "headers": {
+      "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+      "x-rapidapi-key": "ad3a1c7fa9mshaa9f927e3a26915p18212cjsnf354076fa9bb"
+    }
+  }).then(res => res.json())
 }
 
 export const api = {
