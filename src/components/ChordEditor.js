@@ -18,8 +18,6 @@ function ChordEditor(props){
         setHideText(!hideText)
     }
     
-
-
     const getChordMarkup = () => {
         if (lyrics){
             const parser = new ChordSheetJS.ChordProParser()
@@ -33,6 +31,13 @@ function ChordEditor(props){
         console.log('saving')
         api.songs.editLyrics(props.song.id, lyrics)
     }
+
+    // const textChordSheet = () => {
+    //     const parser = new ChordSheetJS.ChordProParser()
+    //     const song = parser.parse(lyrics)
+    //     const textChordSheet = new ChordSheetJS.TextFormatter().format(song);
+    //     return <textarea readOnly className="ChordSheetEditor" value={textChordSheet} />
+    // }
 
     return(
         <Fragment>
@@ -58,8 +63,11 @@ function ChordEditor(props){
                     style={{width: '100%', height: '100%', fontFamily: 'monospace'}}
                     className={'chord-output'}
                     dangerouslySetInnerHTML={getChordMarkup()}
-                    // value={getChordMarkup()}
                 />
+
+                {/* <table className='ChordViewer' >
+                    {textChordSheet()}
+                </table> */}
                 
             </div>
         </Fragment>

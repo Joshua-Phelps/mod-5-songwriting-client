@@ -85,7 +85,7 @@ class NewRecordingDevice extends Component {
   render(){
 
     return (
-          <div>
+          <div className='recording-holder'>
               <AudioVisualizer />
               {this.state.audioBlob ? <RedoIcon onClick={this.reset} />  : null}
               {this.state.active ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }

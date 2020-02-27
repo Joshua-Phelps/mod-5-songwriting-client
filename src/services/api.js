@@ -112,13 +112,18 @@ const editVersion = (id, title) => {
   }).then(res => res.json())
 }
 
-// const createNewVersion = songId => {
-//     return fetch(`${API_ROOT}/versions`, {
-//         method: 'POST',
-//         headers: headers(),
-//         body: 
-//     })
-// }
+const synonyms = word => {
+  // return fetch()
+}
+
+const rhymes = word => {
+  return fetch(`https://api.datamuse.com/words?rel_rhy=${word}`)
+  .then(res => res.json())
+}
+
+const dictionary = word => {
+  // return fetch()
+}
 
 export const api = {
   auth: {
@@ -142,5 +147,10 @@ export const api = {
       editSong,
       deleteSong,
       editLyrics 
+  },
+  words: {
+    synonyms,
+    rhymes,
+    dictionary
   }
 };

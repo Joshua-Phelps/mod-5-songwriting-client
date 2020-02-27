@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.recording-holder audio {
+  width: 90%!important; 
+}

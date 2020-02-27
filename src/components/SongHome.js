@@ -116,7 +116,9 @@ function SongHome(props){
                     <LyricSheet song={props.song} />
                 </Grid>
                 <Grid xs={4}>
-                    <LyricHelpers />
+                    <Grid xs={12}>
+                        <LyricHelpers />
+                    </Grid>
                 </Grid>
             </Grid>      
         </Fragment>
