@@ -1,14 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import VersionForm from './VersionForm'
-import { ReactMediaRecorder } from "react-media-recorder"
-import Button from '@material-ui/core/Button';
-import ReactMicRecord from 'react-mic-record/lib/components/ReactMicRecord';
-import AudioSpectrum from 'react-audio-spectrum'
+import AudioVisualizer from './AudioVisualizer'
 import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-import SaveIcon from '@material-ui/icons/Save';
 import RedoIcon from '@material-ui/icons/Redo';
 
 class NewRecordingDevice extends Component {
@@ -27,6 +21,10 @@ class NewRecordingDevice extends Component {
 
   componentDidMount(){
       this.prepareRecording()
+  }
+
+  componentWillUnmount(){
+    this.emergencyStop()
   }
 
   prepareRecording = () => {
@@ -82,31 +80,18 @@ class NewRecordingDevice extends Component {
         body: formData
     })
     .then(res => res.json()).then(json => this.props.onAddVersion(json))
-    // .then(res => res.json()).then(json => console.log(json))
   }
 
   render(){
 
     return (
           <div>
-            
+              <AudioVisualizer />
               {this.state.audioBlob ? <RedoIcon onClick={this.reset} />  : null}
               {this.state.active ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
               {this.state.audioBlob ? <VersionForm onSave={this.save} /> : null}
               <br></br>
               <audio src={this.state.audioUrl} controls  />
-              {/* <Button onClick={this.startRecording}>
-                Rec.
-              </Button>
-              <Button onClick={this.stopRecording} >
-                Stop
-              </Button>
-              <Button onClick={this.handlePlay}>
-                  Play 
-              </Button>
-              <Button onClick={() => this.postRecording(this.props.songId)}>
-                Save
-              </Button> */}
         </div>
     )
   }

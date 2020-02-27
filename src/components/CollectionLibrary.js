@@ -80,20 +80,21 @@ function CollectionLibrary (props) {
 
     return(
         <div>
-            {(openEdit
-            ) ? (
-                <EditForm 
+            {openEdit? <EditForm 
                     input={collectionName} 
                     form='Collection' 
                     onCloseForm={handleCloseEdit} 
                     id={collectionId} 
                     onEditInput={props.onEditCollection} 
-                />
-            ) : (
-                null
-            )}
+                /> : null }
 
-            {(openDelete ? <DeleteForm onDelete={props.onDeleteCollection} onCloseForm={handleCloseDelete} message={'This will remove all songs and versions from this collection'} id={collectionId} title={collectionName} /> : null)}
+            {openDelete ? <DeleteForm 
+                    onDelete={props.onDeleteCollection} 
+                    onCloseForm={handleCloseDelete} 
+                    message={'This will remove all songs and versions from this collection'} 
+                    id={collectionId} 
+                    title={collectionName} 
+                /> : null}
 
             <Button onClick={(e) => handleClick(e, all)}>All Collections</Button>
              <List className={classes.root} >

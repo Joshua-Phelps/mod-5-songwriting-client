@@ -77,18 +77,18 @@ export default function EditForm(props) {
             <form onSubmit={handleSubmit}>
             <input onChange={handleChange} value={input} ></input>
             {' '}
+            
             { props.form === 'Song' ? (
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={collection}
-                onChange={handleSelect}
-              >
-                {renderCollections()}
-              </Select>
-              ) : (
-              null
-            )}
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={collection}
+                  onChange={handleSelect}
+                >
+                  {renderCollections()}
+                </Select>
+            ) : null}
+
             <button type='submit'>Submit</button>
             </form>
         

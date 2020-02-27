@@ -8,9 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-// import { Link, withRouter } from "react-router-dom";
-// import IconButton from '@material-ui/core/IconButton';
-// import { createMuiTheme } from '@material-ui/core/styles';
 
 
 
@@ -62,8 +59,6 @@ function NavBar(props){
           <Typography variant="h6" className={classes.title}>
             Welcome {props.user.username}
           </Typography>
-            
-    
           <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 <MenuIcon />
           </Button>

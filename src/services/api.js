@@ -10,12 +10,6 @@ const headers = () => {
   };
 };
 
-// const getPaintings = () => {
-//   return fetch(`${API_ROOT}/paintings/`, { headers: headers() }).then(res =>
-//     res.json()
-//   );
-// };
-
 const getUserCollections = (id) => {
   return fetch(`${API_ROOT}/users/${id}`, { headers: headers() }).then(res =>
     res.json()

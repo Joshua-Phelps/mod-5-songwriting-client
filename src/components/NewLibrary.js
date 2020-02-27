@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { useRadioGroup } from '@material-ui/core';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,37 +64,24 @@ function NewLibrary(props){
     setOpenCollectionForm(false)
   }
 
-
-
   return (
     <div>
-      {(openSongForm 
-        ) ? (
-        <Form 
+      {openSongForm ? <Form 
           form='Song' 
           onAddInput={props.onAddSong} 
           collections={props.collections}  
           onCloseForm={handleCloseSongForm} 
-          />
-        ) : (
-        null 
-        )}
+          /> : null }
 
-      {(openCollectionForm
-        ) ? (
-        <Form 
+      {openCollectionForm ? <Form 
           form='Collection' 
           onAddInput={props.onAddCollection} 
           id={props.userId}  
           onCloseForm={handleCloseCollectionForm} 
-          />
-        ) : (
-        null 
-        )}
+          /> : null}
 
        <Grid container spacing={3} className={classes.root}>
         <Grid item xs={3}>
-         
             <Paper>
               <Button onClick={handleOpenCollectionForm} className={classes.button}>+ New Collection</Button><br></br>
                 <CollectionLibrary 
@@ -104,7 +91,6 @@ function NewLibrary(props){
                 onDeleteCollection={props.onDeleteCollection}
                 />
             </Paper>
-
         </Grid>
         <Grid item xs={8}>
           <Paper >

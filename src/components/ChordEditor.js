@@ -21,11 +21,12 @@ function ChordEditor(props){
 
 
     const getChordMarkup = () => {
-        // const formatter = new ChordSheetJS.HtmlFormatter()
-        const formatter = new ChordSheetJS.HtmlDivFormatter();
-        const parser = new ChordSheetJS.ChordProParser()
-        const song = parser.parse(lyrics)
-        return { __html: formatter.format(song)}
+        if (lyrics){
+            const parser = new ChordSheetJS.ChordProParser()
+            const song = parser.parse(lyrics)
+            const htmlChordSheet = new ChordSheetJS.HtmlTableFormatter().format(song)
+            return { __html: htmlChordSheet}
+        }
     }
 
     const handleSave = () => {
@@ -57,6 +58,7 @@ function ChordEditor(props){
                     style={{width: '100%', height: '100%', fontFamily: 'monospace'}}
                     className={'chord-output'}
                     dangerouslySetInnerHTML={getChordMarkup()}
+                    // value={getChordMarkup()}
                 />
                 
             </div>

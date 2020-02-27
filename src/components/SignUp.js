@@ -42,7 +42,6 @@ export default function SignUp(props) {
     e.preventDefault();
     api.auth.signup({username, password}).then(res => {
       if (!res.error) {
-        // const updatedState = { ...this.state.auth, user: res };
         props.history.push('/login');
       } else {
         setError({ error: true });
