@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import ReactMicRecord from 'react-mic-record';
+import Button from '@material-ui/core/Button';
 
 class Player extends Component {
 
@@ -15,7 +16,7 @@ class Player extends Component {
         this.state.audio.pause()
       }
 
-      play = () => {
+    play = () => {
         this.state.audio.play()
     }
 

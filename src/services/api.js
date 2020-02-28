@@ -24,11 +24,11 @@ const login = data => {
   }).then(res => res.json());
 };
 
-const signup = data => {
+const signup = (username, password) => {
   return fetch(`${API_ROOT}/users`, {
     method: "POST",
     headers: headers(),
-    body: JSON.stringify(data)
+    body: JSON.stringify({username: username, password: password})
   }).then(res => res.json());
 }
 
@@ -72,7 +72,7 @@ const addSong = (songTitle, collectionId) => {
     return fetch(`${API_ROOT}/songs`, {
         method: 'POST',
         headers: headers(),
-        body: JSON.stringify({collection_id: collectionId, song_title: songTitle })
+        body: JSON.stringify( {song: {collection_id: collectionId, title: songTitle }})
     }).then(res => res.json());
 }
 
@@ -80,7 +80,7 @@ const editSong = (songTitle, collectionId, songId) => {
   return fetch(`${API_ROOT}/songs/${songId}`, {
       method: 'PATCH',
       headers: headers(),
-      body: JSON.stringify({collection_id: collectionId, song_title: songTitle })
+      body: JSON.stringify({collection_id: collectionId, title: songTitle })
   }).then(res => res.json());
 }
 

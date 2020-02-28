@@ -43,7 +43,7 @@ function ChordEditor(props){
     return(
         <Fragment>
             <div>
-                <h3>Edit Lyrics</h3>
+                <h3>Edit {props.song.title}'s Lyrics</h3>
                 {!hideText ? (
                     <textarea 
                         style={{width: '90%', height: '150px'}}
@@ -61,7 +61,7 @@ function ChordEditor(props){
             <div>
                 <h3>{props.song.title} Lyrics</h3>
                 <div
-                    style={{width: '100%', height: '100%', fontFamily: 'monospace'}}
+                    style={{width: '100%', height: '100%', fontFamily: 'monospace', font:'Lucida Console'}}
                     className={'chord-output'}
                     dangerouslySetInnerHTML={getChordMarkup()}
                 />

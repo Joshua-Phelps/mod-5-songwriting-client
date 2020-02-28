@@ -14,7 +14,6 @@ class NewRecordingDevice extends Component {
             audioChunks: [],
             audioBlob: null,
             audioUrl: null,
-            saved: false,
             audioCtx: null,
           }
     }
@@ -57,7 +56,7 @@ class NewRecordingDevice extends Component {
 
   emergencyStop = () => {
     if (this.state.active === true) {this.state.mediaRecorder.stop()}
-    this.setState({ mediaRecorder: null, audioBlob: [], audioUrl: null, active: false})
+    this.setState({ mediaRecorder: null, audioBlob: null, audioUrl: null, active: false})
   }
 
   createFileFromBlob = (title) => {
@@ -80,18 +79,19 @@ class NewRecordingDevice extends Component {
         body: formData
     })
     .then(res => res.json()).then(json => this.props.onAddVersion(json))
+    .then(() => this.emergencyStop()).then(() => this.prepareRecording())
   }
 
   render(){
-
+    const { audioBlob, active, audioUrl } = this.state
     return (
           <div className='recording-holder'>
               <AudioVisualizer />
-              {this.state.audioBlob ? <RedoIcon onClick={this.reset} />  : null}
-              {this.state.active ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
-              {this.state.audioBlob ? <VersionForm onSave={this.save} /> : null}
+              {audioBlob ? <RedoIcon onClick={this.reset} />  : null}
+              {active ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
+              {audioBlob ? <VersionForm onSave={this.save} /> : null}
               <br></br>
-              <audio src={this.state.audioUrl} controls  />
+              <audio src={audioUrl} controls  />
         </div>
     )
   }

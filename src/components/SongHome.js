@@ -49,7 +49,6 @@ function SongHome(props){
         api.versions.getSongVersions(props.match.params.id)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             setSong(data)
             if (!props.song){
                 props.onSelectSong(data.song)
@@ -70,6 +69,7 @@ function SongHome(props){
     }
 
     const handleOpenEditVerison = (e, version) => {
+        console.log('yes')
         setOpenEditVersion(!openEditVersion)
         setSelectedVersion(version)
     }
@@ -120,7 +120,7 @@ function SongHome(props){
                         <ListItem divider>
                             <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
                         </ListItem>          
-                        <VersionsLibrary versions={song.versions} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
+                        <VersionsLibrary versions={song.versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
                     </List>
                 </Grid>
                 <Grid xs={5}>

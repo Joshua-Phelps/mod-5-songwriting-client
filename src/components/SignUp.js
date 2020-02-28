@@ -40,7 +40,7 @@ export default function SignUp(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    api.auth.signup({username, password}).then(res => {
+    api.auth.signup(username, password).then(res => {
       if (!res.error) {
         props.history.push('/login');
       } else {

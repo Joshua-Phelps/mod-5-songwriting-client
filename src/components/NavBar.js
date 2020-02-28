@@ -24,15 +24,15 @@ const useStyles = makeStyles(theme => ({
   }));
 
 function NavBar(props){
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const classes = useStyles();
    
-    const classes = useStyles();
 
-    const handleGoHome = () => {
-      setAnchorEl(null);
-      props.history.push('/home')
-    }
+  const handleGoHome = () => {
+    setAnchorEl(null);
+    props.history.push('/home')
+  }
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);

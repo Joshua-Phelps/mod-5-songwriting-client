@@ -164,7 +164,7 @@ class App extends Component {
           <Route
               path="/songs/:id"
               exact
-              render={(props) => <SongHome onSelectSong={this.selectSong} song={this.state.selectedSong} {...props} />}
+              render={(props) => <SongHome onSelectSong={this.selectSong} username={user.username} {...props} />}
             />
 
           <Route
