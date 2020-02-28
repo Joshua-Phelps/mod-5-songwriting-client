@@ -19,10 +19,11 @@ class App extends Component {
         collections: [],
         id: null,
         songs: [],
-        username: ''
+        username: '',
+        versions : []
        }
     },
-    selectedCollectionId: 0,
+    selectedCollectionId: false,
     selectedSong: {collection_id: null, id: null, lyrics: null, title: null},  
   }
 
@@ -39,7 +40,7 @@ class App extends Component {
   }
 
   login = data => {
-    const updatedState = { ...this.state.auth, user: data }
+    const updatedState = { ...this.state.auth, user: data.user }
     // const updatedState = { ...this.state.auth, user: {id: data.id,  username: data.username} };
     localStorage.setItem("token", data.jwt);
     this.setState({ auth: updatedState });
@@ -53,10 +54,11 @@ class App extends Component {
           collections: [],
           id: null,
           songs: [],
-          username: ''
+          username: '',
+          numberOfCollections: null
          }
       },
-      selectedCollectionId: 0,
+      selectedCollectionId: false,
       selectedSong: false   
     });
   };
@@ -64,6 +66,7 @@ class App extends Component {
   addCollection = (collectionName, userId) => {
     api.collections.addCollection(collectionName, userId)
     .then(data => this.setState({ ...this.state, auth: { user: data }  }))
+    // .then(data => this.setState({ ...this.state, auth: { user: { ...this.state.auth.user, collections: data } } } ))
   }
 
   editCollection = (collectionName, collectionId) => {
@@ -96,7 +99,9 @@ class App extends Component {
     this.setState({...this.state, selectedCollectionId: id})
   }
 
-  selectSong = (song) => {
+  selectSong = (stringId) => {
+    const id = parseInt(stringId)
+    const song = this.state.auth.user.songs.filter(song => song.id === id )
     this.setState({selectedSong: song})
   }
 
@@ -105,9 +110,9 @@ class App extends Component {
   render() {
     const { user } = this.state.auth
     const { selectedCollectionId } = this.state
-    //// you should rewrite this method - looks ugly 
+    // you should rewrite this method - looks ugly 
     const songs = user.songs.filter(song => {
-      if (selectedCollectionId === 0){
+      if (!selectedCollectionId){
         return song
       } else {
         if(song.collection_id === selectedCollectionId){
@@ -152,13 +157,14 @@ class App extends Component {
                 onDeleteSong={this.deleteSong}
                 onEditCollection={this.editCollection}
                 onDeleteCollection={this.deleteCollection}
+                onSelectSong={this.selectSong}
                />}
             />
 
           <Route
               path="/songs/:id"
               exact
-              render={(props) => <SongHome onSelectSong={this.selectSong} user={user} song={this.state.selectedSong} {...props} />}
+              render={(props) => <SongHome onSelectSong={this.selectSong} song={this.state.selectedSong} {...props} />}
             />
 
           <Route

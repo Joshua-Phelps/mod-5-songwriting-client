@@ -26,22 +26,34 @@ const useStyles = makeStyles(theme => ({
   }));
 
 function SongHome(props){
-    const [versions, setVersions] = useState([])
+    const [song, setSong] = useState({
+        id: null, 
+        title: '', 
+        lyrics: '', 
+        collection_id: null, 
+        number_of_versions: null, 
+        versions: [] 
+    })
+    // const [versions, setVersions] = useState([])
     const [openEditVersion, setOpenEditVersion] = useState(false)
     const [openDeleteVersion, setOpenDeleteVersion] = useState(false)
     const [selectedVersion, setSelectedVersion] = useState('')
     const classes = useStyles();
 
     useEffect(() => {
-        fetchVersions()
+        fetchSong()
+        // props.onSelectSong(props.match.params.id)
       }, []);
 
-    const fetchVersions = () => {
+    const fetchSong = () => {
         api.versions.getSongVersions(props.match.params.id)
         .then(res => res.json())
         .then(data => {
-            setVersions(data.versions)
-            props.onSelectSong(data.song)
+            console.log(data)
+            setSong(data)
+            if (!props.song){
+                props.onSelectSong(data.song)
+            }
         })
         
     }
@@ -67,21 +79,20 @@ function SongHome(props){
         setSelectedVersion('')
     }
 
-    const addVersion = versions => {
-        setVersions(versions)
+    const addVersion = song => {
+        setSong(song)
         // renderVersions()
-        fetchVersions()
+        fetchSong()
     }
 
     const deleteVersion = (id) => {
         api.versions.deleteVersion(id)
-        .then(versions => setVersions(versions))       
+        .then(song => setSong(song))       
     }
 
     const editVersion = (title, id) => {
         api.versions.editVersion(id, title)
-        // .then(v => console.log(v))
-        .then(versions => setVersions(versions))
+        .then(song => setSong(song))
     }
 
     return(
@@ -109,11 +120,11 @@ function SongHome(props){
                         <ListItem divider>
                             <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
                         </ListItem>          
-                        <VersionsLibrary versions={versions} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
+                        <VersionsLibrary versions={song.versions} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
                     </List>
                 </Grid>
                 <Grid xs={5}>
-                    <LyricSheet song={props.song} />
+                    <LyricSheet song={song} />
                 </Grid>
                 <Grid xs={4}>   
                         <LyricHelpers />

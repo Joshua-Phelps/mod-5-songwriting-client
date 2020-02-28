@@ -80,6 +80,8 @@ function SongLibrary (props) {
     }
 
     const handleSongSelect = (e, song) => {
+        // props.onSelectSong(song)
+        // console.log(song)
         props.history.push(`/songs/${song.id}`)
     }
    

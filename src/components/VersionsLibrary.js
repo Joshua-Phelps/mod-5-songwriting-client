@@ -26,7 +26,7 @@ function VerisonsLibrary (props) {
 
     return(
         <Fragment>
-            {renderVersions()}
+            {props.versions ?renderVersions() : null}
         </Fragment>
     )
 }

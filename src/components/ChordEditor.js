@@ -10,6 +10,7 @@ function ChordEditor(props){
     const [hideText, setHideText] = useState(false)
     
 
+
     const handleChange = e => {
         setLyrics(e.target.value)
     }
