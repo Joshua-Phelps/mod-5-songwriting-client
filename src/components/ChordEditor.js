@@ -65,10 +65,6 @@ function ChordEditor(props){
                     className={'chord-output'}
                     dangerouslySetInnerHTML={getChordMarkup()}
                 />
-
-                {/* <table className='ChordViewer' >
-                    {textChordSheet()}
-                </table> */}
                 
             </div>
         </Fragment>

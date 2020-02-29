@@ -12,7 +12,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles(theme => ({
     root: {
-      width: '100%',
+      width: '95%',
       maxWidth: '100%',
       backgroundColor: theme.palette.background.paper,
       padding: theme.spacing(2),

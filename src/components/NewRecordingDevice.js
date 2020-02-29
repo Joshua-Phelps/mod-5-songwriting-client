@@ -86,9 +86,9 @@ class NewRecordingDevice extends Component {
     const { audioBlob, active, audioUrl } = this.state
     return (
           <div className='recording-holder'>
-              <AudioVisualizer />
+              {/* <AudioVisualizer /> */}
               {audioBlob ? <RedoIcon onClick={this.reset} />  : null}
-              {active ? <StopIcon onClick={this.stopRecording} /> : <MicIcon onClick={this.startRecording} /> }
+              {active ? <div> <StopIcon onClick={this.stopRecording} />  </div> : <MicIcon onClick={this.startRecording} /> }
               {audioBlob ? <VersionForm onSave={this.save} /> : null}
               <br></br>
               <audio src={audioUrl} controls  />

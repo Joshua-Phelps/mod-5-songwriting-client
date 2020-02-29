@@ -32,8 +32,9 @@ function SongHome(props){
         lyrics: '', 
         collection_id: null, 
         number_of_versions: null, 
-        versions: [] 
+        // versions: [] 
     })
+    const [versions, setVersions ] = useState([])
     // const [versions, setVersions] = useState([])
     const [openEditVersion, setOpenEditVersion] = useState(false)
     const [openDeleteVersion, setOpenDeleteVersion] = useState(false)
@@ -49,7 +50,8 @@ function SongHome(props){
         api.versions.getSongVersions(props.match.params.id)
         .then(res => res.json())
         .then(data => {
-            setSong(data)
+            setSong(data.song)
+            setVersions(data.versions)
             if (!props.song){
                 props.onSelectSong(data.song)
             }
@@ -79,20 +81,21 @@ function SongHome(props){
         setSelectedVersion('')
     }
 
-    const addVersion = song => {
-        setSong(song)
+    const addVersion = data => {
+        setSong(data.song)
+        setVersions(data.versions)
         // renderVersions()
         fetchSong()
     }
 
     const deleteVersion = (id) => {
         api.versions.deleteVersion(id)
-        .then(song => setSong(song))       
+        .then(data => (setSong(data.song), setVersions(data.versions)))       
     }
 
     const editVersion = (title, id) => {
         api.versions.editVersion(id, title)
-        .then(song => setSong(song))
+        .then(data => (setSong(data.song), setVersions(data.versions)))
     }
 
     return(
@@ -115,12 +118,12 @@ function SongHome(props){
 
             <Grid className={classes.root} container spacing={3}>
                 <Grid xs={4}>
-                    <List component="nav" style={{paddingRight: '30px'}}  aria-label="mailbox folders">
-                        Record New Version
+                    <List component="nav" style={{width: '90%'}}  aria-label="mailbox folders">
+                        <h3>Record New Version</h3>
                         <ListItem divider>
                             <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
                         </ListItem>          
-                        <VersionsLibrary versions={song.versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
+                        <VersionsLibrary versions={versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
                     </List>
                 </Grid>
                 <Grid xs={4}>
