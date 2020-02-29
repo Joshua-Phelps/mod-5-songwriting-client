@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar from './components/NavBar'
-// import Library from './components/Library'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import SongHome from './components/SongHome'
@@ -41,7 +39,6 @@ class App extends Component {
 
   login = data => {
     const updatedState = { ...this.state.auth, user: data.user }
-    // const updatedState = { ...this.state.auth, user: {id: data.id,  username: data.username} };
     localStorage.setItem("token", data.jwt);
     this.setState({ auth: updatedState });
   };
@@ -66,7 +63,6 @@ class App extends Component {
   addCollection = (collectionName, userId) => {
     api.collections.addCollection(collectionName, userId)
     .then(data => this.setState({ ...this.state, auth: { user: data }  }))
-    // .then(data => this.setState({ ...this.state, auth: { user: { ...this.state.auth.user, collections: data } } } ))
   }
 
   editCollection = (collectionName, collectionId) => {
@@ -120,7 +116,7 @@ class App extends Component {
         }
       }
     })
-    // const songs = []
+
 
     return (
       <div >
@@ -172,7 +168,6 @@ class App extends Component {
               exact
               render={(props) => <NewRecordingDevice {...props}  />}
             />
-
     
         </Router>
       </div>

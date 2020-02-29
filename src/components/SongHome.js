@@ -114,7 +114,7 @@ function SongHome(props){
                     /> : null}
 
             <Grid className={classes.root} container spacing={3}>
-                <Grid xs={3}>
+                <Grid xs={4}>
                     <List component="nav" style={{paddingRight: '30px'}}  aria-label="mailbox folders">
                         Record New Version
                         <ListItem divider>
@@ -123,7 +123,7 @@ function SongHome(props){
                         <VersionsLibrary versions={song.versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
                     </List>
                 </Grid>
-                <Grid xs={5}>
+                <Grid xs={4}>
                     <LyricSheet song={song} />
                 </Grid>
                 <Grid xs={4}>   

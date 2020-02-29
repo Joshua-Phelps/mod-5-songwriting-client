@@ -5,6 +5,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import { InputLabel } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -73,20 +75,28 @@ export default function Form(props) {
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Create New {props.form}</h2>
             <form onSubmit={handleSubmit}>
-            <input onChange={handleChange} value={input} ></input>
+            <TextField id="outlined-basic" value={input} label={`${props.form} Title`} onChange={handleChange} variant="outlined" />
+            {/* <input onChange={handleChange} value={input} ></input> */}
             {' '}
+            <br></br>
+            <br></br>
             { props.form === 'Song' ? (
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={collection}
-                onChange={handleSelect}
-              >
-                {renderCollections()}
-              </Select>
+              <div>
+                <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
+                <Select
+                  labelId="simple-select"
+                  id="simple-select"
+                  value={collection}
+                  style={{width: '100%'}}
+                  onChange={handleSelect}
+                  >
+                  {renderCollections()}
+                </Select>
+              </div>
               ) : (
               null
             )}
+            <br></br>
             <button type='submit'>Submit</button>
             </form>
         

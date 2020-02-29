@@ -85,8 +85,10 @@ export default function LyricHelpers() {
   const renderSynonyms = () => {
     return synonyms.map(syn => {
       return (
-        <Grid item xs={12}>
-          <p className={classes.synonyms} > - {syn}</p>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}>{syn}</Paper>
+
+          {/* <p className={classes.synonyms} > - {syn}</p> */}
         </Grid>
       )
     })
@@ -124,9 +126,10 @@ export default function LyricHelpers() {
 
       <div className='word-display' >
         {tabValue === 0 ? (
-          <div>
+          <div className={classes.root}>
+            <h2></h2>
             <Grid container spacing={1}>
-              <Grid container item xs={12} spacing={1}>
+              <Grid container item xs={12} spacing={3}>
                 {renderSynonyms()}
               </Grid>
             </Grid>
