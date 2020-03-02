@@ -158,15 +158,15 @@ export default function LyricHelpers() {
         {tabValue === 2 ? (
           <div className={classes.root}>
             <Grid container spacing={1}>
-              {nouns.length > 0 ? <h3 className={classes.root}>As Noun</h3> : ''}
+              {nouns.length > 0 ? <h3 className={classes.root}>Noun</h3> : ''}
               <Grid container item xs={12}>
                 {renderDefinitions(nouns)}
               </Grid>
-              {verbs.length > 0 ? <h3 className={classes.root}>As Verb</h3> : ''}
+              {verbs.length > 0 ? <h3 className={classes.root}>Verb</h3> : ''}
               <Grid container item xs={12}>
                 {renderDefinitions(verbs)}
               </Grid>
-              {adjectives.length > 0 ? <h3 className={classes.root}>As Adjective</h3> : ''}
+              {adjectives.length > 0 ? <h3 className={classes.root}>Adjective</h3> : ''}
               <Grid container item xs={12}>
                 {renderDefinitions(adjectives)}
               </Grid>

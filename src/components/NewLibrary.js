@@ -94,7 +94,7 @@ function NewLibrary(props){
         </Grid>
         <Grid item xs={8}>
           <Paper >
-          <Button onClick={handleOpenSongForm} className={classes.button2}>+ Add Song</Button><br></br>
+          <Button onClick={handleOpenSongForm} className={classes.button2}>+ New Song</Button><br></br>
             <SongLibrary 
             {...props} 
             onEditSong={props.onEditSong} 

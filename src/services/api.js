@@ -24,11 +24,11 @@ const login = data => {
   }).then(res => res.json());
 };
 
-const signup = (username, password) => {
+const signup = (username, password, password2) => {
   return fetch(`${API_ROOT}/users`, {
     method: "POST",
     headers: headers(),
-    body: JSON.stringify({username: username, password: password})
+    body: JSON.stringify({username: username, password: password, password2: password2})
   }).then(res => res.json());
 }
 

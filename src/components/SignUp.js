@@ -35,16 +35,23 @@ const useStyles = makeStyles(theme => ({
 export default function SignUp(props) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
   const [error, setError] = useState(false)
   const classes = useStyles();
 
   const handleSubmit = e => {
     e.preventDefault();
-    api.auth.signup(username, password).then(res => {
-      if (!res.error) {
-        props.history.push('/login');
+    api.auth.signup(username, password, password2).then(res => {
+      if (res.password) {
+        setPassword('')
+        setPassword2('')
+        alert(res.password)
+      } else if (res.error) {
+        setPassword('')
+        setPassword2('')
+        alert(res.error)
       } else {
-        setError({ error: true });
+        props.history.push('/login')
       }
     });
   };
@@ -71,7 +78,7 @@ export default function SignUp(props) {
                 name="username"
                 value={username.value}
                 autoComplete="username"
-                onChange={(e) => setUsername({username: e.target.value})}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -80,11 +87,24 @@ export default function SignUp(props) {
                 required
                 fullWidth
                 name="password"
+                value={password}
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
-                onChange={(e) => setPassword({password: e.target.value})}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                value={password2}
+                name="password2"
+                label="Retype Password"
+                type="password"
+                id="password2"
+                onChange={(e) => setPassword2(e.target.value)}
               />
             </Grid>
           </Grid>
@@ -99,7 +119,7 @@ export default function SignUp(props) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/login">
+              <Link href="/login">
               {'Already have an account? Sign in'}
                 </Link>
             </Grid>

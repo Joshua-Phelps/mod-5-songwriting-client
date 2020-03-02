@@ -88,9 +88,9 @@ export default function Login(props) {
               label="Username"
               name="username"
               autoComplete="username"
-              value={login.value}
+              value={login}
               autoFocus
-              onChange={(e) => setLogin({login: e.target.value})}
+              onChange={(e) => setLogin(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -101,8 +101,9 @@ export default function Login(props) {
               label="Password"
               type="password"
               id="password"
+              value={password}
               autoComplete="current-password"
-              onChange={(e) => setPassword({password: e.target.value})}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

@@ -105,13 +105,16 @@ export default function Form(props) {
                     onChange={handleChange}
                   />
                 </Grid>
+                {/* <Grid item xs={12}>
+                      <br></br>
+                </Grid> */}
                 <Grid item xs={12}>
 
                 { props.form === 'Song' ? (
                   <div>
                     <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
                     <Grid item xs={12}>
-
+                      <br></br>
                     </Grid>
                     <Select
                       labelId="simple-select"
@@ -121,19 +124,12 @@ export default function Form(props) {
                       onChange={handleSelect}                
                       >
                       {renderCollections()}
-                    </Select>
+                    </Select>                  
                   </div>
-                  ) : (
-                  null
-                )}
-
-
-                  
+                  ) :  null}
                 </Grid>
-              <Grid item xs={12}>
-
-              </Grid>
             </Grid>
+            {props.form === 'Song' ?  <Grid item xs={12}><br></br></Grid> : null }
             <Button
               type="submit"
               fullWidth

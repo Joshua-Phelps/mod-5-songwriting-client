@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,8 +42,8 @@ function CollectionLibrary (props) {
                             <ListItemText id={collection.id} className={classes.text} primary={`${collection.collection_name}`} />
                         </ListItem> 
                        
-                            <DeleteIcon  onClick={(e) => handleOpenDelete(e, collection_name, id)}/>
-                            <EditIcon onClick={(e) => handleOpenEdit(e, collection_name, id)} />
+                        <Tooltip title="Delete"><DeleteIcon  onClick={(e) => handleOpenDelete(e, collection_name, id)}/></Tooltip>
+                        <Tooltip title="Edit"><EditIcon onClick={(e) => handleOpenEdit(e, collection_name, id)} /></Tooltip>
                             {/* <ListItemText  primary='Edit' /> */}
                     
                         <Divider />

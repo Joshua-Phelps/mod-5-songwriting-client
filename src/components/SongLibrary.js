@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 const useStyles = makeStyles(theme => ({
@@ -70,8 +71,8 @@ function SongLibrary (props) {
                             <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, song)}>
                                 <ListItemText className={classes.text} primary={song.title} />
                             </ListItem>
-                            <DeleteIcon onClick={(e) => handleOpenSongDelete(e, id, title)}/>
-                                <EditIcon onClick={(e) => handleOpenEdit(e, title, collection_id, id)}/>
+                                <Tooltip title="Delete"><DeleteIcon onClick={(e) => handleOpenSongDelete(e, id, title)}/></Tooltip>
+                                <Tooltip title="Edit"><EditIcon onClick={(e) => handleOpenEdit(e, title, collection_id, id)}/></Tooltip>
                             <Divider />
                         </ListItem>
                     </Fragment>
@@ -81,7 +82,6 @@ function SongLibrary (props) {
 
     const handleSongSelect = (e, song) => {
         // props.onSelectSong(song)
-        // console.log(song)
         props.history.push(`/songs/${song.id}`)
     }
    

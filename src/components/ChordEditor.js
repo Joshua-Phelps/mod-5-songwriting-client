@@ -4,10 +4,14 @@ import SaveIcon from '@material-ui/icons/Save';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { api } from '../services/api';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 function ChordEditor(props){
     const [lyrics, setLyrics] = useState(``)
     const [hideText, setHideText] = useState(false)
+    const [saving, setSaving] = useState(false)
+    // const [saved, setSaved] = useState(false)
     
 
 
@@ -31,7 +35,30 @@ function ChordEditor(props){
     const handleSave = () => {
         console.log('saving')
         api.songs.editLyrics(props.song.id, lyrics)
+        setSaving(true)
+        setTimeout(() => {
+           setSaving(false)
+        //    setSaved(true)
+        //    setTimeout(() => {
+        //     setSaved(false)
+        //    }, 1000)
+        }, 1000)
+       
     }
+
+    const convertChordSheetToChordPro = (chordSheet) => {
+        const parser = new ChordSheetJS.ChordSheetParser({ preserveWhitespace: false });
+        const formatter = new ChordSheetJS.ChordProFormatter();
+        const song = parser.parse(chordSheet);
+        return formatter.format(song);
+    };
+
+    const ChordSheetTextViewer = (song) => {
+        // const { song } = props;
+        const textChordSheet = new ChordSheetJS.TextFormatter().format(song);
+      
+        return <textarea readOnly className="ChordSheetEditor" value={textChordSheet} />;
+    };
 
     // const textChordSheet = () => {
     //     const parser = new ChordSheetJS.ChordProParser()
@@ -54,8 +81,8 @@ function ChordEditor(props){
                     null 
                 ) }
                 <br></br>
-                {!hideText ? <ArrowUpwardIcon onClick={handleHideText}  /> : <ArrowDownwardIcon onClick={handleHideText}  /> }
-                {!hideText ? <SaveIcon onClick={handleSave} /> : null}
+                {!hideText ? <Tooltip title="Hide Editor"><ArrowUpwardIcon onClick={handleHideText}  /></Tooltip> : <ArrowDownwardIcon onClick={handleHideText}  /> }
+                {!hideText ? <Tooltip title="Save"><SaveIcon onClick={handleSave} /></Tooltip> : null}{ saving ? 'Saved!' : null }
                 
             </div>
             <div>
@@ -67,6 +94,7 @@ function ChordEditor(props){
                 />
                 
             </div>
+            
         </Fragment>
     )
 }

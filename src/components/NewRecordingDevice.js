@@ -4,6 +4,7 @@ import AudioVisualizer from './AudioVisualizer'
 import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
 import RedoIcon from '@material-ui/icons/Redo';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class NewRecordingDevice extends Component {
     constructor(){
@@ -86,10 +87,16 @@ class NewRecordingDevice extends Component {
     const { audioBlob, active, audioUrl } = this.state
     return (
           <div className='recording-holder'>
-              {/* <AudioVisualizer /> */}
-              {audioBlob ? <RedoIcon onClick={this.reset} />  : null}
-              {active ? <div> <StopIcon onClick={this.stopRecording} />  </div> : <MicIcon onClick={this.startRecording} /> }
-              {audioBlob ? <VersionForm onSave={this.save} /> : null}
+              { active ? (
+                <Tooltip title="Recording">
+                  <div id="container" onClick={this.stopRecording}>
+                    <div class="circle2">
+                    </div>            
+                  </div>
+                </Tooltip>
+              ) : <Tooltip title="Record"><MicIcon onClick={this.startRecording} /></Tooltip>}
+              {audioBlob ? <Tooltip title="Redo"><RedoIcon onClick={this.reset} /></Tooltip>  : null}
+              {audioBlob ? <Tooltip title="Save"><VersionForm onSave={this.save} /></Tooltip> : null}
               <br></br>
               <audio src={audioUrl} controls  />
         </div>

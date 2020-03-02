@@ -29,10 +29,10 @@ class Player extends Component {
             <div className='recording-holder'>
                 {/* <audio src={'https://jugtuttle-mod-5-project.s3-us-west-2.amazonaws.com/uploads/version/recording/71/audio1.wav'} controls /> */}
                 {/* <audio src={`https://${url[0]}`} controls /> */}
-                {/* <audio src={`https://${url[0]}`} controls />
-                <audio src={`https://${url[0]}`} controls /> */}
+                {/* {/* <audio src={`https://${url[0]}`} controls /> */}
+                {/* <audio src={`https://${url[0]}`} controls />  */}
                 <audio src={``} controls />
-                {/* <audio  src={'url'} controls /> */}
+                {/* <audio  src={this.props.recording.url} controls /> */}
             </div>
         )
     }

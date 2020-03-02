@@ -5,6 +5,10 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { InputLabel } from '@material-ui/core';
 
 
 const useStyles = makeStyles(theme => ({
@@ -74,10 +78,68 @@ export default function EditForm(props) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Edit {props.form}</h2>
-            <form onSubmit={handleSubmit}>
+            <form className={classes.form} onSubmit={handleSubmit} noValidate>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="inputTitle"                   
+                    label={`Title`}
+                    name="title"
+                    value={input}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+
+                { props.form === 'Song' ? (
+                  <div>
+                    <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
+                    <Grid item xs={12}>
+                    <br></br>
+                    </Grid>
+                    
+                    <Select
+                      labelId="simple-select"
+                      id="simple-select"
+                      value={collection}
+                      style={{width: '100%', height:'140%'}}                   
+                      onChange={handleSelect}                
+                      >
+                      {renderCollections()}
+                    </Select>
+                  </div>
+                  ) : (
+                  null
+                )}
+
+
+                  
+                </Grid>
+              <Grid item xs={12}>
+
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Submit
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+              </Grid>
+            </Grid>
+        </form>
+            {/* <form onSubmit={handleSubmit}>
             <input onChange={handleChange} value={input} ></input>
             {' '}
-            
+
             { props.form === 'Song' ? (
                 <Select
                   labelId="demo-simple-select-label"
@@ -90,7 +152,7 @@ export default function EditForm(props) {
             ) : null}
 
             <button type='submit'>Submit</button>
-            </form>
+            </form> */}
         
           </div>
         </Fade>
