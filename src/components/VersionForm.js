@@ -6,6 +6,8 @@ import Fade from '@material-ui/core/Fade';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -48,9 +50,6 @@ export default function VersionForm(props) {
   return (
     <div>
       <SaveIcon onClick={handleOpen} />
-      {/* <button type="button" onClick={handleOpen}>
-        Save
-      </button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -66,15 +65,38 @@ export default function VersionForm(props) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Create New Version</h2>
-            <form onSubmit={handleSubmit}>
-            <TextField id="outlined-basic" value={input} label={'Version Title'} onChange={handleChange} variant="outlined" />
-
-            {/* <input onChange={handleChange} value={input} ></input> */}
-            <br></br>
-            <br></br>
-            <button type='submit'>Submit</button>
-            </form>
-        
+            <form className={classes.form} onSubmit={handleSubmit} noValidate>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="username"                   
+                        label={`Title`}
+                        name="title"
+                        value={input}
+                        onChange={handleChange}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                </Grid>
+                
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Submit
+                </Button>
+                <Grid container justify="flex-end">
+                  <Grid item>
+                  </Grid>
+                </Grid>
+                </Grid>
+            </form> 
           </div>
         </Fade>
       </Modal>
