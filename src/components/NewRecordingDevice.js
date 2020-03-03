@@ -95,8 +95,8 @@ class NewRecordingDevice extends Component {
                     </div>            
                   </div>
                 </Tooltip>
-              ) : <Tooltip title="Record"><MicIcon onClick={this.startRecording} /></Tooltip>}
-              {audioBlob ? <Tooltip title="Redo"><RedoIcon onClick={this.reset} /></Tooltip>  : null}
+              ) : <Tooltip title="Record"><MicIcon className='light-text' onClick={this.startRecording} /></Tooltip>}
+              {audioBlob ? <Tooltip title="Redo"><RedoIcon className='light-text' onClick={this.reset} /></Tooltip>  : null}
               {audioBlob ? <Tooltip title="Save"><VersionForm onSave={this.save} /></Tooltip> : null}
               <br></br>
               <audio src={audioUrl} controls  />

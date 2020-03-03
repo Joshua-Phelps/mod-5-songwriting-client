@@ -39,7 +39,7 @@ function VerisonsLibrary (props) {
                 <Fragment>
                         {/* <TableCell style={{paddingRight: '5px'}} align="left"> */}
                         <TableCell >
-                        <Tooltip title={date}><h4>{title}</h4></Tooltip>
+                        <Tooltip title={date}><h4 className='light-text'>{title}</h4></Tooltip>
                         </TableCell>
                         {/* <TableCell style={{width: '100%', paddingRight: '5px', paddingLeft: '0px'}} component="th" scope="row"> */}
 
@@ -47,8 +47,8 @@ function VerisonsLibrary (props) {
                             <Player recording={version.recording} />
                         </TableCell>
                         <TableCell className={classes.editTable} >
-                            <Tooltip title='Delete'><DeleteIcon onClick={(e) => props.handleOpenDeleteVersion(e, version)} /></Tooltip>
-                            <Tooltip title='Edit'><EditIcon onClick={(e) => props.handleOpenEditVerison(e, version)} /></Tooltip>             
+                            <Tooltip title='Delete'><DeleteIcon className='light-text' onClick={(e) => props.handleOpenDeleteVersion(e, version)} /></Tooltip>
+                            <Tooltip title='Edit'><EditIcon className='light-text' onClick={(e) => props.handleOpenEditVerison(e, version)} /></Tooltip>             
                         </TableCell>
                     <TableRow key={id}>
                     </TableRow>
@@ -60,12 +60,12 @@ function VerisonsLibrary (props) {
 
     return(
         <Fragment>
-            <TableContainer className={"muiPaper-root"} component={Paper}>
+            <TableContainer style={{maxHeight: '650px'}}  className={"muiPaper-root-darker"} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>
-                        <TableCell align='left' ><h3>Title</h3></TableCell>
-                        <TableCell align='left' >{props.song.title ? <h3>Versions</h3> : null }</TableCell>
+                        <TableCell align='left' ><h3 className='light-text'>Title</h3></TableCell>
+                        <TableCell align='left' >{props.song.title ? <h3 className='light-text'>Versions</h3> : null }</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                     </TableHead>
@@ -84,6 +84,7 @@ export default VerisonsLibrary
 const useStyles = makeStyles({
     table: {
       width: '100%',
+      color: '#f2f3f7',
     },
     audioTable: {
       width: '100%', 
@@ -91,8 +92,8 @@ const useStyles = makeStyles({
       paddingLeft: '0px'
     },
     editTable: {
-      paddingLeft: '0px', 
-      paddingRight: '5px', 
+      paddingLeft: '5px', 
+      paddingRight: '15px', 
       color:'grey',
       // size: 'small', 
       // align: "right",

@@ -119,9 +119,9 @@ function SongHome(props){
                 /> : null}
                 
             <Grid className={classes.root} container spacing={3}>
-                <Grid xs={4}>
-                    <List component="nav" style={{width: '90%'}}  aria-label="mailbox folders">
-                        <h3 style={{color: 'white'}}>Record New Version</h3>
+                <Grid style={{paddingTop: '65px'}}  xs={4}>
+                    <List className={"muiPaper-root-darker"} component="nav" style={{width: '90%'}}  aria-label="mailbox folders">
+                        <h3 className='light-text'>Record New Version</h3>
                         <ListItem divider>
                             <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
                         </ListItem>          
@@ -131,7 +131,7 @@ function SongHome(props){
                 <Grid  xs={4}>
                     <LyricSheet song={song} />
                 </Grid>
-                <Grid xs={4}>   
+                <Grid style={{paddingTop: '65px'}} xs={4}>   
                         <LyricHelpers />
                 </Grid>
             </Grid>      

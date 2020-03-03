@@ -7,6 +7,8 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { api } from '../services/api';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
+import TableContainer from '@material-ui/core/TableContainer';
+// import Paper from '@material-ui/core/Paper';
 
 
 function ChordEditor(props){
@@ -24,12 +26,16 @@ function ChordEditor(props){
     }
     
     const getChordMarkup = () => {
-        if (lyrics){
+        if (lyrics !== ''){
             const parser = new ChordSheetJS.ChordProParser()
             const song = parser.parse(lyrics)
-            const htmlChordSheet = new ChordSheetJS.HtmlTableFormatter().format(song)
-            const textChordSheet = new ChordSheetJS.TextFormatter().format(song)
-            return { __html: htmlChordSheet}
+            if (song.lines[0].items.length !== 0){
+                console.log('yes')
+                const htmlChordSheet = new ChordSheetJS.HtmlTableFormatter().format(song)
+                return { __html: htmlChordSheet}
+            }
+            console.log(song.lines[0].items)
+            // const textChordSheet = new ChordSheetJS.TextFormatter().format(song)
         } 
     }
 
@@ -43,37 +49,44 @@ function ChordEditor(props){
        
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        console.log(e)
+    }
 
     return(
         <Fragment>
-            <div>
+            <div style={{paddingTop: '10px'}}>
             {!hideText ? (
                 <Fragment>
-                    <h3 className={classes.text}>Edit {props.song.title}'s Lyrics</h3>
+                    <h3 className="light-text">Edit {props.song.title}'s Lyrics</h3>
+                    <TableContainer style={{overFlow: 'auto'}}>
                     <textarea 
                             style={{width: '90%', height: '150px', color: "#deede7", fontSize: '120%'}}
                             onChange={handleChange} 
                             defaultValue={props.song.lyrics}
-                            className={"muiPaper-root"}
+                            className={"muiPaper-root-darker"}
                         />
+                    </TableContainer>
                         <br></br>
-                    <Tooltip title="Hide Editor"><ArrowUpwardIcon onClick={handleHideText}  /></Tooltip>
-                    {!saving ? <Tooltip title="Hide Editor"><SaveIcon onClick={handleSave} /></Tooltip> : 'Saved!' }
+                    <Tooltip title="Hide Editor"><ArrowUpwardIcon className="light-text" onClick={handleHideText}  /></Tooltip>
+                    {!saving ? <Tooltip title="Save"><SaveIcon className="light-text" onClick={handleSave} /></Tooltip> : <span className="light-text">Saved!</span> }
                 </Fragment>
                 ) : ( 
                 <Fragment>
-                    <ArrowDownwardIcon onClick={handleHideText}  />
+                    <ArrowDownwardIcon className="light-text" onClick={handleHideText}  />
                 </Fragment>
                 )}
             </div>
-            <div className={"muiPaper-root"} >
-                <h3 className={classes.text}>{props.song.title} Lyrics</h3>
+            <div style={{maxWidth: '90%'}} >
+                <h3 className="light-text">{props.song.title} Lyrics</h3>
+                <TableContainer style={{overFlow: 'auto', maxHeight: '500px', maxWidth: '100%'}}>
                 <div
-                    style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%', font:'Lucida Console'}}
-                    
-                    
+                    style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%', font:'Lucida Console'}}        
                     dangerouslySetInnerHTML={getChordMarkup()}
-                />                     
+                    className={"muiPaper-root-darker"}
+                />            
+                </TableContainer>         
             </div>
         </Fragment>
     )
@@ -82,6 +95,7 @@ export default ChordEditor
 
 const useStyles = makeStyles({
     text: {
-        color: "#deede7"
+        color: "#f2f3f7",
+        fontWeight: 'bold'
     }
   });

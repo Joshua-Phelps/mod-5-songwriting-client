@@ -43,6 +43,12 @@
   flex-basis: 25%;
 }
 
+.light-text {
+    color: #f2f3f7;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
 .muiPaper-root {
   background: rgba(55, 107, 76, 0.6)!important;
 
@@ -54,7 +60,7 @@
 }
 
 .muiPaper-root-darker {
-  background: rgba(55, 107, 76, 0.8)!important;
+  background: rgba(55, 107, 76, 0.9)!important;
 }
 
 .recording-holder audio {
@@ -62,14 +68,24 @@
   height: 30px!important;
 }
 
+.background-color2 {
+  background-color: #004d66;
+  height: '100vh';
+  min-height: '100vh';
+}
+
+.navbar-color {
+  background-color: '#004d66';
+}
+
 .background-img {
-  /* background-color: #ffcc80; */
+  /* background-color: #004d66!important; */
   background-image: url("https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
   height: 100%; 
-    background-position: center;
-    /* background-repeat: no-repeat; */
+  background-position: center;
+  /* background-repeat: no-repeat; */
     /* background-size: cover; */
-    margin: 0;
+  margin: 0;
 }
 
 .background-color {
@@ -94,7 +110,7 @@
   height: 24px;
   width: 24px;
   border-radius: 50%;
-  background: #272727;
+  background: #004d66;
 }
 .circle1 {
   position: relative;
@@ -122,7 +138,7 @@
   width: 0px;
   height: 0px;
   border-right: 12px solid transparent;
-  border-top: 12px solid #1ba7f2;
+  border-top: 12px solid #f2f3f7;
   border-left: 12px solid transparent;
   border-bottom: 12px solid transparent;
   border-top-left-radius: 12px;

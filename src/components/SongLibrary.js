@@ -78,10 +78,10 @@ function SongLibrary (props) {
                     <Fragment>
                         <ListItem key={song.id}>
                             <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, song)}>
-                                <ListItemText className={classes.text} primary={song.title} />
+                                <ListItemText className={'light-text'} primary={song.title} />
                             </ListItem>
-                                <Tooltip title="Delete"><DeleteIcon onClick={(e) => handleOpenSongDelete(e, id, title)}/></Tooltip>
-                                <Tooltip title="Edit"><EditIcon onClick={(e) => handleOpenEdit(e, title, collection_id, id)}/></Tooltip>
+                                <Tooltip title="Delete"><DeleteIcon className={'light-text'} onClick={(e) => handleOpenSongDelete(e, id, title)}/></Tooltip>
+                                <Tooltip title="Edit"><EditIcon className={'light-text'} onClick={(e) => handleOpenEdit(e, title, collection_id, id)}/></Tooltip>
                         </ListItem>
                         <Divider className={classes.divider2}/>
                     </Fragment>

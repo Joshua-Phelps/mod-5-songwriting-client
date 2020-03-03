@@ -49,7 +49,7 @@ export default function VersionForm(props) {
 
   return (
     <div>
-      <SaveIcon onClick={handleOpen} />
+      <SaveIcon className='light-text' onClick={handleOpen} />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

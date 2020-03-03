@@ -103,18 +103,18 @@ const useStyles = makeStyles(theme => ({
       maxWidth: '100%',
     //  backgroundColor: 'rgba(55, 107, 76, 0.5)'
       backgroundColor: 'rgba(55, 107, 76, 0.7)',
-      color: "#deede7"
+      color: "#f2f3f7"
     },
     text: {
         paddingLeft: '20px',
-        color: "#deede7"
+        color: "#f2f3f7"
     },
     button: {
         textAlign: 'right',
-        color: "#deede7"
+        color: "#f2f3f7"
     },
     divider: {
-        backgroundColor: "#deede7",
+        backgroundColor: "#f2f3f7",
         // color: 'white'
     }
   }));

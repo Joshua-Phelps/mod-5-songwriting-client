@@ -6,6 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import TableContainer from '@material-ui/core/TableContainer'
+import { TableBody } from '@material-ui/core';;
 
 
 const useStyles = makeStyles(theme => ({
@@ -13,13 +15,16 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     maxWidth: 500,
     textAlign: 'center',
-    paddingLeft: '10px'
-
+    paddingLeft: '10px',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    backgroundColor: 'rgba(55, 107, 76, 0.9)',
   },
   form: {
     '& > *': {
         margin: theme.spacing(1),
         width: 200,
+        backgroundColor: '#f2f3f7'
         },
     },
     paperRoot: {
@@ -28,17 +33,23 @@ const useStyles = makeStyles(theme => ({
     paper: {
       padding: theme.spacing(1),
       textAlign: 'center',
-      color: theme.palette.text.primary,
+      // color: theme.palette.text.primary,
     },
     paper2: {
       padding: theme.spacing(1),
       textAlign: 'left',
-      color: theme.palette.text.primary,
+      // color: theme.palette.text.primary,
     },
     synonyms: {
       textAlign: 'left',
-      color: theme.palette.text.primary
-    }
+      // color: theme.palette.text.primary
+    },
+    indicator: {
+      backgroundColor: 'white',
+    },
+    input: {
+      borderColor: 'white'
+  }
 }));
 
 export default function LyricHelpers() {
@@ -87,8 +98,6 @@ export default function LyricHelpers() {
       return (
         <Grid item xs={4}>
           <Paper className={classes.paper}>{syn}</Paper>
-
-          {/* <p className={classes.synonyms} > - {syn}</p> */}
         </Grid>
       )
     })
@@ -98,8 +107,8 @@ export default function LyricHelpers() {
   const renderDefinitions = (definitions) => {
     return definitions.map(def => {
       return (
-        <Grid item xs={12}>
-          <Paper className={classes.paper2} > - {def.definition}</Paper>
+        <Grid style={{paddingTop: '10px'}} item xs={12}>
+          <Paper style={{width: '90%'}} className={classes.paper2} > - {def.definition}</Paper>
         </Grid>
       )
     })
@@ -108,15 +117,19 @@ export default function LyricHelpers() {
   return (
     <Paper square className={classes.root}>
         <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField id="outlined-basic" label="Search Word" onChange={handleWordChange} variant="outlined" />
+            <TextField id="filled-basic" style={{borderColor: 'white'}} label="Search Word" onChange={handleWordChange} variant="filled" />
         </form>
         <br></br>
       <Tabs
         value={tabValue}
+        className={'light-text'}
         onChange={handleTabChange}
         variant="fullWidth"
-        indicatorColor="secondary"
-        textColor="secondary"
+        indicatorColor='white'
+        classes={{
+          indicator: classes.indicator
+        }}
+        // textColor="secondary"
         aria-label="icon label tabs example"
       >
         <Tab label="Synomyms" />
@@ -124,7 +137,9 @@ export default function LyricHelpers() {
         <Tab label="Dictionary" />
       </Tabs>
 
-      <div className='word-display' >
+      <TableContainer style={{maxHeight: '670px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
+      <TableBody >
+      <div  >
         {tabValue === 0 ? (
           <div className={classes.root}>
             <h2></h2>
@@ -174,6 +189,8 @@ export default function LyricHelpers() {
           </div>
           ) : null}
       </div>
+      </TableBody>
+      </TableContainer>
     </Paper>
   );
 }
