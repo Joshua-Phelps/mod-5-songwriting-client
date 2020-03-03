@@ -17,7 +17,9 @@ const useStyles = makeStyles(theme => ({
     root: {
     //   width: '100%',
       padding: '30px',
-      backgroundColor: theme.palette.background.paper,
+    //   backgroundColor: 'rgba(55, 107, 76, 0.7)',
+    //   backgroundColor: theme.palette.background.paper,
+    // backgroundColor: '#fffae6',
     //   maxHeight: 700,
       flexGrow: 1, 
       overflow: 'auto'
@@ -99,41 +101,41 @@ function SongHome(props){
     }
 
     return(
-        <Fragment>
-            {openEditVersion? <EditForm 
-                        input={selectedVersion.title} 
-                        form='Version' 
-                        onCloseForm={handleCloseEditVersion} 
-                        id={selectedVersion.id} 
-                        onEditInput={editVersion} 
-                    /> : null }
-
+        <div >
+        {openEditVersion? <EditForm 
+            input={selectedVersion.title} 
+            form='Version' 
+            onCloseForm={handleCloseEditVersion} 
+            id={selectedVersion.id} 
+            onEditInput={editVersion} 
+            /> : null }
+            
             {openDeleteVersion ? <DeleteForm 
-                        onDelete={deleteVersion} 
-                        onCloseForm={handleCloseDeleteVersion} 
-                        id={selectedVersion.id} 
-                        title={selectedVersion.title}
-                        message={`This will permenently remove this version`} 
-                    /> : null}
-
+                onDelete={deleteVersion} 
+                onCloseForm={handleCloseDeleteVersion} 
+                id={selectedVersion.id} 
+                title={selectedVersion.title}
+                message={`This will permenently remove this version`} 
+                /> : null}
+                
             <Grid className={classes.root} container spacing={3}>
                 <Grid xs={4}>
                     <List component="nav" style={{width: '90%'}}  aria-label="mailbox folders">
-                        <h3>Record New Version</h3>
+                        <h3 style={{color: 'white'}}>Record New Version</h3>
                         <ListItem divider>
                             <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
                         </ListItem>          
                         <VersionsLibrary versions={versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
                     </List>
                 </Grid>
-                <Grid xs={4}>
+                <Grid  xs={4}>
                     <LyricSheet song={song} />
                 </Grid>
                 <Grid xs={4}>   
                         <LyricHelpers />
                 </Grid>
             </Grid>      
-        </Fragment>
-    )
+        </div>
+        )
 }
 export default SongHome 

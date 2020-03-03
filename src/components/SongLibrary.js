@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withTheme } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -13,21 +13,30 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     root: {
-      width: '95%',
+      width: '98%',
       maxWidth: '100%',
-      backgroundColor: theme.palette.background.paper,
-      padding: theme.spacing(2),
+      backgroundColor: 'rgba(55, 107, 76, 0.7)',
       textAlign: 'center',
-      color: theme.palette.text.secondary,
-      height: '100%'
+      color: 'white',
+      height: '100%',
+      
     },
     text: {
-        paddingLeft: '20px'
+        paddingLeft: '20px',
+        color: 'white'
     },
     button: {
         textAlign: 'right',
         paddingRight: '10px'
     },
+    divider: {
+        backgroundColor: "#deede7",
+        width: '98%'
+    },
+    divider2: {
+        backgroundColor: "#deede7",
+        width: '100%'
+    }
 
   }));
 
@@ -67,14 +76,14 @@ function SongLibrary (props) {
                 
                 return (
                     <Fragment>
-                        <ListItem divider key={song.id}>
+                        <ListItem key={song.id}>
                             <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, song)}>
                                 <ListItemText className={classes.text} primary={song.title} />
                             </ListItem>
                                 <Tooltip title="Delete"><DeleteIcon onClick={(e) => handleOpenSongDelete(e, id, title)}/></Tooltip>
                                 <Tooltip title="Edit"><EditIcon onClick={(e) => handleOpenEdit(e, title, collection_id, id)}/></Tooltip>
-                            <Divider />
                         </ListItem>
+                        <Divider className={classes.divider2}/>
                     </Fragment>
                 )
             })
@@ -87,6 +96,7 @@ function SongLibrary (props) {
    
     return(
         <Fragment>
+            <div>
             {(openEdit
             ) ? (
                 <EditForm 
@@ -102,9 +112,11 @@ function SongLibrary (props) {
                 null
             )}
             {(openSongDelete ? <DeleteForm onDelete={props.onDeleteSong} message={'This will remove all versions of this song'} onCloseForm={handleCloseSongDelete} id={songId} title={title} /> : null)}
+            <Divider className={classes.divider} />
             <List className={classes.root} >
                 {props.songs ? renderSongs(): null}
             </List>
+            </div>
         </Fragment>
     )
 }

@@ -1,10 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import Player from './Player'
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,24 +10,13 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-
-const useStyles = makeStyles({
-  table: {
-    width: '100%'
-  },
-});
-
 
 
 function VerisonsLibrary (props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
-    const [showDate, setShowDate] = useState(false)
+
 
 
     const handleClose = () => {
@@ -41,9 +27,7 @@ function VerisonsLibrary (props) {
         setAnchorEl(e.currentTarget)
     }
 
-    const handleShowDate = () => {
-        console.log('showing')
-    }
+   
 
     const renderVersions = () => {
         return props.versions.map(version => {
@@ -53,14 +37,16 @@ function VerisonsLibrary (props) {
         
             return (
                 <Fragment>
-                        <TableCell style={{paddingRight: '5px'}} align="left">
-                        <Tooltip title={date}><h4 onClick={handleShowDate}>{title}</h4></Tooltip>
+                        {/* <TableCell style={{paddingRight: '5px'}} align="left"> */}
+                        <TableCell >
+                        <Tooltip title={date}><h4>{title}</h4></Tooltip>
                         </TableCell>
-                        
-                        <TableCell style={{width: '100%', paddingRight: '5px', paddingLeft: '0px'}} component="th" scope="row">
+                        {/* <TableCell style={{width: '100%', paddingRight: '5px', paddingLeft: '0px'}} component="th" scope="row"> */}
+
+                        <TableCell className={classes.audioTable} component="th" scope="row">
                             <Player recording={version.recording} />
                         </TableCell>
-                        <TableCell style={{paddingLeft: '0px', paddingRight: '5px', color:'grey'}} size='small' align="right">
+                        <TableCell className={classes.editTable} >
                             <Tooltip title='Delete'><DeleteIcon onClick={(e) => props.handleOpenDeleteVersion(e, version)} /></Tooltip>
                             <Tooltip title='Edit'><EditIcon onClick={(e) => props.handleOpenEditVerison(e, version)} /></Tooltip>             
                         </TableCell>
@@ -71,9 +57,10 @@ function VerisonsLibrary (props) {
         })
     }
 
+
     return(
         <Fragment>
-            <TableContainer component={Paper}>
+            <TableContainer className={"muiPaper-root"} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>
@@ -92,5 +79,24 @@ function VerisonsLibrary (props) {
 }
 
 export default VerisonsLibrary
+
+
+const useStyles = makeStyles({
+    table: {
+      width: '100%',
+    },
+    audioTable: {
+      width: '100%', 
+      paddingRight: '5px', 
+      paddingLeft: '0px'
+    },
+    editTable: {
+      paddingLeft: '0px', 
+      paddingRight: '5px', 
+      color:'grey',
+      // size: 'small', 
+      // align: "right",
+    }
+  });
 
 

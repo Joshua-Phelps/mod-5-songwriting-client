@@ -11,20 +11,6 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles(theme => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
-
 export default function Form(props) {
   const classes = useStyles();
   const [input, setInput] = useState('')
@@ -90,60 +76,57 @@ export default function Form(props) {
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Create New {props.form}</h2>
 
-            <form className={classes.form} onSubmit={handleSubmit} noValidate>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="username"                   
-                    label={`Title`}
-                    name="title"
-                    value={input}
-                    // autoComplete="username"
-                    onChange={handleChange}
-                  />
-                </Grid>
-                {/* <Grid item xs={12}>
-                      <br></br>
-                </Grid> */}
-                <Grid item xs={12}>
-
-                { props.form === 'Song' ? (
-                  <div>
-                    <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
+                <form className={classes.form} onSubmit={handleSubmit} noValidate>
+                  <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <br></br>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="username"                   
+                        label={`Title`}
+                        name="title"
+                        value={input}
+                        onChange={handleChange}
+                      />
                     </Grid>
-                    <Select
-                      labelId="simple-select"
-                      id="simple-select"
-                      value={collection}
-                      style={{width: '100%'}}                   
-                      onChange={handleSelect}                
-                      >
-                      {renderCollections()}
-                    </Select>                  
-                  </div>
-                  ) :  null}
+                  
+                    <Grid item xs={12}>
+
+                    { props.form === 'Song' ? (
+                      <div>
+                        <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
+                        <Grid item xs={12}>
+                          <br></br>
+                        </Grid>
+                        <Select
+                          labelId="simple-select"
+                          id="simple-select"
+                          value={collection}
+                          style={{width: '100%'}}                   
+                          onChange={handleSelect}                
+                          >
+                          {renderCollections()}
+                        </Select>                  
+                      </div>
+                      ) :  null}
+                    </Grid>
                 </Grid>
-            </Grid>
-            {props.form === 'Song' ?  <Grid item xs={12}><br></br></Grid> : null }
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Submit
-            </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-              </Grid>
-            </Grid>
-        </form>
+                {props.form === 'Song' ?  <Grid item xs={12}><br></br></Grid> : null }
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Submit
+                </Button>
+                <Grid container justify="flex-end">
+                  <Grid item>
+                  </Grid>
+                </Grid>
+            </form>
           </div>
         </Fade>
       </Modal>
@@ -151,29 +134,16 @@ export default function Form(props) {
   );
 }
  
-
- /* <form onSubmit={handleSubmit}>
-            <TextField id="outlined-basic" value={input} label={`${props.form} Title`} onChange={handleChange} variant="outlined" />
-            {/* <input onChange={handleChange} value={input} ></input> */
-          
-            /* <br></br>
-            <br></br> */
-            // { props.form === 'Song' ? (
-            //   <div>
-            //     <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
-            //     <Select
-            //       labelId="simple-select"
-            //       id="simple-select"
-            //       value={collection}
-            //       style={{width: '100%'}}
-            //       onChange={handleSelect}
-            //       >
-            //       {renderCollections()}
-            //     </Select>
-            //   </div>
-            //   ) : (
-            //   null
-            // )}
-            // <br></br>
-            // <button type='submit'>Submit</button>
-            // </form>
+const useStyles = makeStyles(theme => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));

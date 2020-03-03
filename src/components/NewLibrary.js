@@ -8,41 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  button: {
-    textAlign: 'left',
-    padding: '10px',
-    color: theme.palette.text.secondary,
-  },
-  button2: {
-    textAlign: 'end',
-    padding: '10px',
-    color: theme.palette.text.secondary,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: '100%'
-  },
-  paperLeft: {
-    adding: theme.spacing(2),
-    padding: '10px',
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-    height: '40%'
-  },
-  collectionText: {
-    padding: '40px',
-    textAlign: 'left',
-    color: theme.palette.text.primary,
-  }
-
-}));
-
 function NewLibrary(props){
   const classes = useStyles();
   const [openSongForm, setOpenSongForm] = useState(false)
@@ -82,8 +47,8 @@ function NewLibrary(props){
 
        <Grid container spacing={3} className={classes.root}>
         <Grid item xs={3}>
-            <Paper>
-              <Button onClick={handleOpenCollectionForm} className={classes.button}>+ New Collection</Button><br></br>
+            <Paper className={"muiPaper-root"} >
+              <Button className={classes.button} onClick={handleOpenCollectionForm}>+ New Collection</Button><br></br>
                 <CollectionLibrary 
                 onCollectionSelect={props.onCollectionSelect} 
                 collections={props.collections} 
@@ -93,7 +58,7 @@ function NewLibrary(props){
             </Paper>
         </Grid>
         <Grid item xs={8}>
-          <Paper >
+          <Paper className={"muiPaper-root"} >
           <Button onClick={handleOpenSongForm} className={classes.button2}>+ New Song</Button><br></br>
             <SongLibrary 
             {...props} 
@@ -111,3 +76,57 @@ function NewLibrary(props){
   )
 }
 export default NewLibrary
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    // opacity: 0.6,
+    // color: 'white'
+  },
+  list: {
+    opacity: 0.8,
+    backgroundColor: '#00004d'
+  },
+  button: {
+    textAlign: 'left',
+    padding: '10px',
+    color: "#deede7"
+    // color: theme.palette.text.secondary,
+  },
+  button2: {
+    textAlign: 'end',
+    padding: '10px',
+    color: "#deede7"
+    // color: theme.palette.text.secondary,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    // color: theme.palette.text.secondary,
+    height: '100%'
+  },
+  image: {
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
+    // backgroundImage: 'url(https://images.unsplash.com/photo-1550291652-6ea9114a47b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80)',
+    backgroundImage: 'url(https://images.pexels.com/photos/15919/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+    theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  paperLeft: {
+    adding: theme.spacing(2),
+    padding: '10px',
+    textAlign: 'left',
+    // color: theme.palette.text.secondary,
+    height: '40%'
+  },
+  collectionText: {
+    padding: '40px',
+    textAlign: 'left',
+    // color: theme.palette.text.primary,
+  }
+
+}));

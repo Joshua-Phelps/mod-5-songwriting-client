@@ -1,20 +1,20 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import ChordSheetJS from 'chordsheetjs'
+import Chord from 'chordjs'
 import SaveIcon from '@material-ui/icons/Save';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { api } from '../services/api';
 import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 function ChordEditor(props){
     const [lyrics, setLyrics] = useState(``)
     const [hideText, setHideText] = useState(false)
     const [saving, setSaving] = useState(false)
-    // const [saved, setSaved] = useState(false)
+    const classes = useStyles();
     
-
-
     const handleChange = e => {
         setLyrics(e.target.value)
     }
@@ -28,8 +28,9 @@ function ChordEditor(props){
             const parser = new ChordSheetJS.ChordProParser()
             const song = parser.parse(lyrics)
             const htmlChordSheet = new ChordSheetJS.HtmlTableFormatter().format(song)
+            const textChordSheet = new ChordSheetJS.TextFormatter().format(song)
             return { __html: htmlChordSheet}
-        }
+        } 
     }
 
     const handleSave = () => {
@@ -38,64 +39,49 @@ function ChordEditor(props){
         setSaving(true)
         setTimeout(() => {
            setSaving(false)
-        //    setSaved(true)
-        //    setTimeout(() => {
-        //     setSaved(false)
-        //    }, 1000)
         }, 1000)
        
     }
 
-    const convertChordSheetToChordPro = (chordSheet) => {
-        const parser = new ChordSheetJS.ChordSheetParser({ preserveWhitespace: false });
-        const formatter = new ChordSheetJS.ChordProFormatter();
-        const song = parser.parse(chordSheet);
-        return formatter.format(song);
-    };
-
-    const ChordSheetTextViewer = (song) => {
-        // const { song } = props;
-        const textChordSheet = new ChordSheetJS.TextFormatter().format(song);
-      
-        return <textarea readOnly className="ChordSheetEditor" value={textChordSheet} />;
-    };
-
-    // const textChordSheet = () => {
-    //     const parser = new ChordSheetJS.ChordProParser()
-    //     const song = parser.parse(lyrics)
-    //     const textChordSheet = new ChordSheetJS.TextFormatter().format(song);
-    //     return <textarea readOnly className="ChordSheetEditor" value={textChordSheet} />
-    // }
 
     return(
         <Fragment>
             <div>
-                <h3>Edit {props.song.title}'s Lyrics</h3>
-                {!hideText ? (
+            {!hideText ? (
+                <Fragment>
+                    <h3 className={classes.text}>Edit {props.song.title}'s Lyrics</h3>
                     <textarea 
-                        style={{width: '90%', height: '150px'}}
-                        onChange={handleChange} 
-                        defaultValue={props.song.lyrics}
-                    />
-                ) : (
-                    null 
-                ) }
-                <br></br>
-                {!hideText ? <Tooltip title="Hide Editor"><ArrowUpwardIcon onClick={handleHideText}  /></Tooltip> : <ArrowDownwardIcon onClick={handleHideText}  /> }
-                {!hideText ? <Tooltip title="Save"><SaveIcon onClick={handleSave} /></Tooltip> : null}{ saving ? 'Saved!' : null }
-                
+                            style={{width: '90%', height: '150px', color: "#deede7", fontSize: '120%'}}
+                            onChange={handleChange} 
+                            defaultValue={props.song.lyrics}
+                            className={"muiPaper-root"}
+                        />
+                        <br></br>
+                    <Tooltip title="Hide Editor"><ArrowUpwardIcon onClick={handleHideText}  /></Tooltip>
+                    {!saving ? <Tooltip title="Hide Editor"><SaveIcon onClick={handleSave} /></Tooltip> : 'Saved!' }
+                </Fragment>
+                ) : ( 
+                <Fragment>
+                    <ArrowDownwardIcon onClick={handleHideText}  />
+                </Fragment>
+                )}
             </div>
-            <div>
-                <h3>{props.song.title} Lyrics</h3>
+            <div className={"muiPaper-root"} >
+                <h3 className={classes.text}>{props.song.title} Lyrics</h3>
                 <div
-                    style={{width: '100%', height: '100%', fontFamily: 'monospace', font:'Lucida Console'}}
-                    className={'chord-output'}
+                    style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%', font:'Lucida Console'}}
+                    
+                    
                     dangerouslySetInnerHTML={getChordMarkup()}
-                />
-                
+                />                     
             </div>
-            
         </Fragment>
     )
 }
 export default ChordEditor 
+
+const useStyles = makeStyles({
+    text: {
+        color: "#deede7"
+    }
+  });

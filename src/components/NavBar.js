@@ -54,13 +54,13 @@ function NavBar(props){
   }
   return (
     <div className={classes.root}>
-      <AppBar style={{ backgroundColor: '#2196f3'}} position="static">
+      <AppBar style={{ backgroundColor: '#004d66'}} position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Welcome {props.user.username}
           </Typography>
           <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                <MenuIcon />
+                <MenuIcon style={{color: 'white'}} />
           </Button>
           <Menu
               id="simple-menu"

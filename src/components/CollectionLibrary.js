@@ -11,20 +11,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-      width: '100%',
-      maxWidth: '100%',
-      backgroundColor: theme.palette.background.paper,
-    },
-    text: {
-        paddingLeft: '20px'
-    },
-    button: {
-        textAlign: 'right'
-    }
-
-  }));
 
 function CollectionLibrary (props) {
     const [openEdit, setOpenEdit] = useState(false)
@@ -37,7 +23,8 @@ function CollectionLibrary (props) {
             return props.collections.map(collection => {
                 const {id, collection_name } = collection
                 return (
-                    <ListItem divider key={collection.id}>
+                    <div>
+                    <ListItem key={collection.id}>
                         <ListItem button onClick={(e) => handleClick(e, id)}>
                             <ListItemText id={collection.id} className={classes.text} primary={`${collection.collection_name}`} />
                         </ListItem> 
@@ -46,8 +33,10 @@ function CollectionLibrary (props) {
                         <Tooltip title="Edit"><EditIcon onClick={(e) => handleOpenEdit(e, collection_name, id)} /></Tooltip>
                             {/* <ListItemText  primary='Edit' /> */}
                     
-                        <Divider />
+
                     </ListItem>
+                    <Divider classes={{root: classes.divider}} />
+                    </div>
                 )
             }) 
     }
@@ -97,7 +86,8 @@ function CollectionLibrary (props) {
                     title={collectionName} 
                 /> : null}
 
-            <Button onClick={(e) => handleClick(e, all)}>All Collections</Button>
+            <Button className={classes.button}  onClick={(e) => handleClick(e, all)}>All Collections</Button>
+            <Divider classes={{root: classes.divider}} />
              <List className={classes.root} >
             {props.collections ? renderCollections(): null}
             </List>
@@ -106,3 +96,25 @@ function CollectionLibrary (props) {
 }
 
 export default CollectionLibrary
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      width: '100%',
+      maxWidth: '100%',
+    //  backgroundColor: 'rgba(55, 107, 76, 0.5)'
+      backgroundColor: 'rgba(55, 107, 76, 0.7)',
+      color: "#deede7"
+    },
+    text: {
+        paddingLeft: '20px',
+        color: "#deede7"
+    },
+    button: {
+        textAlign: 'right',
+        color: "#deede7"
+    },
+    divider: {
+        backgroundColor: "#deede7",
+        // color: 'white'
+    }
+  }));

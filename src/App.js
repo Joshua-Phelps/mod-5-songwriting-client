@@ -9,8 +9,12 @@ import NewRecordingDevice from './components/NewRecordingDevice'
 import NewLibrary from './components/NewLibrary'
 import EditAccount from './components/EditAccount'
 import { api } from "./services/api";
+import { styled } from '@material-ui/core/styles'
+import withRoot from './withRoot';
+import PropTypes from 'prop-types';
 
 class App extends Component {
+  
 
   state = {
     auth: {
@@ -102,8 +106,13 @@ class App extends Component {
     this.setState({selectedSong: song})
   }
 
-  renderRoutes = () => {
-
+  tokenPathCheck = (props) => {
+    const token = localStorage.getItem("token")
+    const path = props.location.pathname.split('/')[1]
+    if (token && path !== 'songs' && path !== 'edit-account' ){
+      return true 
+    } else 
+      return false 
   }
 
 
@@ -112,7 +121,6 @@ class App extends Component {
     const token = localStorage.getItem("token")
     const { user } = this.state.auth
     const { selectedCollectionId } = this.state
-    // you should rewrite this method - looks ugly 
     const songs = user.songs.filter(song => {
       if (!selectedCollectionId){
         return song
@@ -130,19 +138,26 @@ class App extends Component {
             <Route
             path="/login"
             exact
-            render={props => (!token ? <Login {...props} onLogin={this.login} /> : <Redirect to="/home" />)}
+            render={props => console.log(props)}
+            render={props => !token ? <Login {...props} onLogin={this.login} /> : <Redirect to="/home" />}
             />
 
             <Route
             path="/signup"
             exact
-            render={props => (!token ? <SignUp {...props} /> : <Redirect to="/home" />)}
+            render={props => !token ? <SignUp {...props} /> : <Redirect to="/home" />}
             />                                         
           
             <Route
             path="/"
-            render={props => (token ? <NavBar {...props} user={user} onLogout={this.logout} onLogin={this.login} /> : <Redirect to="/login" />)}
+            render={props => (token ? <NavBar {...props} user={user} onLogout={this.logout} onLogin={this.login} /> : (props.location.pathname !== "/signup" ? <Redirect to="/login" /> : <Redirect to="/signup" /> ))}
             />
+
+            {/* <Route
+            path="/"
+            render={props => (token ? <Redirect to="/home" /> : null)}
+            /> */}
+
             <Route
             path="/home"
             exact
@@ -174,15 +189,33 @@ class App extends Component {
               render={(props) => ( token ? <NewRecordingDevice {...props}  /> : <Redirect to="/login" />)}
             /> 
 
-              <Route 
+            <Route 
                 path='/edit-account'
                 exact 
                 render={(props) => (token ? <EditAccount {...props} /> : <Redirect to="/login" />)}
-              />               
+              />        
+
+            <Route
+            path="/"
+            // render={props => console.log(props)}
+            render={props => this.tokenPathCheck(props) ? <Redirect to="/home" /> : null}
+            />    
         </Router>
       </div>
     );
   }
 }
 
-export default App;
+// App.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
+
+// const styles = theme => ({
+//   root: {
+//     textAlign: 'center',
+//     paddingTop: theme.spacing.unit * 20,
+//   },
+// });
+
+export default App; 
+// export default withRoot(styled(styles)(App))

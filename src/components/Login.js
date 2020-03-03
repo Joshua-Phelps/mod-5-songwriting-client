@@ -19,7 +19,9 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(https://images.unsplash.com/photo-1550291652-6ea9114a47b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80)',
+    // backgroundImage: 'url(https://images.pexels.com/photos/15919/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
@@ -53,13 +55,15 @@ export default function Login(props) {
 
 
   const handleSubmit = e => {
+    if (error) setError(true)
     e.preventDefault();
     api.auth.login({login, password}).then(res => {
       if (!res.error) {
         props.onLogin(res);
         props.history.push('/home');
       } else {
-        alert('try again')
+        setError('true')
+        // alert('try again')
       }
     });
   };
@@ -78,8 +82,10 @@ export default function Login(props) {
             {/* {error? alert('try again') : null } */}
             Sign in
           </Typography>
-          <form className={classes.form} onSubmit={handleSubmit} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit} noValidate>         
             <TextField
+              helperText={ error ? "Incorrect entry." : null}
+              error={error}
               variant="outlined"
               margin="normal"
               required
@@ -93,6 +99,8 @@ export default function Login(props) {
               onChange={(e) => setLogin(e.target.value)}
             />
             <TextField
+              helperText={ error ? "Incorrect entry." : null}
+              error={error}
               variant="outlined"
               margin="normal"
               required
@@ -104,10 +112,6 @@ export default function Login(props) {
               value={password}
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"
