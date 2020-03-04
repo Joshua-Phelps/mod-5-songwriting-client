@@ -57,6 +57,7 @@ export default function SignUp(props) {
   };
 
   return (
+    <div className='white-background'>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -127,5 +128,6 @@ export default function SignUp(props) {
         </form>
       </div>
     </Container>
+    </div>
   );
 }

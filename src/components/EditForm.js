@@ -11,19 +11,6 @@ import TextField from '@material-ui/core/TextField';
 import { InputLabel } from '@material-ui/core';
 
 
-const useStyles = makeStyles(theme => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
 
 export default function EditForm(props) {
   const classes = useStyles();
@@ -44,8 +31,12 @@ export default function EditForm(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    props.form === 'Song' ? props.onEditInput(input, collection, props.songId) : props.onEditInput(input, props.id)
-    setOpen(false);
+    if (!input){
+      alert('Please enter a title')
+    } else {
+      props.form === 'Song' ? props.onEditInput(input, collection, props.songId) : props.onEditInput(input, props.id)
+      setOpen(false);
+    }
   }
 
 
@@ -77,12 +68,12 @@ export default function EditForm(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Edit {props.form}</h2>
+            <h2 className='form-header' id="transition-modal-title">Edit {props.form}</h2>
             <form className={classes.form} onSubmit={handleSubmit} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
-                    variant="outlined"
+                    variant="filled"
                     required
                     fullWidth
                     id="inputTitle"                   
@@ -93,7 +84,6 @@ export default function EditForm(props) {
                   />
                 </Grid>
                 <Grid item xs={12}>
-
                 { props.form === 'Song' ? (
                   <div>
                     <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
@@ -111,9 +101,7 @@ export default function EditForm(props) {
                       {renderCollections()}
                     </Select>
                   </div>
-                  ) : (
-                  null
-                )}
+                  ) : (null)}
 
 
                   
@@ -126,8 +114,8 @@ export default function EditForm(props) {
               type="submit"
               fullWidth
               variant="contained"
-              color="primary"
-              className={classes.submit}
+              // color="primary"
+              className={classes.button}
             >
               Submit
             </Button>
@@ -136,23 +124,6 @@ export default function EditForm(props) {
               </Grid>
             </Grid>
         </form>
-            {/* <form onSubmit={handleSubmit}>
-            <input onChange={handleChange} value={input} ></input>
-            {' '}
-
-            { props.form === 'Song' ? (
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={collection}
-                  onChange={handleSelect}
-                >
-                  {renderCollections()}
-                </Select>
-            ) : null}
-
-            <button type='submit'>Submit</button>
-            </form> */}
         
           </div>
         </Fade>
@@ -160,3 +131,22 @@ export default function EditForm(props) {
     </div>
   );
 }
+
+const useStyles = makeStyles(theme => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '8px solid #004d66',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: 'none',
+  },
+  button: {
+    backgroundColor: '#004d66',
+    color: 'white'
+  }
+}));

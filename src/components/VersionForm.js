@@ -18,10 +18,15 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: '8px solid #004d66',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  button: {
+    backgroundColor: '#004d66',
+    color: 'white'
+  }
+
 }));
 
 export default function VersionForm(props) {
@@ -64,7 +69,7 @@ export default function VersionForm(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Create New Version</h2>
+            <h2 className='form-header' id="transition-modal-title">Create New Version</h2>
             <form className={classes.form} onSubmit={handleSubmit} noValidate>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -87,7 +92,7 @@ export default function VersionForm(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  className={classes.submit}
+                  className={classes.button}
                 >
                   Submit
                 </Button>

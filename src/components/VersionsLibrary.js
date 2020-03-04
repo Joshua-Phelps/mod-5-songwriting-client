@@ -96,8 +96,6 @@ const useStyles = makeStyles({
       paddingLeft: '5px', 
       paddingRight: '15px', 
       color:'grey',
-      // size: 'small', 
-      // align: "right",
     }
   });
 

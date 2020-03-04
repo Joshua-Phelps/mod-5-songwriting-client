@@ -9,9 +9,7 @@ import NewRecordingDevice from './components/NewRecordingDevice'
 import NewLibrary from './components/NewLibrary'
 import EditAccount from './components/EditAccount'
 import { api } from "./services/api";
-import { styled } from '@material-ui/core/styles'
-import withRoot from './withRoot';
-import PropTypes from 'prop-types';
+
 
 class App extends Component {
   
@@ -94,6 +92,12 @@ class App extends Component {
   deleteSong = (songId) => {
     api.songs.deleteSong(songId)
     .then(data => this.setState({ ...this.state, auth: { user: data } }))
+  }
+
+  deleteAccount = (userId) => {
+    console.log(userId)
+    api.account.deleteAccount(userId)
+    .then(() => this.logout())
   }
 
   collectionSelect = (id) => {
@@ -192,7 +196,7 @@ class App extends Component {
             <Route 
                 path='/edit-account'
                 exact 
-                render={(props) => (token ? <EditAccount {...props} /> : <Redirect to="/login" />)}
+                render={(props) => (token ? <EditAccount onDelete={this.deleteAccount} id={user.id} username={user.username} {...props} /> : <Redirect to="/login" />)}
               />        
 
             <Route

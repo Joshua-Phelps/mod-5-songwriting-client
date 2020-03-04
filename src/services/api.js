@@ -112,6 +112,13 @@ const editVersion = (id, title) => {
   }).then(res => res.json())
 }
 
+const deleteAccount = id => {
+  return fetch(`${API_ROOT}/users/${id}`, {
+    method: "DELETE"
+  }).then(res => res.json())
+}
+
+
 const synonyms = word => {
     return fetch(`https://wordsapiv1.p.rapidapi.com/words/${word}/synonyms`, {
     "method": "GET",
@@ -164,5 +171,8 @@ export const api = {
     synonyms,
     rhymes,
     dictionary
+  },
+  account: {
+    deleteAccount
   }
 };

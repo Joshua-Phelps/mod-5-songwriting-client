@@ -96,12 +96,12 @@ function SongHome(props){
 
     return(
         <div >
-        {openEditVersion? <EditForm 
-            input={selectedVersion.title} 
-            form='Version' 
-            onCloseForm={handleCloseEditVersion} 
-            id={selectedVersion.id} 
-            onEditInput={editVersion} 
+            {openEditVersion? <EditForm 
+                input={selectedVersion.title} 
+                form='Version' 
+                onCloseForm={handleCloseEditVersion} 
+                id={selectedVersion.id} 
+                onEditInput={editVersion} 
             /> : null }
             
             {openDeleteVersion ? <DeleteForm 
@@ -110,7 +110,7 @@ function SongHome(props){
                 id={selectedVersion.id} 
                 title={selectedVersion.title}
                 message={`This will permenently remove this version`} 
-                /> : null}
+            /> : null}
                 
             <Grid className={classes.root} container spacing={3}>
                 <Grid style={{paddingTop: '65px'}}  xs={3}>
@@ -122,16 +122,14 @@ function SongHome(props){
                         <VersionsLibrary versions={versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
                     </List>
                 </Grid>
-                <Grid style={{height: '100%'}}  xs={6}>
+                <Grid xs={6}>
                     <LyricSheet song={song} />
                 </Grid>
-                <Grid style={{paddingTop: '65px', height: '675px'}} xs={3}>   
-                   
-                        <LyricHelpers />
-                    
+                <Grid style={{paddingTop: '65px', height: '675px'}} xs={3}>                      
+                        <LyricHelpers />                    
                 </Grid>
             </Grid>      
         </div>
-        )
+    )
 }
 export default SongHome 

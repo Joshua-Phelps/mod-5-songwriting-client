@@ -29,17 +29,22 @@ export default function Form(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    if (!props.collections){
-      if (!collection){
-        alert('You must select a collection')
+    if (!input){
+      alert('Please enter a title')
+    } else {
+      if (props.collections){
+        console.log(collection)
+        if (!collection){
+          alert('You must select a collection')
+        } else {
+          setOpen(false);
+          props.onAddInput(input, collection)
+          props.onCloseForm()
+        }
       } else {
-        setOpen(false);
-        props.onAddInput(input, props.id)
+        props.form === 'Song' ? props.onAddInput(input, collection) : props.onAddInput(input, props.id)
         props.onCloseForm()
       }
-    } else {
-      props.form === 'Song' ? props.onAddInput(input, collection) : props.onAddInput(input, props.id)
-      props.onCloseForm()
     }
   }
 
@@ -67,6 +72,7 @@ export default function Form(props) {
         open={open}
         onClose={handleClose}
         closeAfterTransition
+        // disableAutoFocus={true}
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
@@ -74,13 +80,13 @@ export default function Form(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Create New {props.form}</h2>
+            <h2 className='form-header' id="transition-modal-title">Create New {props.form}</h2>
 
                 <form className={classes.form} onSubmit={handleSubmit} noValidate>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <TextField
-                        variant="outlined"
+                        variant="filled"
                         required
                         fullWidth
                         id="username"                   
@@ -117,8 +123,9 @@ export default function Form(props) {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  color="primary"
-                  className={classes.submit}
+                  // color="secondary"
+                  // classes={{color: classes.button.color}}
+                  className={classes.button}
                 >
                   Submit
                 </Button>
@@ -142,8 +149,15 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: '8px solid #004d66',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    outline: 'none',
   },
+  button: {
+    backgroundColor: '#004d66',
+    color: 'white'
+  }
 }));
+
+// '#376b4c'
