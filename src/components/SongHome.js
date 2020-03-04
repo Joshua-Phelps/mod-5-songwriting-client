@@ -15,15 +15,9 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
     root: {
-    //   width: '100%',
       padding: '30px',
-    //   backgroundColor: 'rgba(55, 107, 76, 0.7)',
-    //   backgroundColor: theme.palette.background.paper,
-    // backgroundColor: '#fffae6',
-    //   maxHeight: 700,
-      flexGrow: 1, 
-      overflow: 'auto'
-     
+    //   flexGrow: 1, 
+    //   overflow: 'auto'  
     },
   }));
 
@@ -119,20 +113,22 @@ function SongHome(props){
                 /> : null}
                 
             <Grid className={classes.root} container spacing={3}>
-                <Grid style={{paddingTop: '65px'}}  xs={4}>
-                    <List className={"muiPaper-root-darker"} component="nav" style={{width: '90%'}}  aria-label="mailbox folders">
-                        <h3 className='light-text'>Record New Version</h3>
+                <Grid style={{paddingTop: '65px'}}  xs={3}>
+                    <List className={"muiPaper-root-darker"} component="nav" style={{width: '90%', height:'70%'}}  aria-label="mailbox folders">
+                        <h3 style={{textAlign: 'center'}} className='light-text'>Record New Version</h3>
                         <ListItem divider>
                             <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
                         </ListItem>          
                         <VersionsLibrary versions={versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
                     </List>
                 </Grid>
-                <Grid  xs={4}>
+                <Grid style={{height: '100%'}}  xs={6}>
                     <LyricSheet song={song} />
                 </Grid>
-                <Grid style={{paddingTop: '65px'}} xs={4}>   
+                <Grid style={{paddingTop: '65px', height: '675px'}} xs={3}>   
+                   
                         <LyricHelpers />
+                    
                 </Grid>
             </Grid>      
         </div>

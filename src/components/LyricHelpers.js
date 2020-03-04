@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '5px',
     paddingBottom: '5px',
     backgroundColor: 'rgba(55, 107, 76, 0.9)',
+    color: '#f2f3f7'
   },
   form: {
     '& > *': {
@@ -33,16 +34,14 @@ const useStyles = makeStyles(theme => ({
     paper: {
       padding: theme.spacing(1),
       textAlign: 'center',
-      // color: theme.palette.text.primary,
+      width: '100%'
     },
     paper2: {
       padding: theme.spacing(1),
       textAlign: 'left',
-      // color: theme.palette.text.primary,
     },
     synonyms: {
       textAlign: 'left',
-      // color: theme.palette.text.primary
     },
     indicator: {
       backgroundColor: 'white',
@@ -115,20 +114,23 @@ export default function LyricHelpers() {
   }
 
   return (
-    <Paper square className={classes.root}>
+    <Paper square style={{maxHeight: '110%'}} className={classes.root}>
         <form className={classes.form} onSubmit={handleSubmit}>
             <TextField id="filled-basic" style={{borderColor: 'white'}} label="Search Word" onChange={handleWordChange} variant="filled" />
         </form>
         <br></br>
+      <TableContainer className={"muiPaper-root-darker"} component={Paper} >
       <Tabs
         value={tabValue}
         className={'light-text'}
         onChange={handleTabChange}
-        variant="fullWidth"
+        // variant="fullWidth"
+        variant="scrollable"
         indicatorColor='white'
         classes={{
           indicator: classes.indicator
         }}
+        scrollButtons="auto"
         // textColor="secondary"
         aria-label="icon label tabs example"
       >
@@ -136,10 +138,11 @@ export default function LyricHelpers() {
         <Tab label="Rhymes" />
         <Tab label="Dictionary" />
       </Tabs>
+      </TableContainer>
 
-      <TableContainer style={{maxHeight: '670px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
+      <TableContainer style={{ maxHeight: '550px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
       <TableBody >
-      <div  >
+      <div >
         {tabValue === 0 ? (
           <div className={classes.root}>
             <h2></h2>

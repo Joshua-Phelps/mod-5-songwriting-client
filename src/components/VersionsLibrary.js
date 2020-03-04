@@ -18,7 +18,6 @@ function VerisonsLibrary (props) {
     const [anchorEl, setAnchorEl] = useState(null);
 
 
-
     const handleClose = () => {
         setAnchorEl(null);
       };
@@ -60,7 +59,9 @@ function VerisonsLibrary (props) {
 
     return(
         <Fragment>
-            <TableContainer style={{maxHeight: '650px'}}  className={"muiPaper-root-darker"} component={Paper}>
+                        {/* <TableContainer style={{maxHeight: '650px'}}  className={"muiPaper-root-darker"} component={Paper}> */}
+
+            <TableContainer className={"muiPaper-root-darker"} style={{height:'78%'}} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>

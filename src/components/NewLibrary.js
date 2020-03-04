@@ -58,7 +58,7 @@ function NewLibrary(props){
             </Paper>
         </Grid>
         <Grid item xs={8}>
-          <Paper className={"muiPaper-root"} >
+          <Paper style={{maxHeight: '100%'}} className={"muiPaper-root"} >
           <Button onClick={handleOpenSongForm} className={classes.button2}>+ New Song</Button><br></br>
             <SongLibrary 
             {...props} 

@@ -12,17 +12,19 @@ import TableContainer from '@material-ui/core/TableContainer';
 
 
 function ChordEditor(props){
-    const [lyrics, setLyrics] = useState(``)
+    const [lyrics, setLyrics] = useState('')
     const [hideText, setHideText] = useState(false)
     const [saving, setSaving] = useState(false)
     const classes = useStyles();
-    
+
     const handleChange = e => {
         setLyrics(e.target.value)
     }
 
     const handleHideText = () => {
         setHideText(!hideText)
+        // api.songs.editLyrics(props.song.id, lyrics)
+        // handleSave()
     }
     
     const getChordMarkup = () => {
@@ -40,7 +42,6 @@ function ChordEditor(props){
     }
 
     const handleSave = () => {
-        console.log('saving')
         api.songs.editLyrics(props.song.id, lyrics)
         setSaving(true)
         setTimeout(() => {
@@ -64,7 +65,7 @@ function ChordEditor(props){
                     <textarea 
                             style={{width: '90%', height: '150px', color: "#deede7", fontSize: '120%'}}
                             onChange={handleChange} 
-                            defaultValue={props.song.lyrics}
+                            defaultValue={lyrics ? lyrics : props.song.lyrics}
                             className={"muiPaper-root-darker"}
                         />
                     </TableContainer>
@@ -78,9 +79,9 @@ function ChordEditor(props){
                 </Fragment>
                 )}
             </div>
-            <div style={{maxWidth: '90%'}} >
+            <div style={{maxWidth: '95%', height: '100%' }} >
                 <h3 className="light-text">{props.song.title} Lyrics</h3>
-                <TableContainer style={{overFlow: 'auto', maxHeight: '500px', maxWidth: '100%'}}>
+                <TableContainer style={{overFlow: 'auto', overFlowX: 'auto', maxHeight: '10%'}}>
                 <div
                     style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%', font:'Lucida Console'}}        
                     dangerouslySetInnerHTML={getChordMarkup()}

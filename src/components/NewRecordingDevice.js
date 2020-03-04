@@ -90,17 +90,18 @@ class NewRecordingDevice extends Component {
           <div className='recording-holder'>
               { active ? (
                 <Tooltip title="Recording">
-                  <div id="container" onClick={this.stopRecording}>
+                  <div className='loader' onClick={this.stopRecording}></div>
+                  {/* <div id="container" onClick={this.stopRecording}>
                     <div class="circle2">
                     </div>            
-                  </div>
+                  </div> */}
                 </Tooltip>
-              ) : <Tooltip title="Record"><MicIcon className='light-text' onClick={this.startRecording} /></Tooltip>}
+              ) : <Tooltip title="Record"><MicIcon className='light-text' style={{color: '#cc0000'}} onClick={this.startRecording} /></Tooltip>}
               {audioBlob ? <Tooltip title="Redo"><RedoIcon className='light-text' onClick={this.reset} /></Tooltip>  : null}
               {audioBlob ? <Tooltip title="Save"><VersionForm onSave={this.save} /></Tooltip> : null}
               <br></br>
               <audio src={audioUrl} controls  />
-        </div>
+        </div> 
     )
   }
 }

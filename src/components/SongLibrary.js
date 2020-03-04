@@ -96,7 +96,7 @@ function SongLibrary (props) {
    
     return(
         <Fragment>
-            <div>
+            <div style={{height: '10%'}}>
             {(openEdit
             ) ? (
                 <EditForm 
