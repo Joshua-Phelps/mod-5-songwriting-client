@@ -98,6 +98,14 @@ const deleteSong = (songId) => {
   }).then(res => res.json())
 }
 
+const addVersion = (data) => {
+  return fetch(`${API_ROOT}/versions`, {
+    method: "POST",
+    headers: headers(),
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+}
+
 const deleteVersion = (id) => {
   return fetch(`${API_ROOT}/versions/${id}`, {
     method: "DELETE"
@@ -159,7 +167,8 @@ export const api = {
   versions: {
       getSongVersions,
       deleteVersion,
-      editVersion
+      editVersion,
+      addVersion
   },
   songs: {
       addSong,

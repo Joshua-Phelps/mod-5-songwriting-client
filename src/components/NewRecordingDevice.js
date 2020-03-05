@@ -31,14 +31,17 @@ class NewRecordingDevice extends Component {
   prepareRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true})
     .then( stream => {
-      const audioCtx = new AudioContext(stream)
+      // const audioCtx = new AudioContext(stream)
       let mediaRecorder = new MediaRecorder(stream, {type: 'audio/wav'})
-      this.setState({ mediaRecorder: mediaRecorder, audioCtx: audioCtx})
+      // this.setState({ mediaRecorder: mediaRecorder, audioCtx: audioCtx})
+      this.setState({ mediaRecorder: mediaRecorder})
+
     })
   }
 
 
   startRecording = () => {
+    // this.prepareRecording()
     this.state.mediaRecorder.start()
     this.setState({ active: true})
     this.state.mediaRecorder.addEventListener('dataavailable', e => {
@@ -58,7 +61,11 @@ class NewRecordingDevice extends Component {
 
   emergencyStop = () => {
     if (this.state.active === true) {this.state.mediaRecorder.stop()}
-    this.setState({ mediaRecorder: null, audioBlob: null, audioUrl: null, active: false})
+    this.setState({ mediaRecorder: null, audioBlob: null, audioUrl: null, active: false, audioChunks: []})
+  }
+
+  clearState = () => {
+    this.setState({ mediaRecorder: null, audioBlob: null, audioUrl: null, active: false, audioChunks: []})
   }
 
   createFileFromBlob = (title) => {
@@ -66,11 +73,20 @@ class NewRecordingDevice extends Component {
       return file 
   }
 
+  clearAudioSrc = () => {
+    const audioPlayer = document.getElementById('audio')
+    audioPlayer.src = 'none'
+  }
+
   reset = () => {
-    this.setState({ audioChunks: [], audioBlob: null, audioUrl: null })
+    this.clearAudioSrc()
+    this.setState({ mediaRecorder: null, audioChunks: [], audioBlob: null, audioUrl: null })
+    this.prepareRecording()
   }
 
   save = (title) => {
+    this.clearAudioSrc()
+    // navigator.mediaDevices.getUserMedia({ audio: false})
     let recording = this.createFileFromBlob(title)
     let formData = new FormData()
     formData.append("id", this.props.songId)
@@ -81,7 +97,9 @@ class NewRecordingDevice extends Component {
         body: formData
     })
     .then(res => res.json()).then(json => this.props.onAddVersion(json))
-    .then(() => this.emergencyStop()).then(() => this.prepareRecording())
+    .then(() => this.clearState()).then(() => this.prepareRecording())
+    // .then(() => co)
+    // .then(() => audioPlayer.removeAttribute('src'))
   }
 
   render(){
@@ -100,7 +118,7 @@ class NewRecordingDevice extends Component {
               {audioBlob ? <Tooltip title="Redo"><RedoIcon className='light-text' onClick={this.reset} /></Tooltip>  : null}
               {audioBlob ? <Tooltip title="Save"><VersionForm onSave={this.save} /></Tooltip> : null}
               <br></br>
-              <audio src={audioUrl} controls  />
+              <audio id='audio' src={audioUrl} controls  />
         </div> 
     )
   }

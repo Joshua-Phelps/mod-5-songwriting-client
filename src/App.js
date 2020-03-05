@@ -69,43 +69,93 @@ class App extends Component {
 
   addCollection = (collectionName, userId) => {
     api.collections.addCollection(collectionName, userId)
-    .then(data => this.setState({ ...this.state, auth: { user: data }  }))
+    .then(newCollection => this.setState(prevState => ({
+      ...prevState, auth: {
+          user: {
+            ...prevState.auth.user, 
+            collections: [newCollection, ...prevState.auth.user.collections]
+          }
+        }
+    })))
   }
 
   editCollection = (collectionName, collectionId) => {
     api.collections.editCollection(collectionName, collectionId)
-    .then(data => this.setState({ ...this.state, auth: { user: data }  }))
+    .then(editedCollection => this.setState(prevState => ({
+      ...prevState, auth : {
+        user: {
+          ...prevState.auth.user,
+          collections: prevState.auth.user.collections.map(c => {
+            if (c.id === editedCollection.id) return editedCollection
+            return c
+          })
+        }
+      }
+    })))
   }
 
   deleteCollection = (id) => {
     api.collections.deleteCollection(id)
-    .then(data => this.setState({ ...this.state, auth: { user: data }  }))
+    .then(() => this.setState(prevState => ({
+      ...prevState, auth : {
+        user: {
+          ...prevState.auth.user,
+          collections: prevState.auth.user.collections.filter(c => {
+            if (c.id !== id) return c
+          })
+        }
+      }
+    })))
   }
 
   addSong = (songTitle, collectionId) => {
     api.songs.addSong(songTitle, collectionId)
-    .then(data => this.setState({ ...this.state, auth: { user: data } }))
+    .then(song => this.setState(prevState => ({
+      ...prevState, auth: {
+          user: {
+            ...prevState.auth.user, 
+            songs: [song, ...prevState.auth.user.songs]
+          }
+        }
+    })))
   }
 
   editSong = (songTitle, collectionId, songId) => {
     api.songs.editSong(songTitle, collectionId, songId)
-    .then(data => this.setState({ ...this.state, auth: { user: data } }))
-    // .then(data => console.log(data))
+    .then(editedSong => this.setState(prevState => ({
+      ...prevState, auth : {
+        user: {
+          ...prevState.auth.user,
+          songs: prevState.auth.user.songs.map(song => {
+            if (song.id === editedSong.id) return editedSong
+            return song 
+          })
+        }
+      }
+    })))
   }
 
   deleteSong = (songId) => {
     api.songs.deleteSong(songId)
-    .then(data => this.setState({ ...this.state, auth: { user: data } }))
+    .then(() => this.setState(prevState => ({
+      ...prevState, auth : {
+        user: {
+          ...prevState.auth.user,
+          songs: prevState.auth.user.songs.filter(song => {
+            if (song.id !== songId) return song
+          })
+        }
+      }
+    })))
   }
 
   deleteAccount = (userId) => {
-    console.log(userId)
     api.account.deleteAccount(userId)
     .then(() => this.logout())
   }
 
   collectionSelect = (id) => {
-    this.setState({...this.state, selectedCollectionId: id})
+    this.setState(prevState => ({...prevState, selectedCollectionId: id}))
   }
 
   selectSong = (stringId) => {
@@ -115,7 +165,7 @@ class App extends Component {
   }
 
   setSongSearch = (value) => {
-    this.setState(prevState => this.setState({...prevState, search: value}) )
+    this.setState(prevState => ({...prevState, search: value.toLowerCase()}))
   }
 
   tokenPathCheck = (props) => {
@@ -127,22 +177,15 @@ class App extends Component {
       return false 
   }
 
-
-
   render() {
     const token = localStorage.getItem("token")
     const { user } = this.state.auth
     const { selectedCollectionId } = this.state
     const songsByCollection = user.songs.filter(song => {
-      if (!selectedCollectionId){
-        return song
-      } else {
-        if(song.collection_id === selectedCollectionId){
-          return song 
-        }
-      }
+      if (!selectedCollectionId) return song
+      if(song.collection_id === selectedCollectionId) return song 
     })
-    const songs = songsByCollection.filter(song => song.title.includes(this.state.search))
+    const songs = songsByCollection.filter(song => song.title.toLowerCase().includes(this.state.search))
 
 
     return (
@@ -165,11 +208,6 @@ class App extends Component {
             path="/"
             render={props => (token ? <NavBar {...props} user={user} onLogout={this.logout} onLogin={this.login} /> : (props.location.pathname !== "/signup" ? <Redirect to="/login" /> : <Redirect to="/signup" /> ))}
             />
-
-            {/* <Route
-            path="/"
-            render={props => (token ? <Redirect to="/home" /> : null)}
-            /> */}
 
             <Route
             path="/home"
@@ -211,7 +249,6 @@ class App extends Component {
 
             <Route
             path="/"
-            // render={props => console.log(props)}
             render={props => this.tokenPathCheck(props) ? <Redirect to="/home" /> : null}
             />    
         </Router>
@@ -220,16 +257,5 @@ class App extends Component {
   }
 }
 
-// App.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
-
-// const styles = theme => ({
-//   root: {
-//     textAlign: 'center',
-//     paddingTop: theme.spacing.unit * 20,
-//   },
-// });
-
 export default App; 
-// export default withRoot(styled(styles)(App))
+

@@ -64,18 +64,28 @@ function SongHome(props){
         setSelectedVersion('')
     }
 
-    const addVersion = data => {
-        fetchSong()
+    const addVersion = newVersion => {
+        setVersions([newVersion, ...versions])
     }
 
     const deleteVersion = (id) => {
         api.versions.deleteVersion(id)
-        .then(data => (setSong(data.song), setVersions(data.versions)))       
+        .then(() => setVersions(prevVersions => prevVersions.filter(v => {
+                if (v.id !== id) return v 
+            })
+        ))      
+    }
+
+    const replaceVersion = (newVersion) => {
+        setVersions(prevVersions => prevVersions.map(v => {
+            if (v.id === newVersion.id) return newVersion
+            return v
+        }))
     }
 
     const editVersion = (title, id) => {
         api.versions.editVersion(id, title)
-        .then(data => (setSong(data.song), setVersions(data.versions)))
+        .then(version => replaceVersion(version))
     }
 
     return(

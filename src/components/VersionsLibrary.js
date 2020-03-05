@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import Player from './Player'
+import PlayerModal from './PlayerModal'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,6 +17,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 function VerisonsLibrary (props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
+    // const [showPlayer, setShowPlayer] = useState(false)
+    const [selectedVersion, setSelectedVersion] = useState(false)
 
 
     const handleClose = () => {
@@ -26,21 +29,24 @@ function VerisonsLibrary (props) {
         setAnchorEl(e.currentTarget)
     }
 
-   
+   const handleSelectVersion = (version) => {
+        setSelectedVersion(version)
+   }
+
+   const handleClearVersion = () => {
+       setSelectedVersion(false)
+   }
 
     const renderVersions = () => {
-
         return props.versions.map(version => {
             const { title, id } = version
             const dateStr = new Date(version.created_at).toString()
             const date = dateStr.split('GMT')[0].slice(0, -4)
             return (
                 <Fragment>
-                        {/* <TableCell style={{paddingRight: '5px'}} align="left"> */}
                         <TableCell >
-                        <Tooltip title={date}><h4 className='light-text'>{title}</h4></Tooltip>
+                        <Tooltip title={date}><h4 onClick={() => handleSelectVersion(version)} className='light-text'>{title}</h4></Tooltip>
                         </TableCell>
-                        {/* <TableCell style={{width: '100%', paddingRight: '5px', paddingLeft: '0px'}} component="th" scope="row"> */}
 
                         <TableCell className={classes.audioTable} component="th" scope="row">
                             <Player recording={version.recording} />
@@ -59,6 +65,7 @@ function VerisonsLibrary (props) {
 
     return(
         <Fragment>
+            {selectedVersion ? <PlayerModal onClose={handleClearVersion} version={selectedVersion} /> : null}
             <TableContainer className={"muiPaper-root-darker"} style={{maxHeight:'600px'}} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
