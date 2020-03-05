@@ -80,12 +80,24 @@
 
 .background-img {
   /* background-color: #004d66!important; */
-  background-image: url("https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
+  background-image: url('./images/backgroundGuitar.jpeg');
+  /* background-image: url("https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"); */
   height: 100vh; 
   background-position: center;
   /* background-repeat: no-repeat; */
     /* background-size: cover; */
   margin: 0;
+}
+
+.login-image {
+  background-image: url(./images/loginGuitar.jpeg);
+  /* backgroundImage: 'url(https://images.unsplash.com/photo-1550291652-6ea9114a47b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80)', */
+  /* backgroundImage: 'url(https://images.pexels.com/photos/15919/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)', */
+  background-repeat: no-repeat;
+  /* backgroundColor:
+    theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50], */
+  background-size: cover;
+  background-position: center;
 }
 
 .white-background {

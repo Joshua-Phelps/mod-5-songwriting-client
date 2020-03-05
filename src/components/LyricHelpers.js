@@ -10,47 +10,6 @@ import TableContainer from '@material-ui/core/TableContainer'
 import { TableBody } from '@material-ui/core';;
 
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 500,
-    textAlign: 'center',
-    paddingLeft: '10px',
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    backgroundColor: 'rgba(55, 107, 76, 0.9)',
-    color: '#f2f3f7'
-  },
-  form: {
-    '& > *': {
-        margin: theme.spacing(1),
-        width: 200,
-        backgroundColor: '#f2f3f7'
-        },
-    },
-    paperRoot: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(1),
-      textAlign: 'center',
-      width: '100%'
-    },
-    paper2: {
-      padding: theme.spacing(1),
-      textAlign: 'left',
-    },
-    synonyms: {
-      textAlign: 'left',
-    },
-    indicator: {
-      backgroundColor: 'white',
-    },
-    input: {
-      borderColor: 'white'
-  }
-}));
-
 export default function LyricHelpers() {
   const classes = useStyles();
   const [word, setWord] = useState('')
@@ -58,6 +17,7 @@ export default function LyricHelpers() {
   const [definitions, setDefinitions] = useState([])
   const [synonyms, setSynonyms] = useState([])
   const [tabValue, setTabValue] = useState(0);
+
   const oneSyl = rhymes.filter(word => word.numSyllables === 1)
   const twoSyl = rhymes.filter(word => word.numSyllables === 2)
   const threeSyl = rhymes.filter(word => word.numSyllables === 3)
@@ -124,7 +84,6 @@ export default function LyricHelpers() {
         value={tabValue}
         className={'light-text'}
         onChange={handleTabChange}
-        // variant="fullWidth"
         variant="scrollable"
         indicatorColor='white'
         classes={{
@@ -140,7 +99,7 @@ export default function LyricHelpers() {
       </Tabs>
       </TableContainer>
 
-      <TableContainer style={{ maxHeight: '550px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
+      <TableContainer style={{ maxHeight: '600px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
       <TableBody >
       <div >
         {tabValue === 0 ? (
@@ -197,3 +156,44 @@ export default function LyricHelpers() {
     </Paper>
   );
 }
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    maxWidth: 500,
+    textAlign: 'center',
+    paddingLeft: '10px',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    backgroundColor: 'rgba(55, 107, 76, 0.9)',
+    color: '#f2f3f7'
+  },
+  form: {
+    '& > *': {
+        margin: theme.spacing(1),
+        width: 200,
+        backgroundColor: '#f2f3f7'
+        },
+    },
+    paperRoot: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(1),
+      textAlign: 'center',
+      width: '100%'
+    },
+    paper2: {
+      padding: theme.spacing(1),
+      textAlign: 'left',
+    },
+    synonyms: {
+      textAlign: 'left',
+    },
+    indicator: {
+      backgroundColor: 'white',
+    },
+    input: {
+      borderColor: 'white'
+  }
+}));

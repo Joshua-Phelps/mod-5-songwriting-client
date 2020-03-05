@@ -10,6 +10,8 @@ import Divider from '@material-ui/core/Divider';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
+import TableContainer from '@material-ui/core/TableContainer';
+import Paper from '@material-ui/core/Paper';
 
 
 function CollectionLibrary (props) {
@@ -88,9 +90,11 @@ function CollectionLibrary (props) {
 
             <Button className={classes.button}  onClick={(e) => handleClick(e, all)}>All Collections</Button>
             <Divider classes={{root: classes.divider}} />
-             <List className={classes.root} >
-            {props.collections ? renderCollections(): null}
-            </List>
+            <TableContainer style={{ maxHeight: '600px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>         
+                <List className={classes.root} >
+                {props.collections ? renderCollections(): null}
+                </List>
+            </TableContainer>
         </div>
     )
 }

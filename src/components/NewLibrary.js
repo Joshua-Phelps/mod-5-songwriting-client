@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 function NewLibrary(props){
@@ -27,6 +28,10 @@ function NewLibrary(props){
 
   const handleCloseCollectionForm = () => {
     setOpenCollectionForm(false)
+  }
+
+  const handleSearch = e => {
+    props.onSearch(e.target.value)
   }
 
   return (
@@ -59,7 +64,11 @@ function NewLibrary(props){
         </Grid>
         <Grid item xs={8}>
           <Paper style={{maxHeight: '100%'}} className={"muiPaper-root"} >
-          <Button onClick={handleOpenSongForm} className={classes.button2}>+ New Song</Button><br></br>
+          <Button onClick={handleOpenSongForm} className={classes.button2}>+ New Song</Button>
+          <form className={classes.form} >
+            <TextField id="filled-basic" style={{borderColor: 'white'}} onChange={handleSearch} label="Search Song" variant="filled" />
+          </form>
+          <br></br>
             <SongLibrary 
             {...props} 
             onEditSong={props.onEditSong} 
@@ -81,8 +90,6 @@ export default NewLibrary
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    // opacity: 0.6,
-    // color: 'white'
   },
   list: {
     opacity: 0.8,
@@ -92,41 +99,34 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'left',
     padding: '10px',
     color: "#deede7"
-    // color: theme.palette.text.secondary,
   },
   button2: {
     textAlign: 'end',
     padding: '10px',
     color: "#deede7"
-    // color: theme.palette.text.secondary,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    // color: theme.palette.text.secondary,
     height: '100%'
-  },
-  image: {
-    // backgroundImage: 'url(https://source.unsplash.com/random)',
-    // backgroundImage: 'url(https://images.unsplash.com/photo-1550291652-6ea9114a47b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80)',
-    backgroundImage: 'url(https://images.pexels.com/photos/15919/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-    theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
   },
   paperLeft: {
     adding: theme.spacing(2),
     padding: '10px',
     textAlign: 'left',
-    // color: theme.palette.text.secondary,
     height: '40%'
   },
   collectionText: {
     padding: '40px',
     textAlign: 'left',
-    // color: theme.palette.text.primary,
-  }
-
+  },
+  search: {
+    color: 'white'
+  },
+  form: {
+    '& > *': {
+        margin: theme.spacing(1),
+        width: 200,
+        backgroundColor: '#f2f3f7',
+  }}
 }));

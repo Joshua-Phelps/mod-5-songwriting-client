@@ -12,21 +12,25 @@ import { api } from "./services/api";
 
 
 class App extends Component {
-  
 
-  state = {
-    auth: {
-      user: { 
-        collections: [],
-        id: null,
-        songs: [],
-        username: '',
-        versions : []
-       }
-    },
-    selectedCollectionId: false,
-    selectedSong: {collection_id: null, id: null, lyrics: null, title: null},  
+  constructor(){
+    super()
+    this.state = {
+      auth: {
+        user: { 
+          collections: [],
+          id: null,
+          songs: [],
+          username: '',
+          versions : []
+         }
+      },
+      selectedCollectionId: false,
+      selectedSong: {collection_id: null, id: null, lyrics: null, title: null},
+      search: ''  
+    }
   }
+
 
   componentDidMount() {
     const token = localStorage.getItem("token");
@@ -110,6 +114,10 @@ class App extends Component {
     this.setState({selectedSong: song})
   }
 
+  setSongSearch = (value) => {
+    this.setState(prevState => this.setState({...prevState, search: value}) )
+  }
+
   tokenPathCheck = (props) => {
     const token = localStorage.getItem("token")
     const path = props.location.pathname.split('/')[1]
@@ -125,7 +133,7 @@ class App extends Component {
     const token = localStorage.getItem("token")
     const { user } = this.state.auth
     const { selectedCollectionId } = this.state
-    const songs = user.songs.filter(song => {
+    const songsByCollection = user.songs.filter(song => {
       if (!selectedCollectionId){
         return song
       } else {
@@ -134,6 +142,7 @@ class App extends Component {
         }
       }
     })
+    const songs = songsByCollection.filter(song => song.title.includes(this.state.search))
 
 
     return (
@@ -178,6 +187,7 @@ class App extends Component {
               onEditCollection={this.editCollection}
               onDeleteCollection={this.deleteCollection}
               onSelectSong={this.selectSong}
+              onSearch={this.setSongSearch}
               /> : <Redirect to="/login" />)}
             />
 

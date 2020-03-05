@@ -9,6 +9,9 @@ import { makeStyles, withTheme } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
+import TableContainer from '@material-ui/core/TableContainer';
+import Paper from '@material-ui/core/Paper';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -96,7 +99,7 @@ function SongLibrary (props) {
    
     return(
         <Fragment>
-            <div style={{height: '10%'}}>
+            <div>
             {(openEdit
             ) ? (
                 <EditForm 
@@ -113,9 +116,11 @@ function SongLibrary (props) {
             )}
             {(openSongDelete ? <DeleteForm onDelete={props.onDeleteSong} message={'This will remove all versions of this song'} onCloseForm={handleCloseSongDelete} id={songId} title={title} /> : null)}
             <Divider className={classes.divider} />
-            <List className={classes.root} >
-                {props.songs ? renderSongs(): null}
-            </List>
+            <TableContainer style={{ maxHeight: '600px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>         
+                <List className={classes.root} >
+                    {props.songs ? renderSongs(): null}
+                </List>
+            </TableContainer>
             </div>
         </Fragment>
     )

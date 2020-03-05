@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     border: '8px solid #004d66',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    outline: 'none',
   },
   button: {
     backgroundColor: '#004d66',
@@ -74,7 +75,7 @@ export default function VersionForm(props) {
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <TextField
-                        variant="outlined"
+                        variant="filled"
                         required
                         fullWidth
                         id="username"                   
@@ -91,7 +92,7 @@ export default function VersionForm(props) {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  color="primary"
+                  // color="primary"
                   className={classes.button}
                 >
                   Submit

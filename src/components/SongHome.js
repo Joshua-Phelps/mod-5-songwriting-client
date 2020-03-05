@@ -13,13 +13,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
 
-const useStyles = makeStyles(theme => ({
-    root: {
-      padding: '30px',
-    //   flexGrow: 1, 
-    //   overflow: 'auto'  
-    },
-  }));
 
 function SongHome(props){
     const [song, setSong] = useState({
@@ -27,11 +20,8 @@ function SongHome(props){
         title: '', 
         lyrics: '', 
         collection_id: null, 
-        number_of_versions: null, 
-        // versions: [] 
     })
     const [versions, setVersions ] = useState([])
-    // const [versions, setVersions] = useState([])
     const [openEditVersion, setOpenEditVersion] = useState(false)
     const [openDeleteVersion, setOpenDeleteVersion] = useState(false)
     const [selectedVersion, setSelectedVersion] = useState('')
@@ -39,7 +29,6 @@ function SongHome(props){
 
     useEffect(() => {
         fetchSong()
-        // props.onSelectSong(props.match.params.id)
       }, []);
 
     const fetchSong = () => {
@@ -51,8 +40,7 @@ function SongHome(props){
             if (!props.song){
                 props.onSelectSong(data.song)
             }
-        })
-        
+        })  
     }
 
 
@@ -67,7 +55,6 @@ function SongHome(props){
     }
 
     const handleOpenEditVerison = (e, version) => {
-        console.log('yes')
         setOpenEditVersion(!openEditVersion)
         setSelectedVersion(version)
     }
@@ -78,9 +65,6 @@ function SongHome(props){
     }
 
     const addVersion = data => {
-        setSong(data.song)
-        setVersions(data.versions)
-        // renderVersions()
         fetchSong()
     }
 
@@ -112,9 +96,9 @@ function SongHome(props){
                 message={`This will permenently remove this version`} 
             /> : null}
                 
-            <Grid className={classes.root} container spacing={3}>
+            <Grid className={classes.root} style={{maxHeight: '60px'}} container spacing={3}>
                 <Grid style={{paddingTop: '65px'}}  xs={3}>
-                    <List className={"muiPaper-root-darker"} component="nav" style={{width: '90%', height:'70%'}}  aria-label="mailbox folders">
+                    <List className={"muiPaper-root-darker"} component="nav" style={{width: '90%', maxHeight: '70%'}}  aria-label="mailbox folders">
                         <h3 style={{textAlign: 'center'}} className='light-text'>Record New Version</h3>
                         <ListItem divider>
                             <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
@@ -133,3 +117,9 @@ function SongHome(props){
     )
 }
 export default SongHome 
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      padding: '30px',  
+    },
+  }));

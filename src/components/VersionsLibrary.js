@@ -29,11 +29,11 @@ function VerisonsLibrary (props) {
    
 
     const renderVersions = () => {
+
         return props.versions.map(version => {
             const { title, id } = version
             const dateStr = new Date(version.created_at).toString()
             const date = dateStr.split('GMT')[0].slice(0, -4)
-        
             return (
                 <Fragment>
                         {/* <TableCell style={{paddingRight: '5px'}} align="left"> */}
@@ -59,9 +59,7 @@ function VerisonsLibrary (props) {
 
     return(
         <Fragment>
-                        {/* <TableContainer style={{maxHeight: '650px'}}  className={"muiPaper-root-darker"} component={Paper}> */}
-
-            <TableContainer className={"muiPaper-root-darker"} style={{height:'78%'}} component={Paper}>
+            <TableContainer className={"muiPaper-root-darker"} style={{maxHeight:'600px'}} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>
