@@ -100,6 +100,10 @@
   background-position: center;
 }
 
+.MuiDivider-root.makeStyles-divider2-313 {
+  border-bottom: solid 1px white;
+} 
+
 .white-background {
   background: white;
   height: 100vh;

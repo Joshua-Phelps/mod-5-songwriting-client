@@ -96,16 +96,26 @@ class App extends Component {
 
   deleteCollection = (id) => {
     api.collections.deleteCollection(id)
-    .then(() => this.setState(prevState => ({
+    // .then(() => this.setState(prevState => ({
+    //   ...prevState, auth : {
+    //     user: {
+    //       ...prevState.auth.user,
+    //       collections: prevState.auth.user.collections.filter(c => {
+    //         if (c.id !== id) return c
+    //       })
+    //     }
+    //   }
+    // })))
+    .then((data) => this.setState(prevState => ({
       ...prevState, auth : {
         user: {
           ...prevState.auth.user,
-          collections: prevState.auth.user.collections.filter(c => {
-            if (c.id !== id) return c
-          })
+          collections: data.collections,
+          songs: data.songs
         }
       }
     })))
+    
   }
 
   addSong = (songTitle, collectionId) => {

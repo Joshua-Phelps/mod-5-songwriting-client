@@ -37,6 +37,7 @@ function CollectionLibrary (props) {
                     
 
                     </ListItem>
+
                     <Divider classes={{root: classes.divider}} />
                     </div>
                 )
@@ -119,6 +120,7 @@ const useStyles = makeStyles(theme => ({
     },
     divider: {
         backgroundColor: "#f2f3f7",
+        borderBottom: 'solid 1px white'
         // color: 'white'
     }
   }));

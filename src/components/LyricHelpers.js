@@ -99,7 +99,7 @@ export default function LyricHelpers() {
       </Tabs>
       </TableContainer>
 
-      <TableContainer style={{ maxHeight: '600px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
+      <TableContainer style={{ maxHeight: '550px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
       <TableBody >
       <div >
         {tabValue === 0 ? (

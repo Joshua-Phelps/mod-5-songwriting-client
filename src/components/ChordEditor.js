@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import ChordSheetJS from 'chordsheetjs'
+import Paper from '@material-ui/core/Paper';
 import Chord from 'chordjs'
 import SaveIcon from '@material-ui/icons/Save';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
@@ -79,9 +80,9 @@ function ChordEditor(props){
                 </Fragment>
                 )}
             </div>
-            <div style={{maxWidth: '95%', maxHeight: '500px' }} >
+            <div style={{maxWidth: '95%', maxHeight: '450px' }} >
                 <h3 className="light-text">{props.song.title} Lyrics</h3>
-                <TableContainer style={{overFlow: 'auto', overFlowX: 'auto', maxHeight: '500px'}}>
+                <TableContainer style={{overFlow: 'auto', overFlowX: 'auto', maxHeight: '450px'}}>
                 <div
                     style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%'}}        
                     dangerouslySetInnerHTML={getChordMarkup()}

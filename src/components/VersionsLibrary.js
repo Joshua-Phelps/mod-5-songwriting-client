@@ -66,7 +66,7 @@ function VerisonsLibrary (props) {
     return(
         <Fragment>
             {selectedVersion ? <PlayerModal onClose={handleClearVersion} version={selectedVersion} /> : null}
-            <TableContainer className={"muiPaper-root-darker"} style={{maxHeight:'600px'}} component={Paper}>
+            <TableContainer className={"muiPaper-root-darker"} style={{maxHeight:'550px'}} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>

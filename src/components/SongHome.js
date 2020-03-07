@@ -73,7 +73,8 @@ function SongHome(props){
         .then(() => setVersions(prevVersions => prevVersions.filter(v => {
                 if (v.id !== id) return v 
             })
-        ))      
+        ))
+      
     }
 
     const replaceVersion = (newVersion) => {
