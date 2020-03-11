@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import NavBar from './components/NavBar'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
@@ -152,7 +152,8 @@ class App extends Component {
         user: {
           ...prevState.auth.user,
           songs: prevState.auth.user.songs.filter(song => {
-            if (song.id !== songId) return song
+            if (song.id === songId) return null
+            return song 
           })
         }
       }
@@ -193,7 +194,8 @@ class App extends Component {
     const { selectedCollectionId } = this.state
     const songsByCollection = user.songs.filter(song => {
       if (!selectedCollectionId) return song
-      if(song.collection_id === selectedCollectionId) return song 
+      if (song.collection_id === selectedCollectionId) return song
+      return null 
     })
     const songs = songsByCollection.filter(song => song.title.toLowerCase().includes(this.state.search))
 
@@ -204,7 +206,6 @@ class App extends Component {
             <Route
             path="/login"
             exact
-            render={props => console.log(props)}
             render={props => !token ? <Login {...props} onLogin={this.login} /> : <Redirect to="/home" />}
             />
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, version } from 'react'
+import React, { useState, useEffect } from 'react'
 import { api } from "../services/api";
 import DeleteForm from './DeleteForm'
 import EditForm from './EditForm'
@@ -26,22 +26,22 @@ function SongHome(props){
     const [openDeleteVersion, setOpenDeleteVersion] = useState(false)
     const [selectedVersion, setSelectedVersion] = useState('')
     const classes = useStyles();
+    const { id } = props.match.params
+    const { onSelectSong } = props
+    const selectedSong = props.song
 
-    useEffect(() => {
-        fetchSong()
-      }, []);
-
-    const fetchSong = () => {
-        api.versions.getSongVersions(props.match.params.id)
+    useEffect(() => {        
+        api.versions.getSongVersions(id)
         .then(res => res.json())
         .then(data => {
             setSong(data.song)
             setVersions(data.versions)
-            if (!props.song){
-                props.onSelectSong(data.song)
+            if (!selectedSong){
+                onSelectSong(data.song)
             }
         })  
-    }
+      }, [id, onSelectSong, selectedSong]);
+
 
 
     const handleOpenDeleteVersion = (e, version) => {
@@ -72,6 +72,7 @@ function SongHome(props){
         api.versions.deleteVersion(id)
         .then(() => setVersions(prevVersions => prevVersions.filter(v => {
                 if (v.id !== id) return v 
+                return null
             })
         ))
       
@@ -108,7 +109,7 @@ function SongHome(props){
             /> : null}
                 
             <Grid className={classes.root} style={{maxHeight: '60px'}} container spacing={3}>
-                <Grid style={{paddingTop: '65px'}}  xs={3}>
+                <Grid style={{paddingTop: '65px'}} item  xs={3}>
                     <List className={"muiPaper-root-darker"} component="nav" style={{width: '90%', maxHeight: '70%'}}  aria-label="mailbox folders">
                         <h3 style={{textAlign: 'center'}} className='light-text'>Record New Version</h3>
                         <ListItem divider>
@@ -117,10 +118,10 @@ function SongHome(props){
                         <VersionsLibrary versions={versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
                     </List>
                 </Grid>
-                <Grid xs={6}>
+                <Grid item xs={6}>
                     <LyricSheet song={song} />
                 </Grid>
-                <Grid style={{paddingTop: '65px', height: '675px'}} xs={3}>                      
+                <Grid item style={{paddingTop: '65px', height: '675px'}} xs={3}>                      
                         <LyricHelpers />                    
                 </Grid>
             </Grid>      

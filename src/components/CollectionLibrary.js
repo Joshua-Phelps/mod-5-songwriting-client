@@ -25,8 +25,8 @@ function CollectionLibrary (props) {
             return props.collections.map(collection => {
                 const {id, collection_name } = collection
                 return (
-                    <div>
-                    <ListItem key={collection.id}>
+                    <div key={collection.id}>
+                    <ListItem >
                         <ListItem button onClick={(e) => handleClick(e, id)}>
                             <ListItemText id={collection.id} className={classes.text} primary={`${collection.collection_name}`} />
                         </ListItem> 

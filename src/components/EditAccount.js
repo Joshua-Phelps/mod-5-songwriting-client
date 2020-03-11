@@ -22,7 +22,12 @@ function EditAccount(props) {
 
     return (
         <div>
-            {openDelete ? <DeleteForm onDelete={props.onDelete} message={'This will permenently delete your account'} onCloseForm={handleDelete} id={props.id} title={`${props.username}'s account`} /> : null}
+            {openDelete ? <DeleteForm 
+                onDelete={props.onDelete} 
+                message={'This will permenently delete your account'} 
+                onCloseForm={handleDelete} 
+                id={props.id} 
+                title={`${props.username}'s account`} /> : null}
             
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
@@ -31,18 +36,18 @@ function EditAccount(props) {
                         Edit Account
                     </Typography>
                         <div className={classes.root}>
-                        <List className={classes.list} component='nav'>                                                      
-                            <ListItem button onClick={handleDelete}>
-                                <ListItemIcon>
-                                    <DeleteIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Delete Account" />
-                            </ListItem>                               
-                        </List>
+                            <List className={classes.list} component='nav'>                                                      
+                                <ListItem button onClick={handleDelete}>
+                                    <ListItemIcon>
+                                        <DeleteIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Delete Account" />
+                                </ListItem>                               
+                            </List>
                         </div>                    
                 </div>
             </Container>
-        // </div>
+        </div>
     )
 }
 export default EditAccount

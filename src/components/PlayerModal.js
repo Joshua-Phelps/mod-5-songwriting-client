@@ -4,7 +4,6 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Player from './Player'
 
 export default function Form(props) {
@@ -26,7 +25,6 @@ export default function Form(props) {
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        // disableAutoFocus={true}
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
@@ -42,8 +40,7 @@ export default function Form(props) {
                   
                     <Grid item xs={12}>
                     </Grid>
-                </Grid>
-           
+                </Grid>           
           </div>
         </Fade>
       </Modal>
@@ -57,7 +54,6 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         outline: 'none',
-        // width: '100px'
       },
       paper: {
         backgroundColor: theme.palette.background.paper,

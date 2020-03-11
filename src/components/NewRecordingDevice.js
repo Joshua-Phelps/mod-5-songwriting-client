@@ -1,9 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import VersionForm from './VersionForm'
-import Form from './Form'
-import AudioVisualizer from './AudioVisualizer'
 import MicIcon from '@material-ui/icons/Mic';
-import StopIcon from '@material-ui/icons/Stop';
 import RedoIcon from '@material-ui/icons/Redo';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -25,15 +22,14 @@ class NewRecordingDevice extends Component {
   }
 
   componentWillUnmount(){
+    // this.state.mediaRecorder.getTracks()[0].stop()
     this.emergencyStop()
   }
 
   prepareRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true})
     .then( stream => {
-      // const audioCtx = new AudioContext(stream)
       let mediaRecorder = new MediaRecorder(stream, {type: 'audio/wav'})
-      // this.setState({ mediaRecorder: mediaRecorder, audioCtx: audioCtx})
       this.setState({ mediaRecorder: mediaRecorder})
 
     })

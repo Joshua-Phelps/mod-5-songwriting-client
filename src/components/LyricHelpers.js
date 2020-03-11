@@ -85,7 +85,7 @@ export default function LyricHelpers() {
         className={'light-text'}
         onChange={handleTabChange}
         variant="scrollable"
-        indicatorColor='white'
+        // indicatorColor='white'
         classes={{
           indicator: classes.indicator
         }}
@@ -101,20 +101,19 @@ export default function LyricHelpers() {
 
       <TableContainer style={{ maxHeight: '550px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
       <TableBody >
-      <div >
+      
         {tabValue === 0 ? (
-          <div className={classes.root}>
-            <h2></h2>
-            <Grid container spacing={1}>
+          
+            <Grid container style={{paddingTop: '10px'}} spacing={1}>
               <Grid container item xs={12} spacing={3}>
                 {renderSynonyms()}
               </Grid>
             </Grid>
-          </div>
+        
           ) : null}
 
         {(tabValue === 1) ? (
-          <div className={classes.root}>
+        <div className={classes.root}>
           <Grid container spacing={1}>
               {oneSyl.length > 0 ? <h3 className={classes.root}>One Syllable</h3> : ''}
             <Grid container item xs={12} spacing={3}>
@@ -150,7 +149,7 @@ export default function LyricHelpers() {
             </Grid>
           </div>
           ) : null}
-      </div>
+      
       </TableBody>
       </TableContainer>
     </Paper>

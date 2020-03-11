@@ -1,22 +1,17 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import ChordSheetJS from 'chordsheetjs'
-import Paper from '@material-ui/core/Paper';
-import Chord from 'chordjs'
 import SaveIcon from '@material-ui/icons/Save';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { api } from '../services/api';
 import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
 import TableContainer from '@material-ui/core/TableContainer';
-// import Paper from '@material-ui/core/Paper';
 
 
 function ChordEditor(props){
     const [lyrics, setLyrics] = useState('')
     const [hideText, setHideText] = useState(false)
     const [saving, setSaving] = useState(false)
-    const classes = useStyles();
 
     const handleChange = e => {
         setLyrics(e.target.value)
@@ -24,8 +19,6 @@ function ChordEditor(props){
 
     const handleHideText = () => {
         setHideText(!hideText)
-        // api.songs.editLyrics(props.song.id, lyrics)
-        // handleSave()
     }
     
     const getChordMarkup = () => {
@@ -33,12 +26,10 @@ function ChordEditor(props){
             const parser = new ChordSheetJS.ChordProParser()
             const song = parser.parse(lyrics)
             if (song.lines[0].items.length !== 0){
-                console.log('yes')
                 const htmlChordSheet = new ChordSheetJS.HtmlTableFormatter().format(song)
                 return { __html: htmlChordSheet}
             }
             console.log(song.lines[0].items)
-            // const textChordSheet = new ChordSheetJS.TextFormatter().format(song)
         } 
     }
 
@@ -51,10 +42,6 @@ function ChordEditor(props){
        
     }
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        console.log(e)
-    }
 
     return(
         <Fragment>
@@ -94,10 +81,3 @@ function ChordEditor(props){
     )
 }
 export default ChordEditor 
-
-const useStyles = makeStyles({
-    text: {
-        color: "#f2f3f7",
-        fontWeight: 'bold'
-    }
-  });

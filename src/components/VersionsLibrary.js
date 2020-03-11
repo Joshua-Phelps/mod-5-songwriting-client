@@ -16,18 +16,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 function VerisonsLibrary (props) {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = useState(null);
-    // const [showPlayer, setShowPlayer] = useState(false)
     const [selectedVersion, setSelectedVersion] = useState(false)
 
-
-    const handleClose = () => {
-        setAnchorEl(null);
-      };
- 
-    const handleClick = e => {
-        setAnchorEl(e.currentTarget)
-    }
 
    const handleSelectVersion = (version) => {
         setSelectedVersion(version)
