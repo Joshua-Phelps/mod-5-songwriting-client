@@ -12,23 +12,25 @@ import { api } from "./services/api";
 
 
 class App extends Component {
+  
+  INITIAL_STATE = {
+    auth: {
+      user: { 
+        collections: [],
+        id: null,
+        songs: [],
+        username: '',
+        versions : []
+       }
+    },
+    selectedCollectionId: false,
+    selectedSong: {collection_id: null, id: null, lyrics: null, title: null},
+    search: ''  
+  }
 
   constructor(){
     super()
-    this.state = {
-      auth: {
-        user: { 
-          collections: [],
-          id: null,
-          songs: [],
-          username: '',
-          versions : []
-         }
-      },
-      selectedCollectionId: false,
-      selectedSong: {collection_id: null, id: null, lyrics: null, title: null},
-      search: ''  
-    }
+    this.state = this.INITIAL_STATE
   }
 
 
@@ -36,11 +38,12 @@ class App extends Component {
     const token = localStorage.getItem("token");
     if (token) {
       api.auth.getCurrentUser().then(user => {
+        if (user.error) return alert(user.error)
         const updatedState = { ...this.state.auth, user: user };
         this.setState({ 
           auth: updatedState,
          });
-      });
+      }).catch(error => console.log(error))
     } 
   }
 
@@ -52,97 +55,92 @@ class App extends Component {
 
   logout = () => {
     localStorage.removeItem("token");
-    this.setState({
-      auth: {
-        user: { 
-          collections: [],
-          id: null,
-          songs: [],
-          username: '',
-          numberOfCollections: null
-         }
-      },
-      selectedCollectionId: false,
-      selectedSong: false   
-    });
+    this.setState(this.INITIAL_STATE)
   };
 
   addCollection = (collectionName, userId) => {
     api.collections.addCollection(collectionName, userId)
-    .then(newCollection => this.setState(prevState => ({
-      ...prevState, auth: {
+    .then(newCollection => {
+      if (newCollection.error) return alert("There was a problem. Please try again")
+      this.setState(prevState => ({
+        ...prevState, auth: {
           user: {
-            ...prevState.auth.user, 
+            ...prevState.auth.user,
             collections: [newCollection, ...prevState.auth.user.collections]
           }
         }
-    })))
+      })) 
+    }).catch(error => console.log(error))
   }
 
   editCollection = (collectionName, collectionId) => {
     api.collections.editCollection(collectionName, collectionId)
-    .then(editedCollection => this.setState(prevState => ({
-      ...prevState, auth : {
-        user: {
-          ...prevState.auth.user,
-          collections: prevState.auth.user.collections.map(c => {
-            if (c.id === editedCollection.id) return editedCollection
-            return c
-          })
+    .then(editedCollection => {
+      if (editedCollection.error) return alert("There was a problem. Please try again")
+      this.setState(prevState => ({
+        ...prevState, auth: {
+          user: {
+            ...prevState.auth.user,
+            collections: prevState.auth.user.collections.map(c => {
+              if (c.id === editedCollection.id) return editedCollection
+              return c
+            })
+          }
         }
-      }
-    })))
+      }))
+    }).catch(error => console.log(error))
   }
 
   deleteCollection = (id) => {
     api.collections.deleteCollection(id)
-    // .then(() => this.setState(prevState => ({
-    //   ...prevState, auth : {
-    //     user: {
-    //       ...prevState.auth.user,
-    //       collections: prevState.auth.user.collections.filter(c => {
-    //         if (c.id !== id) return c
-    //       })
-    //     }
-    //   }
-    // })))
-    .then((data) => this.setState(prevState => ({
+    .then(() => this.setState(prevState => ({
       ...prevState, auth : {
         user: {
           ...prevState.auth.user,
-          collections: data.collections,
-          songs: data.songs
+          collections: prevState.auth.user.collections.filter(c => {
+            if (c.id !== id) return c
+            return null
+          }),
+          songs: prevState.auth.user.songs.filter(s => {
+            if (s.collection_id !== id) return s
+            return null 
+          })
         }
       }
-    })))
-    
+    }))).catch(error => console.log(error))
   }
 
   addSong = (songTitle, collectionId) => {
     api.songs.addSong(songTitle, collectionId)
-    .then(song => this.setState(prevState => ({
-      ...prevState, auth: {
-          user: {
-            ...prevState.auth.user, 
-            songs: [song, ...prevState.auth.user.songs]
+    .then(song => {
+      if (song.error) return alert("There was a problem. Please try again")
+      this.setState(prevState => ({
+        ...prevState, auth: {
+            user: {
+              ...prevState.auth.user, 
+              songs: [song, ...prevState.auth.user.songs]
+            }
           }
-        }
-    })))
+      }))
+    }).catch((error) => console.log(error))
   }
 
   editSong = (songTitle, collectionId, songId) => {
     api.songs.editSong(songTitle, collectionId, songId)
-    .then(editedSong => this.setState(prevState => ({
-      ...prevState, auth : {
-        user: {
-          ...prevState.auth.user,
-          songs: prevState.auth.user.songs.map(song => {
-            if (song.id === editedSong.id) return editedSong
-            return song 
-          })
+    .then(editedSong => {
+      if (editedSong.error) return alert("There was a problem. Please try again")
+      this.setState(prevState => ({
+        ...prevState, auth: {
+          user: {
+            ...prevState.auth.user,
+            songs: prevState.auth.user.songs.map(song => {
+              if (song.id === editedSong.id) return editedSong 
+              return song 
+            })
+          }
         }
-      }
-    })))
+      }))
+    }).catch((error) => console.log(error))
   }
 
   deleteSong = (songId) => {

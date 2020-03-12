@@ -54,7 +54,6 @@ export default EditAccount
 
 const useStyles = makeStyles(theme => ({
     paper: {
-    //   marginTop: theme.spacing(8),
       marginTop: theme.spacing(15),
       display: 'flex',
       flexDirection: 'column',

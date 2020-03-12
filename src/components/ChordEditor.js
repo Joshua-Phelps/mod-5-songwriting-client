@@ -29,7 +29,6 @@ function ChordEditor(props){
                 const htmlChordSheet = new ChordSheetJS.HtmlTableFormatter().format(song)
                 return { __html: htmlChordSheet}
             }
-            console.log(song.lines[0].items)
         } 
     }
 
@@ -38,8 +37,7 @@ function ChordEditor(props){
         setSaving(true)
         setTimeout(() => {
            setSaving(false)
-        }, 1000)
-       
+        }, 1000)    
     }
 
 

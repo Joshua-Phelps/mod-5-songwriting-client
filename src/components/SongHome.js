@@ -60,6 +60,7 @@ function SongHome(props){
     }
 
     const addVersion = newVersion => {
+        if (newVersion.error) return alert(newVersion.error)
         setVersions([newVersion, ...versions])
     }
 
@@ -82,7 +83,11 @@ function SongHome(props){
 
     const editVersion = (title, id) => {
         api.versions.editVersion(id, title)
-        .then(version => replaceVersion(version))
+        .then(version => {
+            if (version.error) return alert(version.error)
+            replaceVersion(version)
+        }).catch(error => console.log(error))
+        // .then(version => replaceVersion(version))
     }
 
     return(

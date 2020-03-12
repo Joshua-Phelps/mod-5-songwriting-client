@@ -32,7 +32,6 @@ export default function Form(props) {
       alert('Please enter a title')
     } else {
       if (props.collections){
-        console.log(collection)
         if (!collection){
           alert('You must select a collection')
         } else {
@@ -47,7 +46,6 @@ export default function Form(props) {
     }
   }
 
-
   const handleSelect = e => {
     setCollection(e.target.value)
   }
@@ -60,8 +58,6 @@ export default function Form(props) {
     }
   }
 
-
-
   return (
     <div>
       <Modal
@@ -71,7 +67,6 @@ export default function Form(props) {
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        // disableAutoFocus={true}
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
@@ -80,50 +75,45 @@ export default function Form(props) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 className='form-header' id="transition-modal-title">Create New {props.form}</h2>
-
-                <form className={classes.form} onSubmit={handleSubmit} noValidate>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="filled"
-                        required
-                        fullWidth
-                        id="username"                   
-                        label={`Title`}
-                        name="title"
-                        value={input}
-                        onChange={handleChange}
-                      />
-                    </Grid>
-                  
-                    <Grid item xs={12}>
-
-                    { props.form === 'Song' ? (
-                      <div>
-                        <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
-                        <Grid item xs={12}>
-                          <br></br>
-                        </Grid>
-                        <Select
-                          labelId="simple-select"
-                          id="simple-select"
-                          value={collection}
-                          style={{width: '100%'}}                   
-                          onChange={handleSelect}                
-                          >
-                          {renderCollections()}
-                        </Select>                  
-                      </div>
+              <form className={classes.form} onSubmit={handleSubmit} noValidate>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="filled"
+                      required
+                      fullWidth
+                      id="username"                   
+                      label={`Title`}
+                      name="title"
+                      value={input}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                  { props.form === 'Song' ? (
+                    <div>
+                      <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
+                      <Grid item xs={12}>
+                        <br></br>
+                      </Grid>
+                      <Select
+                        labelId="simple-select"
+                        id="simple-select"
+                        value={collection}
+                        style={{width: '100%'}}                   
+                        onChange={handleSelect}                
+                        >
+                        {renderCollections()}
+                      </Select>                  
+                    </div>
                       ) :  null}
-                    </Grid>
+                  </Grid>
                 </Grid>
                 {props.form === 'Song' ?  <Grid item xs={12}><br></br></Grid> : null }
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
-                  // color="secondary"
-                  // classes={{color: classes.button.color}}
                   className={classes.button}
                 >
                   Submit
@@ -158,5 +148,3 @@ const useStyles = makeStyles(theme => ({
     color: 'white'
   }
 }));
-
-// '#376b4c'

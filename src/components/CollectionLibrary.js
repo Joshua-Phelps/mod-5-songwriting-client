@@ -26,19 +26,18 @@ function CollectionLibrary (props) {
                 const {id, collection_name } = collection
                 return (
                     <div key={collection.id}>
-                    <ListItem >
-                        <ListItem button onClick={(e) => handleClick(e, id)}>
-                            <ListItemText id={collection.id} className={classes.text} primary={`${collection.collection_name}`} />
-                        </ListItem> 
-                       
-                        <Tooltip title="Delete"><DeleteIcon  onClick={(e) => handleOpenDelete(e, collection_name, id)}/></Tooltip>
-                        <Tooltip title="Edit"><EditIcon onClick={(e) => handleOpenEdit(e, collection_name, id)} /></Tooltip>
-                            {/* <ListItemText  primary='Edit' /> */}
-                    
-
-                    </ListItem>
-
-                    <Divider classes={{root: classes.divider}} />
+                        <ListItem >
+                            <ListItem button onClick={(e) => handleClick(e, id)}>
+                                <ListItemText id={collection.id} className={classes.text} primary={`${collection.collection_name}`} />
+                            </ListItem> 
+                            <Tooltip title="Delete">
+                                <DeleteIcon  onClick={(e) => handleOpenDelete(e, collection_name, id)}/>
+                            </Tooltip>
+                            <Tooltip title="Edit">
+                                <EditIcon onClick={(e) => handleOpenEdit(e, collection_name, id)} />
+                            </Tooltip>                                              
+                        </ListItem>
+                        <Divider classes={{root: classes.divider}} />
                     </div>
                 )
             }) 
@@ -93,7 +92,7 @@ function CollectionLibrary (props) {
             <Divider classes={{root: classes.divider}} />
             <TableContainer style={{ maxHeight: '500px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>         
                 <List className={classes.root} >
-                {props.collections ? renderCollections(): null}
+                    {props.collections ? renderCollections(): null}
                 </List>
             </TableContainer>
         </div>
@@ -106,7 +105,6 @@ const useStyles = makeStyles(theme => ({
     root: {
       width: '100%',
       maxWidth: '100%',
-    //  backgroundColor: 'rgba(55, 107, 76, 0.5)'
       backgroundColor: 'rgba(55, 107, 76, 0.7)',
       color: "#f2f3f7"
     },
@@ -121,6 +119,5 @@ const useStyles = makeStyles(theme => ({
     divider: {
         backgroundColor: "#f2f3f7",
         borderBottom: 'solid 1px white'
-        // color: 'white'
     }
   }));

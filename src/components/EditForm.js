@@ -17,8 +17,6 @@ export default function EditForm(props) {
   const [input, setInput] = useState(props.input)
   const [open, setOpen] = useState(true);
   const [collection, setCollection] = useState(props.collection)
-  
-
 
   const handleClose = () => {
     setOpen(false);
@@ -38,7 +36,6 @@ export default function EditForm(props) {
       setOpen(false);
     }
   }
-
 
   const handleSelect = e => {
     setCollection(e.target.value)
@@ -90,7 +87,6 @@ export default function EditForm(props) {
                     <Grid item xs={12}>
                     <br></br>
                     </Grid>
-                    
                     <Select
                       labelId="simple-select"
                       id="simple-select"
@@ -101,30 +97,24 @@ export default function EditForm(props) {
                       {renderCollections()}
                     </Select>
                   </div>
-                  ) : (null)}
-
-
-                  
+                  ) : (null)}               
                 </Grid>
-              <Grid item xs={12}>
-
+                <Grid item xs={12}>
+                </Grid>
               </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              // color="primary"
-              className={classes.button}
-            >
-              Submit
-            </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                className={classes.button}
+              >
+                Submit
+              </Button>
+              <Grid container justify="flex-end">
+                <Grid item>
+                </Grid>
               </Grid>
-            </Grid>
-        </form>
-        
+            </form>        
           </div>
         </Fade>
       </Modal>

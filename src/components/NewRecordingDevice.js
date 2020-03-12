@@ -82,7 +82,6 @@ class NewRecordingDevice extends Component {
 
   save = (title) => {
     this.clearAudioSrc()
-    // navigator.mediaDevices.getUserMedia({ audio: false})
     let recording = this.createFileFromBlob(title)
     let formData = new FormData()
     formData.append("id", this.props.songId)
@@ -94,8 +93,7 @@ class NewRecordingDevice extends Component {
     })
     .then(res => res.json()).then(json => this.props.onAddVersion(json))
     .then(() => this.clearState()).then(() => this.prepareRecording())
-    // .then(() => co)
-    // .then(() => audioPlayer.removeAttribute('src'))
+    .catch(error => console.log(error))
   }
 
   render(){
@@ -105,10 +103,6 @@ class NewRecordingDevice extends Component {
               { active ? (
                 <Tooltip title="Recording">
                   <div className='loader' onClick={this.stopRecording}></div>
-                  {/* <div id="container" onClick={this.stopRecording}>
-                    <div class="circle2">
-                    </div>            
-                  </div> */}
                 </Tooltip>
               ) : <Tooltip title="Record"><MicIcon className='light-text' style={{color: '#cc0000'}} onClick={this.startRecording} /></Tooltip>}
               {audioBlob ? <Tooltip title="Redo"><RedoIcon className='light-text' onClick={this.reset} /></Tooltip>  : null}
