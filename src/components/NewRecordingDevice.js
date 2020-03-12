@@ -112,7 +112,7 @@ class NewRecordingDevice extends Component {
                 </Tooltip>
               ) : <Tooltip title="Record"><MicIcon className='light-text' style={{color: '#cc0000'}} onClick={this.startRecording} /></Tooltip>}
               {audioBlob ? <Tooltip title="Redo"><RedoIcon className='light-text' onClick={this.reset} /></Tooltip>  : null}
-              {audioBlob ? <Tooltip title="Save"><VersionForm onSave={this.save} /></Tooltip> : null}
+              {audioBlob ? <VersionForm onSave={this.save} /> : null}
               <br></br>
               <audio id='audio' src={audioUrl} controls  />
         </div> 

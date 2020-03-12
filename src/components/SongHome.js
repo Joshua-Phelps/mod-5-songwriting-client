@@ -6,10 +6,6 @@ import VersionsLibrary from './VersionsLibrary'
 import NewRecordingDevice from './NewRecordingDevice'
 import LyricHelpers from './LyricHelpers'
 import LyricSheet from './LyricSheet'
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
 
@@ -25,7 +21,6 @@ function SongHome(props){
     const [openEditVersion, setOpenEditVersion] = useState(false)
     const [openDeleteVersion, setOpenDeleteVersion] = useState(false)
     const [selectedVersion, setSelectedVersion] = useState('')
-    const classes = useStyles();
     const { id } = props.match.params
     const { onSelectSong } = props
     const selectedSong = props.song
@@ -108,20 +103,27 @@ function SongHome(props){
                 message={`This will permenently remove this version`} 
             /> : null}
                 
-            <Grid className={classes.root} style={{maxHeight: '60px'}} container spacing={3}>
-                <Grid style={{paddingTop: '65px'}} item  xs={3}>
-                    <List className={"muiPaper-root-darker"} component="nav" style={{width: '90%', maxHeight: '70%'}}  aria-label="mailbox folders">
+            <Grid container spacing={3}>
+                <Grid style={{paddingTop: '2%', paddingLeft: '2%'}} item  xs={3}>
                         <h3 style={{textAlign: 'center'}} className='light-text'>Record New Version</h3>
-                        <ListItem divider>
-                            <ListItemText primary={<NewRecordingDevice onAddVersion={addVersion} songId={props.match.params.id}/>} />
-                        </ListItem>          
-                        <VersionsLibrary versions={versions} song={song} username={props.username} handleOpenDeleteVersion={handleOpenDeleteVersion} handleOpenEditVerison={handleOpenEditVerison} />
-                    </List>
+                        <div style={{paddingBottom: '10px'}}>
+                            <NewRecordingDevice 
+                                onAddVersion={addVersion} 
+                                songId={props.match.params.id}
+                            />
+                        </div>
+                        <VersionsLibrary 
+                            versions={versions} 
+                            song={song} 
+                            username={props.username} 
+                            handleOpenDeleteVersion={handleOpenDeleteVersion} 
+                            handleOpenEditVerison={handleOpenEditVerison} 
+                        />
                 </Grid>
                 <Grid item xs={6}>
                     <LyricSheet song={song} />
                 </Grid>
-                <Grid item style={{paddingTop: '65px', height: '675px'}} xs={3}>                      
+                <Grid item style={{paddingTop: '2%', paddingRight: '2%'}} xs={3}>                      
                         <LyricHelpers />                    
                 </Grid>
             </Grid>      
@@ -129,9 +131,3 @@ function SongHome(props){
     )
 }
 export default SongHome 
-
-const useStyles = makeStyles(theme => ({
-    root: {
-      padding: '30px',  
-    },
-  }));

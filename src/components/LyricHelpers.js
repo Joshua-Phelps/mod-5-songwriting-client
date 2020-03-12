@@ -7,7 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import TableContainer from '@material-ui/core/TableContainer'
-import { TableBody } from '@material-ui/core';;
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 
 
 export default function LyricHelpers() {
@@ -42,31 +43,30 @@ export default function LyricHelpers() {
 
   const renderRhymes = (words) => {
     if (words){
-      return words.map(word => {
+      return words.map((word, idx) => {
         return (
-          <Grid item xs={4}>
+          <GridListTile key={idx} >
             <Paper className={classes.paper}>{word.word}</Paper>
-          </Grid>
+          </GridListTile>
         )
       })
     }
   }
 
   const renderSynonyms = () => {
-    return synonyms.map(syn => {
+    return synonyms.map((syn, idx) => {
       return (
-        <Grid item xs={4}>
+        <GridListTile key={idx} >
           <Paper className={classes.paper}>{syn}</Paper>
-        </Grid>
+        </GridListTile>
       )
     })
   }
 
-
   const renderDefinitions = (definitions) => {
-    return definitions.map(def => {
+    return definitions.map((def, idx) => {
       return (
-        <Grid style={{paddingTop: '10px'}} item xs={12}>
+        <Grid key={idx} style={{paddingTop: '10px'}} item xs={12}>
           <Paper style={{width: '90%'}} className={classes.paper2} > - {def.definition}</Paper>
         </Grid>
       )
@@ -74,7 +74,7 @@ export default function LyricHelpers() {
   }
 
   return (
-    <Paper square style={{maxHeight: '110%'}} className={classes.root}>
+    <Paper square className={classes.root}>
         <form className={classes.form} onSubmit={handleSubmit}>
             <TextField id="filled-basic" style={{borderColor: 'white'}} label="Search Word" onChange={handleWordChange} variant="filled" />
         </form>
@@ -84,13 +84,11 @@ export default function LyricHelpers() {
         value={tabValue}
         className={'light-text'}
         onChange={handleTabChange}
-        variant="scrollable"
-        // indicatorColor='white'
+        variant="scrollable"       
         classes={{
           indicator: classes.indicator
         }}
         scrollButtons="auto"
-        // textColor="secondary"
         aria-label="icon label tabs example"
       >
         <Tab label="Synomyms" />
@@ -98,60 +96,46 @@ export default function LyricHelpers() {
         <Tab label="Dictionary" />
       </Tabs>
       </TableContainer>
+   
+      {tabValue === 0 ? (
+        <div className={classes.root2}>
+          <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
+            {renderSynonyms()}
+          </GridList>
+        </div>        
+      ) : null}
 
-      <TableContainer style={{ maxHeight: '550px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>
-      <TableBody >
-      
-        {tabValue === 0 ? (
-          
-            <Grid container style={{paddingTop: '10px'}} spacing={1}>
-              <Grid container item xs={12} spacing={3}>
-                {renderSynonyms()}
-              </Grid>
-            </Grid>
-        
-          ) : null}
-
-        {(tabValue === 1) ? (
-        <div className={classes.root}>
-          <Grid container spacing={1}>
-              {oneSyl.length > 0 ? <h3 className={classes.root}>One Syllable</h3> : ''}
-            <Grid container item xs={12} spacing={3}>
-              {renderRhymes(oneSyl)}
-            </Grid>
+      {(tabValue === 1) ? (
+        <div className={classes.root2}>
+          <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
+            {oneSyl.length > 0 ? <h3 className={classes.root}>One Syllable</h3> : ''}
+            <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
+              {renderRhymes(oneSyl)}  
+            </GridList>
             {twoSyl.length > 0 ? <h3 className={classes.root}>Two Syllables</h3> : ''}
-            <Grid container item xs={12} spacing={3}>
+            <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
               {renderRhymes(twoSyl)}
-            </Grid>
+            </GridList>
             {threeSyl.length > 0 ? <h3 className={classes.root}>Three Syllables</h3> : ''}
-            <Grid container item xs={12} spacing={3}>
-            {renderRhymes(threeSyl)}
-            </Grid>
-          </Grid>
+            <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
+              {renderRhymes(threeSyl)} 
+            </GridList>
+          </GridList>
         </div>
-          ) : null}
+      ) : null}
 
-        {tabValue === 2 ? (
-          <div className={classes.root}>
-            <Grid container spacing={1}>
-              {nouns.length > 0 ? <h3 className={classes.root}>Noun</h3> : ''}
-              <Grid container item xs={12}>
-                {renderDefinitions(nouns)}
-              </Grid>
-              {verbs.length > 0 ? <h3 className={classes.root}>Verb</h3> : ''}
-              <Grid container item xs={12}>
-                {renderDefinitions(verbs)}
-              </Grid>
-              {adjectives.length > 0 ? <h3 className={classes.root}>Adjective</h3> : ''}
-              <Grid container item xs={12}>
-                {renderDefinitions(adjectives)}
-              </Grid>
-            </Grid>
-          </div>
-          ) : null}
-      
-      </TableBody>
-      </TableContainer>
+      {tabValue === 2 ? (
+        <div className={classes.root2}>
+          <GridList cols={1} cellHeight={'auto'} className={classes.gridList}>
+            {nouns.length > 0 ? <h3 className={classes.root}>Noun</h3> : ''}
+            {renderDefinitions(nouns)}             
+            {verbs.length > 0 ? <h3 className={classes.root}>Verb</h3> : ''}              
+            {renderDefinitions(verbs)}              
+            {adjectives.length > 0 ? <h3 className={classes.root}>Adjective</h3> : ''}              
+            {renderDefinitions(adjectives)}          
+          </GridList>
+        </div>
+        ) : null}
     </Paper>
   );
 }
@@ -161,38 +145,33 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     maxWidth: 500,
     textAlign: 'center',
-    paddingLeft: '10px',
-    paddingTop: '5px',
-    paddingBottom: '5px',
+    padding: '2%',
     backgroundColor: 'rgba(55, 107, 76, 0.9)',
-    color: '#f2f3f7'
   },
   form: {
     '& > *': {
         margin: theme.spacing(1),
-        width: 200,
         backgroundColor: '#f2f3f7'
         },
-    },
-    paperRoot: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(1),
-      textAlign: 'center',
-      width: '100%'
-    },
-    paper2: {
-      padding: theme.spacing(1),
-      textAlign: 'left',
-    },
-    synonyms: {
-      textAlign: 'left',
-    },
-    indicator: {
-      backgroundColor: 'white',
-    },
-    input: {
-      borderColor: 'white'
-  }
+  },
+  paper: {
+    padding: theme.spacing(1),
+    paddingTop: '5px',
+    textAlign: 'center'
+  },
+  paper2: {
+    padding: theme.spacing(1),
+    textAlign: 'left',
+  },
+  indicator: {
+    backgroundColor: 'white',
+  },
+  gridList: {
+    width: '100%',
+    maxHeight: 530,
+  },
+  root2: {
+    display: 'flex',
+    overflow: 'hidden',
+  },
 }));

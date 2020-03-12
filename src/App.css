@@ -89,6 +89,24 @@
   margin: 0;
 }
 
+.MuiInputBase-input {
+  background-color: #f2f3f7;
+  /* font: inherit;
+  color: currentColor;
+  background-color: #f2f3f7;
+  width: 100%;
+  border: 0;
+  height: 1.1875em;
+  margin: 0;
+  display: block;
+  padding: 6px 0 7px;
+  min-width: 0;
+  background: none;
+  box-sizing: content-box;
+  animation-name: mui-auto-fill-cancel;
+  -webkit-tap-highlight-color: transparent; */
+}
+
 .login-image {
   background-image: url(./images/loginGuitar.jpeg);
   /* backgroundImage: 'url(https://images.unsplash.com/photo-1550291652-6ea9114a47b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80)', */

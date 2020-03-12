@@ -51,7 +51,7 @@ function ChordEditor(props){
                     <h3 className="light-text">Edit {props.song.title}'s Lyrics</h3>
                     <TableContainer style={{overFlow: 'auto'}}>
                     <textarea 
-                            style={{width: '90%', height: '150px', color: "#deede7", fontSize: '120%'}}
+                            style={{width: '100%', height: '150px', color: "#deede7", fontSize: '120%'}}
                             onChange={handleChange} 
                             defaultValue={lyrics ? lyrics : props.song.lyrics}
                             className={"muiPaper-root-darker"}
@@ -67,9 +67,9 @@ function ChordEditor(props){
                 </Fragment>
                 )}
             </div>
-            <div style={{maxWidth: '95%', maxHeight: '450px' }} >
+            <div style={{maxWidth: '100%'}} >
                 <h3 className="light-text">{props.song.title} Lyrics</h3>
-                <TableContainer style={{overFlow: 'auto', overFlowX: 'auto', maxHeight: '450px'}}>
+                <TableContainer style={{overFlow: 'auto', overFlowX: 'auto', maxHeight: '350px'}}>
                 <div
                     style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%'}}        
                     dangerouslySetInnerHTML={getChordMarkup()}

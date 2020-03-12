@@ -49,7 +49,7 @@ export default function DeleteForm(props) {
           <Button onClick={handleClose} color="primary">
             Go Back
           </Button>
-          <Button onClick={handleDelete} color="red" autoFocus>
+          <Button onClick={handleDelete} autoFocus>
             Delete
           </Button>
         </DialogActions>

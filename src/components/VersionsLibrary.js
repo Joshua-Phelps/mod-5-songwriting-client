@@ -33,21 +33,24 @@ function VerisonsLibrary (props) {
             const dateStr = new Date(version.created_at).toString()
             const date = dateStr.split('GMT')[0].slice(0, -4)
             return (
-                <Fragment>
-                        <TableCell >
-                        <Tooltip title={date}><h4 onClick={() => handleSelectVersion(version)} className='light-text'>{title}</h4></Tooltip>
+                    <TableRow key={id}>
+                        <TableCell>
+                            <Tooltip title={date}>
+                                <h4 onClick={() => handleSelectVersion(version)} className='light-text'>{title}</h4>
+                            </Tooltip>
                         </TableCell>
-
                         <TableCell className={classes.audioTable} component="th" scope="row">
                             <Player recording={version.recording} />
                         </TableCell>
                         <TableCell className={classes.editTable} >
-                            <Tooltip title='Delete'><DeleteIcon className='light-text' onClick={(e) => props.handleOpenDeleteVersion(e, version)} /></Tooltip>
-                            <Tooltip title='Edit'><EditIcon className='light-text' onClick={(e) => props.handleOpenEditVerison(e, version)} /></Tooltip>             
+                            <Tooltip title='Delete'>
+                                <DeleteIcon className='light-text' onClick={(e) => props.handleOpenDeleteVersion(e, version)} />
+                            </Tooltip>
+                            <Tooltip title='Edit'>
+                                <EditIcon className='light-text' onClick={(e) => props.handleOpenEditVerison(e, version)} />
+                            </Tooltip>             
                         </TableCell>
-                    <TableRow key={id}>
                     </TableRow>
-                </Fragment>
             )
         })
     }
@@ -56,7 +59,7 @@ function VerisonsLibrary (props) {
     return(
         <Fragment>
             {selectedVersion ? <PlayerModal onClose={handleClearVersion} version={selectedVersion} /> : null}
-            <TableContainer className={"muiPaper-root-darker"} style={{maxHeight:'550px'}} component={Paper}>
+            <TableContainer className={"muiPaper-root-darker"} style={{maxHeight:'530px'}} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>

@@ -116,7 +116,7 @@ function SongLibrary (props) {
             )}
             {(openSongDelete ? <DeleteForm onDelete={props.onDeleteSong} message={'This will remove all versions of this song'} onCloseForm={handleCloseSongDelete} id={songId} title={title} /> : null)}
             <Divider className={classes.divider} />
-            <TableContainer style={{ maxHeight: '600px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>         
+            <TableContainer style={{ maxHeight: '500px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>         
                 <List className={classes.root} >
                     {props.songs ? renderSongs(): null}
                 </List>

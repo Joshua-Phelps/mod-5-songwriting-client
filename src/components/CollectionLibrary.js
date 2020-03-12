@@ -91,7 +91,7 @@ function CollectionLibrary (props) {
 
             <Button className={classes.button}  onClick={(e) => handleClick(e, all)}>All Collections</Button>
             <Divider classes={{root: classes.divider}} />
-            <TableContainer style={{ maxHeight: '600px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>         
+            <TableContainer style={{ maxHeight: '500px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>         
                 <List className={classes.root} >
                 {props.collections ? renderCollections(): null}
                 </List>
