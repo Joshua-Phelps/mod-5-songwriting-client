@@ -87,9 +87,9 @@ class NewRecordingDevice extends Component {
     formData.append("id", this.props.songId)
     formData.append('recording', recording)
     formData.append('title', title)
-      fetch(`https://song-control.herokuapp.com/api/v1/versions`,{
-        method: 'POST', 
-        body: formData
+    fetch(`https://song-control.herokuapp.com/api/v1/versions`,{
+      method: 'POST', 
+      body: formData
     })
     .then(res => res.json()).then(json => this.props.onAddVersion(json))
     .then(() => this.clearState()).then(() => this.prepareRecording())
