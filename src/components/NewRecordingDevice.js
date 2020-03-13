@@ -87,7 +87,7 @@ class NewRecordingDevice extends Component {
     formData.append("id", this.props.songId)
     formData.append('recording', recording)
     formData.append('title', title)
-      fetch(`http://localhost:3000/api/v1/versions`,{
+      fetch(`https://song-control-client.herokuapp.com/api/v1/versions`,{
         method: 'POST', 
         body: formData
     })
