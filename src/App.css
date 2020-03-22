@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -26,7 +26,7 @@
 
 .App-link {
   color: #61dafb;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
@@ -37,7 +37,7 @@
   }
 }
 
-.muiGrid-grid-xs-3 {
+/* .muiGrid-grid-xs-3 {
   flex-grow: 0;
   max-width: 25%;
   flex-basis: 25%;
@@ -47,9 +47,9 @@
     color: #f2f3f7;
     font-weight: bold;
     padding-left: 5px;
-}
+} */
 
-.muiPaper-root {
+/* .muiPaper-root {
   background: rgba(55, 107, 76, 0.6)!important;
 
 }
@@ -61,22 +61,22 @@
 
 .muiPaper-root-darker {
   background: rgba(55, 107, 76, 0.9)!important;
-}
+} */
 
 .recording-holder audio {
   width: 100%; 
   height: 30px!important;
 }
 
-.background-color2 {
+/* .background-color2 {
   background-color: #004d66;
   /* height: '100vh'; */
   /* min-height: '100vh'; */
-}
+/* }  */
 
-.navbar-color {
+/* .navbar-color {
   background-color: '#004d66';
-}
+} */
 
 .background-img {
   /* background-color: #004d66!important; */
@@ -85,11 +85,21 @@
   height: 100vh; 
   background-position: center;
   /* background-repeat: no-repeat; */
-    /* background-size: cover; */
+  background-size: cover;
   margin: 0;
 }
 
-.MuiInputBase-input {
+/* .makeStyles-list-303 {
+  color: white;
+  margin: 0px;
+  text-align: center;
+  background-color: rgba(55, 107, 76, 0.7);
+  width: 100%;
+  height: 184px;
+  padding: 2px;
+} */
+
+/* .MuiInputBase-input {
   background-color: #f2f3f7;
   /* font: inherit;
   color: currentColor;
@@ -105,7 +115,7 @@
   box-sizing: content-box;
   animation-name: mui-auto-fill-cancel;
   -webkit-tap-highlight-color: transparent; */
-}
+/* }  */
 
 .login-image {
   background-image: url(./images/loginGuitar.jpeg);
@@ -118,7 +128,7 @@
   background-position: center;
 }
 
-.MuiDivider-root.makeStyles-divider2-313 {
+/* .MuiDivider-root.makeStyles-divider2-313 {
   border-bottom: solid 1px white;
 } 
 
@@ -130,10 +140,10 @@
 .background-color {
   /* background-color: #00004d; */
   /* background: rbg(55, 107, 76); */
-  background: rgba(55, 107, 76, 0.5)!important;
+  /* background: rgba(55, 107, 76, 0.5)!important;
   height: 100%;
   margin: 0;
-}
+}  */
 
 /* .body {
   height: 100vh;
@@ -145,10 +155,10 @@
   color: white;
 } */
 
-.form-header {
+/* .form-header {
   color: #004d66;
   text-align: center;
-}
+} */
 
 .loader {
   border: 2px solid #cc0000; /* Light grey */
@@ -168,13 +178,13 @@
 
 #container {
   /* position: absolute; */
-  /* align-content: left; */
+  align-content: left;
   left: 45%;
   height: 24px;
   width: 24px;
   border-radius: 50%;
   background: #004d66;
-}
+} 
 .circle1 {
   position: relative;
   /* align-content: left; */

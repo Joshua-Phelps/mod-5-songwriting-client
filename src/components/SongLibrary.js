@@ -1,28 +1,19 @@
 import React, { useState, Fragment } from 'react'
 import EditForm from './EditForm'
 import DeleteForm from './DeleteForm'
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
+import { List, GridList, ListItem, ListItemText, Divider, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import Tooltip from '@material-ui/core/Tooltip';
-import TableContainer from '@material-ui/core/TableContainer';
-import Paper from '@material-ui/core/Paper';
-
-
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-      width: '98%',
-      maxWidth: '100%',
-      backgroundColor: 'rgba(55, 107, 76, 0.7)',
-      textAlign: 'center',
-      color: 'white',
-      height: '100%',
-      
+    list: {
+        width: [['100%'], '!important'],
+        height: [['60vh'], '!important'],
+    },
+    container: {
+        backgroundColor: theme.palette.primary.dark, 
+        width: [['100%'], '!important'],
     },
     text: {
         paddingLeft: '20px',
@@ -33,14 +24,8 @@ const useStyles = makeStyles(theme => ({
         paddingRight: '10px'
     },
     divider: {
-        backgroundColor: "#deede7",
-        width: '98%'
-    },
-    divider2: {
-        backgroundColor: "#deede7",
-        width: '100%'
+        backgroundColor: "white",
     }
-
   }));
 
 function SongLibrary (props) {
@@ -74,34 +59,39 @@ function SongLibrary (props) {
     
 
     const renderSongs = () => {
-            return props.songs.map(song => {
-                const {id, title, collection_id } = song
-                
-                return (
-                    <Fragment key={song.id}>
-                        <ListItem key={song.id}>
-                            <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, song)}>
-                                <ListItemText className={'light-text'} primary={song.title} />
-                            </ListItem>
-                                <Tooltip title="Delete"><DeleteIcon className={'light-text'} onClick={(e) => handleOpenSongDelete(e, id, title)}/></Tooltip>
-                                <Tooltip title="Edit"><EditIcon className={'light-text'} onClick={(e) => handleOpenEdit(e, title, collection_id, id)}/></Tooltip>
+        return props.songs.map(song => {
+            const {id, title, collection_id } = song                
+            return (
+                <Fragment key={song.id}>
+                    <ListItem key={song.id}>
+                        <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, song)}>
+                            <ListItemText primary={song.title} />
                         </ListItem>
-                        <Divider className={classes.divider2}/>
-                    </Fragment>
-                )
-            })
+                            <Tooltip title="Delete">
+                                <DeleteIcon 
+                                    onClick={(e) => handleOpenSongDelete(e, id, title)}
+                                />
+                                </Tooltip>
+                            <Tooltip title="Edit">
+                                <EditIcon 
+                                    onClick={(e) => handleOpenEdit(e, title, collection_id, id)}
+                                />
+                            </Tooltip>
+                    </ListItem>
+                    <Divider className={classes.divider}/>
+                </Fragment>
+            )
+        })
     }
 
     const handleSongSelect = (e, song) => {
-        // props.onSelectSong(song)
         props.history.push(`/songs/${song.id}`)
     }
    
     return(
         <Fragment>
             <div>
-            {(openEdit
-            ) ? (
+            {openEdit && 
                 <EditForm 
                     input={title} 
                     form='Song' 
@@ -110,17 +100,23 @@ function SongLibrary (props) {
                     collection={collectionId} 
                     songId={songId}
                     onEditInput={props.onEditSong} 
+                /> 
+            }
+            {openSongDelete && 
+                <DeleteForm 
+                    onDelete={props.onDeleteSong} 
+                    message={'This will remove all versions of this song'} 
+                    onCloseForm={handleCloseSongDelete} 
+                    id={songId} 
+                    title={title} 
                 />
-            ) : (
-                null
-            )}
-            {(openSongDelete ? <DeleteForm onDelete={props.onDeleteSong} message={'This will remove all versions of this song'} onCloseForm={handleCloseSongDelete} id={songId} title={title} /> : null)}
+            }
             <Divider className={classes.divider} />
-            <TableContainer style={{ maxHeight: '500px', overFlow: 'auto'}} className={"muiPaper-root-darker"} component={Paper}>         
-                <List className={classes.root} >
-                    {props.songs ? renderSongs(): null}
+            <GridList className={classes.container} >         
+                <List className={classes.list} >
+                    {props.songs && renderSongs()}
                 </List>
-            </TableContainer>
+            </GridList>
             </div>
         </Fragment>
     )

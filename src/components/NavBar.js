@@ -13,12 +13,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
+      backgroundColor: theme.palette.secondary.main
     },
     menuButton: {
       marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
+      color: 'white'
     },
   }));
 
@@ -53,13 +52,13 @@ function NavBar(props){
   }
   return (
     <div className={classes.root}>
-      <AppBar style={{ backgroundColor: '#004d66'}} position="static">
+      <AppBar className={classes.root} position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.root}>
             Welcome {props.user.username}
           </Typography>
           <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                <MenuIcon style={{color: 'white'}} />
+                <MenuIcon />
           </Button>
           <Menu
               id="simple-menu"

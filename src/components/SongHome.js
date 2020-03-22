@@ -6,9 +6,8 @@ import VersionsLibrary from './VersionsLibrary'
 import NewRecordingDevice from './NewRecordingDevice'
 import LyricHelpers from './LyricHelpers'
 import LyricSheet from './LyricSheet'
-import Grid from '@material-ui/core/Grid';
-
-
+// import Grid from '@material-ui/core/Grid';
+import { makeStyles, Grid, Button } from '@material-ui/core';
 
 function SongHome(props){
     const [song, setSong] = useState({
@@ -21,9 +20,11 @@ function SongHome(props){
     const [openEditVersion, setOpenEditVersion] = useState(false)
     const [openDeleteVersion, setOpenDeleteVersion] = useState(false)
     const [selectedVersion, setSelectedVersion] = useState('')
+    const [openRecording, setOpenRecording] = useState(false)
     const { id } = props.match.params
     const { onSelectSong } = props
     const selectedSong = props.song
+    const classes = useStyles()
 
     useEffect(() => {        
         api.versions.getSongVersions(id)
@@ -92,47 +93,77 @@ function SongHome(props){
 
     return(
         <div >
-            {openEditVersion? <EditForm 
+            {openEditVersion && <EditForm 
                 input={selectedVersion.title} 
                 form='Version' 
                 onCloseForm={handleCloseEditVersion} 
                 id={selectedVersion.id} 
                 onEditInput={editVersion} 
-            /> : null }
+            />}
             
-            {openDeleteVersion ? <DeleteForm 
+            {openDeleteVersion && <DeleteForm 
                 onDelete={deleteVersion} 
                 onCloseForm={handleCloseDeleteVersion} 
                 id={selectedVersion.id} 
                 title={selectedVersion.title}
                 message={`This will permenently remove this version`} 
-            /> : null}
+            />}
                 
-            <Grid container spacing={3}>
-                <Grid style={{paddingTop: '2%', paddingLeft: '2%'}} item  xs={3}>
-                        <h3 style={{textAlign: 'center'}} className='light-text'>Record New Version</h3>
-                        <div style={{paddingBottom: '10px'}}>
-                            <NewRecordingDevice 
-                                onAddVersion={addVersion} 
-                                songId={props.match.params.id}
-                            />
-                        </div>
+            <Grid container className={classes.gridContainers} spacing={3}>
+                <Grid item  xs={3}>
                         <VersionsLibrary 
-                            versions={versions} 
-                            song={song} 
-                            username={props.username} 
-                            handleOpenDeleteVersion={handleOpenDeleteVersion} 
-                            handleOpenEditVerison={handleOpenEditVerison} 
+                        versions={versions} 
+                        song={song} 
+                        username={props.username} 
+                        handleOpenDeleteVersion={handleOpenDeleteVersion} 
+                        handleOpenEditVerison={handleOpenEditVerison} 
                         />
                 </Grid>
                 <Grid item xs={6}>
+                <Button 
+                onClick={() => setOpenRecording(!openRecording)}  
+                className={classes.heading}>
+                        Record New Version
+                </Button>
+                {openRecording && <> 
+                        <h3 className={classes.heading}>Record New Version</h3>
+                        <div className={classes.recording}>
+                            <NewRecordingDevice 
+                            onAddVersion={addVersion} 
+                            songId={props.match.params.id}
+                            />
+                        </div>
+                        </>
+                    }
+
                     <LyricSheet song={song} />
                 </Grid>
-                <Grid item style={{paddingTop: '2%', paddingRight: '2%'}} xs={3}>                      
-                        <LyricHelpers />                    
+                <Grid item xs={3}>                      
+                    <LyricHelpers />                    
                 </Grid>
             </Grid>      
         </div>
     )
 }
 export default SongHome 
+
+const useStyles = makeStyles(theme => ({
+    gridContainers: {
+        paddingTop: '2%', 
+        paddingLeft: '2%',
+        paddingRight: '2%'
+    },
+    recording: {
+        paddingBottom: '10px'
+    }, 
+    heading: {
+        textAlign: 'center',
+        color: 'white'
+    },
+    paper: {
+        padding: theme.spacing(1),
+        textAlign: 'left',
+        maxHeight: '100%',
+        backgroundColor: theme.palette.primary.main
+      }
+  }));

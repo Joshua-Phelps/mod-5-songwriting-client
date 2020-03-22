@@ -36,25 +36,32 @@ function NewLibrary(props){
 
   return (
     <div>
-      {openSongForm ? <Form 
+      {openSongForm && <Form 
           form='Song' 
           onAddInput={props.onAddSong} 
           collections={props.collections}  
           onCloseForm={handleCloseSongForm} 
-          /> : null }
+        />
+      }
 
-      {openCollectionForm ? <Form 
+      {openCollectionForm && <Form 
           form='Collection' 
           onAddInput={props.onAddCollection} 
           id={props.userId}  
           onCloseForm={handleCloseCollectionForm} 
-          /> : null}
-
+          />
+      }
        <Grid container spacing={3} className={classes.root}>
-        <Grid item xs={3}>
-            <Paper className={"muiPaper-root"} >
-              <Button className={classes.button} onClick={handleOpenCollectionForm}>+ New Collection</Button><br></br>
-                <CollectionLibrary 
+        <Grid item sm={3}>
+            <Paper className={classes.paper} >
+              <Button 
+                className={classes.button} 
+                onClick={handleOpenCollectionForm
+                }>
+                + New Collection
+              </Button>
+              <br></br>
+              <CollectionLibrary 
                 onCollectionSelect={props.onCollectionSelect} 
                 collections={props.collections} 
                 onEditCollection={props.onEditCollection}
@@ -62,21 +69,31 @@ function NewLibrary(props){
                 />
             </Paper>
         </Grid>
-        <Grid item xs={8}>
-          <Paper style={{maxHeight: '100%'}} className={"muiPaper-root"} >
-          <Button onClick={handleOpenSongForm} className={classes.button2}>+ New Song</Button>
+        <Grid item sm={8}>
+          <Paper color='primary' className={classes.paper} >
+          <Button 
+            onClick={handleOpenSongForm} 
+            className={classes.button}
+            >
+            + New Song
+          </Button>
           <form className={classes.form} >
-            <TextField id="filled-basic" style={{borderColor: 'white'}} onChange={handleSearch} label="Search Song" variant="filled" />
+            <TextField 
+              id="filled-basic"  
+              onChange={handleSearch} 
+              label="Search Song" 
+              variant="filled" 
+            />
           </form>
           <br></br>
             <SongLibrary 
-            {...props} 
-            onEditSong={props.onEditSong} 
-            onCloseForm={handleCloseSongForm} 
-            collections={props.collections} 
-            songs={props.songs} 
-            onDeleteSong={props.onDeleteSong}
-            onSongSelect={props.onSongSelect}
+              {...props} 
+              onEditSong={props.onEditSong} 
+              onCloseForm={handleCloseSongForm} 
+              collections={props.collections} 
+              songs={props.songs} 
+              onDeleteSong={props.onDeleteSong}
+              onSongSelect={props.onSongSelect}
             />
           </Paper>
         </Grid>
@@ -91,42 +108,19 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
-  list: {
-    opacity: 0.8,
-    backgroundColor: '#00004d'
-  },
   button: {
-    textAlign: 'left',
-    padding: '10px',
-    color: "#deede7"
-  },
-  button2: {
-    textAlign: 'end',
-    padding: '10px',
-    color: "#deede7"
+    padding: theme.spacing(1),
   },
   paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    height: '100%'
-  },
-  paperLeft: {
-    adding: theme.spacing(2),
-    padding: '10px',
+    padding: theme.spacing(1),
     textAlign: 'left',
-    height: '40%'
-  },
-  collectionText: {
-    padding: '40px',
-    textAlign: 'left',
-  },
-  search: {
-    color: 'white'
+    maxHeight: '100%',
+    backgroundColor: theme.palette.primary.main
   },
   form: {
     '& > *': {
         margin: theme.spacing(1),
         width: 200,
-        backgroundColor: '#f2f3f7',
+        backgroundColor: theme.palette.secondary.main
   }}
 }));

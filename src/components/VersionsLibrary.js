@@ -12,6 +12,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
+import NewRecordingDevice from './NewRecordingDevice'
+import { Divider } from '@material-ui/core';
 
 
 function VerisonsLibrary (props) {
@@ -27,30 +29,40 @@ function VerisonsLibrary (props) {
        setSelectedVersion(false)
    }
 
+   const addVersion = newVersion => {
+    // if (newVersion.error) return alert(newVersion.error)
+    // setVersions([newVersion, ...versions])
+}
+
+
     const renderVersions = () => {
         return props.versions.map(version => {
             const { title, id } = version
             const dateStr = new Date(version.created_at).toString()
             const date = dateStr.split('GMT')[0].slice(0, -4)
             return (
-                    <TableRow key={id}>
+                <>
+                    <TableRow className={classes.paper} key={id}>
                         <TableCell>
                             <Tooltip title={date}>
-                                <h4 onClick={() => handleSelectVersion(version)} className='light-text'>{title}</h4>
+                                <h4 onClick={() => handleSelectVersion(version)}>{title}</h4>
                             </Tooltip>
                         </TableCell>
+                    
                         <TableCell className={classes.audioTable} component="th" scope="row">
                             <Player recording={version.recording} />
                         </TableCell>
                         <TableCell className={classes.editTable} >
                             <Tooltip title='Delete'>
-                                <DeleteIcon className='light-text' onClick={(e) => props.handleOpenDeleteVersion(e, version)} />
+                                <DeleteIcon className={classes.text}  onClick={(e) => props.handleOpenDeleteVersion(e, version)} />
                             </Tooltip>
                             <Tooltip title='Edit'>
-                                <EditIcon className='light-text' onClick={(e) => props.handleOpenEditVerison(e, version)} />
+                                <EditIcon className={classes.text}  onClick={(e) => props.handleOpenEditVerison(e, version)} />
                             </Tooltip>             
                         </TableCell>
                     </TableRow>
+                </>
+
             )
         })
     }
@@ -58,18 +70,18 @@ function VerisonsLibrary (props) {
 
     return(
         <Fragment>
-            {selectedVersion ? <PlayerModal onClose={handleClearVersion} version={selectedVersion} /> : null}
-            <TableContainer className={"muiPaper-root-darker"} style={{maxHeight:'530px'}} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+            {selectedVersion && <PlayerModal onClose={handleClearVersion} version={selectedVersion} />}
+            <TableContainer>
+                <Table className={classes.table}>
                     <TableHead>
                     <TableRow>
-                        <TableCell align='left' ><h3 className='light-text'>Title</h3></TableCell>
-                        <TableCell align='left' >{props.song.title ? <h3 className='light-text'>Versions</h3> : null }</TableCell>
+                        <TableCell align='left' ><h3>Title</h3></TableCell>
+                        <TableCell align='left' >{props.song.title && <h3 className={classes.text}>Versions</h3> }</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.versions ? renderVersions() : null}    
+                        {props.versions && renderVersions()}    
                     </TableBody>
                 </Table>
                 </TableContainer> 
@@ -80,10 +92,11 @@ function VerisonsLibrary (props) {
 export default VerisonsLibrary
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     table: {
-      width: '100%',
-      color: '#f2f3f7',
+        width: '100%',
+        padding: '10px',
+        backgroundColor: theme.palette.primary.light
     },
     audioTable: {
       width: '100%', 
@@ -94,7 +107,17 @@ const useStyles = makeStyles({
       paddingLeft: '5px', 
       paddingRight: '15px', 
       color:'grey',
-    }
-  });
+    },
+    divider: {
+        backgroundColor: "white",
+        width: '100%'
+    },
+    text: {
+        color: 'white'
+    },
+    paper: {
+        backgroundColor: theme.palette.primary.light
+      }
+  }));
 
 

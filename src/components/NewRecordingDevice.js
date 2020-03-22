@@ -17,9 +17,9 @@ class NewRecordingDevice extends Component {
           }
     }
 
-  componentDidMount(){
-      this.prepareRecording()
-  }
+  // componentDidMount(){
+  //     this.prepareRecording()
+  // }
 
   componentWillUnmount(){
     // this.state.mediaRecorder.getTracks()[0].stop()
