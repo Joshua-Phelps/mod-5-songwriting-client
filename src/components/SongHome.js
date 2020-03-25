@@ -7,7 +7,7 @@ import NewRecordingDevice from './NewRecordingDevice'
 import LyricHelpers from './LyricHelpers'
 import LyricSheet from './LyricSheet'
 // import Grid from '@material-ui/core/Grid';
-import { makeStyles, Grid, Button } from '@material-ui/core';
+import { makeStyles, Grid, Button, Paper } from '@material-ui/core';
 
 function SongHome(props){
     const [song, setSong] = useState({
@@ -39,6 +39,9 @@ function SongHome(props){
       }, [id, onSelectSong, selectedSong]);
 
 
+    const handleOpenRecording = () => {
+        setOpenRecording(!openRecording)
+    }  
 
     const handleOpenDeleteVersion = (e, version) => {
         setOpenDeleteVersion(!openDeleteVersion)
@@ -117,26 +120,27 @@ function SongHome(props){
                         username={props.username} 
                         handleOpenDeleteVersion={handleOpenDeleteVersion} 
                         handleOpenEditVerison={handleOpenEditVerison} 
+                        onOpenRecording={handleOpenRecording} 
                         />
                 </Grid>
                 <Grid item xs={6}>
-                <Button 
+                {/* <Button 
                 onClick={() => setOpenRecording(!openRecording)}  
                 className={classes.heading}>
                         Record New Version
-                </Button>
-                {openRecording && <> 
-                        <h3 className={classes.heading}>Record New Version</h3>
+                </Button> */}
+                {openRecording && <Paper className={classes.recordingContainer}>
+                    <h3 className={classes.heading}>Record New Verison</h3>
                         <div className={classes.recording}>
                             <NewRecordingDevice 
                             onAddVersion={addVersion} 
                             songId={props.match.params.id}
                             />
                         </div>
-                        </>
-                    }
+                    </Paper>         
+                }
 
-                    <LyricSheet song={song} />
+                    <LyricSheet song={song} openRecording={openRecording} />
                 </Grid>
                 <Grid item xs={3}>                      
                     <LyricHelpers />                    
@@ -163,7 +167,15 @@ const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(1),
         textAlign: 'left',
-        maxHeight: '100%',
+        height: '100%',
         backgroundColor: theme.palette.primary.main
-      }
+      },
+    text: {
+        color: 'white'
+    },
+    recordingContainer: {
+        backgroundColor: theme.palette.primary.main,
+        padding: theme.spacing(1),
+        // height: '10px'
+    }
   }));

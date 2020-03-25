@@ -5,7 +5,7 @@ function LyricSheet (props) {
  
     return(
         <Fragment>
-            <ChordEditor song={props.song} />
+            <ChordEditor openRecording={props.openRecording} song={props.song} />
         </Fragment>     
     )
 }

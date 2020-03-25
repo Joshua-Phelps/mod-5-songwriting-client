@@ -6,9 +6,12 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { api } from '../services/api';
 import Tooltip from '@material-ui/core/Tooltip';
 import TableContainer from '@material-ui/core/TableContainer';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 
 function ChordEditor(props){
+    const classes = useStyles();
     const [lyrics, setLyrics] = useState('')
     const [hideText, setHideText] = useState(false)
     const [saving, setSaving] = useState(false)
@@ -43,35 +46,33 @@ function ChordEditor(props){
 
     return(
         <Fragment>
-            <div style={{paddingTop: '10px'}}>
+            <div>
             {!hideText ? (
-                <Fragment>
-                    <h3 className="light-text">Edit {props.song.title}'s Lyrics</h3>
-                    <TableContainer style={{overFlow: 'auto'}}>
+                <>
+                    <Tooltip title="Hide Editor"><ArrowUpwardIcon className={classes.text} onClick={handleHideText}  /></Tooltip>
+                    {!saving ? <Tooltip title="Save"><SaveIcon className={classes.text} onClick={handleSave} /></Tooltip> : <span className={classes.text}>Saved!</span> }
+                    <h3 className={classes.text}>Lyric Editor</h3>
+
+                    <TableContainer className={classes.table}>
                     <textarea 
-                            style={{width: '100%', height: '150px', color: "#deede7", fontSize: '120%'}}
                             onChange={handleChange} 
                             defaultValue={lyrics ? lyrics : props.song.lyrics}
-                            className={"muiPaper-root-darker"}
+                            className={classes.editLyrics}
                         />
                     </TableContainer>
-                        <br></br>
-                    <Tooltip title="Hide Editor"><ArrowUpwardIcon className="light-text" onClick={handleHideText}  /></Tooltip>
-                    {!saving ? <Tooltip title="Save"><SaveIcon className="light-text" onClick={handleSave} /></Tooltip> : <span className="light-text">Saved!</span> }
-                </Fragment>
+                </>
                 ) : ( 
-                <Fragment>
-                    <ArrowDownwardIcon className="light-text" onClick={handleHideText}  />
-                </Fragment>
+                    <ArrowDownwardIcon className={classes.text} onClick={handleHideText}  />        
                 )}
             </div>
-            <div style={{maxWidth: '100%'}} >
-                <h3 className="light-text">{props.song.title} Lyrics</h3>
-                <TableContainer style={{overFlow: 'auto', overFlowX: 'auto', maxHeight: '350px'}}>
+            <div className={classes.maxWidth} >
+                <h3 className={classes.text}>{props.song.title} Lyrics</h3>
+                <TableContainer className={ props.openRecording ? ( hideText ? classes.table4 : classes.table3 ) : classes.table2 }>
                 <div
-                    style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%'}}        
+                    className={classes.displayLyrics}
+                    // style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%'}}        
                     dangerouslySetInnerHTML={getChordMarkup()}
-                    className={"muiPaper-root-darker"}
+                    
                 />            
                 </TableContainer>         
             </div>
@@ -79,3 +80,48 @@ function ChordEditor(props){
     )
 }
 export default ChordEditor 
+
+const useStyles = makeStyles(theme => ({
+    text: {
+      color: 'white'
+    },
+    editLyrics: {
+      width: '100%', 
+      height: '150px', 
+      color: 'white', 
+      fontSize: '120%',
+      backgroundColor: theme.palette.primary.dark
+    },
+    table: {
+      overFlow: 'auto'
+    },
+    table2: {
+      overFlow: 'auto', 
+      overFlowX: 'auto', 
+    //   maxHeight: '365px',
+      maxHeight: '40vh',
+      backgroundColor: theme.palette.primary.dark
+    },
+    table3: {
+        overFlow: 'auto', 
+        overFlowX: 'auto', 
+        maxHeight: '220px',
+        backgroundColor: theme.palette.primary.dark
+    },
+    table4: {
+        overFlow: 'auto', 
+        overFlowX: 'auto', 
+        maxHeight: '220px',
+        backgroundColor: theme.palette.primary.dark
+    },
+    displayLyrics : {
+      width: '100%', 
+      height: '100%', 
+      color: "white", 
+      fontFamily: 'monospace', 
+      fontSize:'150%'
+    },
+    maxWidth: {
+      maxWidth: '100%'
+    }
+  }));

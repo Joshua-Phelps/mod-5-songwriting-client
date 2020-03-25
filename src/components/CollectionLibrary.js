@@ -19,9 +19,9 @@ function CollectionLibrary (props) {
             const {id, collection_name } = collection
             return (
                 <div key={collection.id}>
-                    <ListItem >
+                    <ListItem className={classes.text} >
                         <ListItem button onClick={(e) => handleClick(e, id)}>
-                            <ListItemText id={collection.id} className={classes.text} primary={`${collection.collection_name}`} />
+                            <ListItemText id={collection.id} primary={`${collection.collection_name}`} />
                         </ListItem> 
                         <Tooltip title="Delete">
                             <DeleteIcon  onClick={(e) => handleOpenDelete(e, collection_name, id)}/>
@@ -84,11 +84,11 @@ function CollectionLibrary (props) {
                 />
             }
             <Button 
-                className={classes.button}  
+                className={classes.text}  
                 onClick={(e) => handleClick(e, all)}>
                     All Collections
                 </Button>
-            <Divider className={classes.divider} />
+            {/* <Divider className={classes.divider} /> */}
             <GridList className={classes.conatiner}>         
                 <List className={classes.list} >
                     {props.collections ? renderCollections(): null}
@@ -104,13 +104,17 @@ const useStyles = makeStyles(theme => ({
     list: {
       width: [['100%'], '!important'],
       height: [['60vh'], '!important'],
+    //   maxHeight: [['60vh'], '!important'],
+      backgroundColor: theme.palette.primary.light, 
     },
     divider: {
         backgroundColor: "white",
-        borderBottom: 'solid 1px white'
     },
     container: {
         backgroundColor: theme.palette.primary.dark, 
         width: [['100%'], '!important'],
     },
+    text: {
+        color: 'white'
+    }
   }));

@@ -57,7 +57,7 @@ function NavBar(props){
           <Typography variant="h6" className={classes.root}>
             Welcome {props.user.username}
           </Typography>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+          <Button aria-controls="simple-menu" className={classes.menuButton} aria-haspopup="true" onClick={handleClick}>
                 <MenuIcon />
           </Button>
           <Menu

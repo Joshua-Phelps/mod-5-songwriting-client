@@ -25,12 +25,12 @@ const theme = createMuiTheme({
       primary: {
           main: 'rgba(55, 107, 76, 0.6)',
           light: 'rgba(55, 107, 76, 0.3)',
-          dark: 'rgba(55, 107, 76, 0.7)'
+          dark: 'rgba(55, 107, 76, 0.8)'
       },
       secondary: {
         main: '#004d66'
       },
-      type: 'dark'
+      // type: 'light'
     },
     spacing: 8
   })

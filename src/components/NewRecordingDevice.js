@@ -3,6 +3,7 @@ import VersionForm from './VersionForm'
 import MicIcon from '@material-ui/icons/Mic';
 import RedoIcon from '@material-ui/icons/Redo';
 import Tooltip from '@material-ui/core/Tooltip';
+import Paper from '@material-ui/core/Paper';
 
 class NewRecordingDevice extends Component {
     constructor(){
@@ -17,9 +18,9 @@ class NewRecordingDevice extends Component {
           }
     }
 
-  // componentDidMount(){
-  //     this.prepareRecording()
-  // }
+  componentDidMount(){
+      this.prepareRecording()
+  }
 
   componentWillUnmount(){
     // this.state.mediaRecorder.getTracks()[0].stop()
@@ -87,7 +88,8 @@ class NewRecordingDevice extends Component {
     formData.append("id", this.props.songId)
     formData.append('recording', recording)
     formData.append('title', title)
-    fetch(`https://song-control.herokuapp.com/api/v1/versions`,{
+    // fetch(`https://song-control.herokuapp.com/api/v1/versions`,{
+    fetch('http://localhost:3000/api/v1/versions',{
       method: 'POST', 
       body: formData
     })
@@ -99,17 +101,19 @@ class NewRecordingDevice extends Component {
   render(){
     const { audioBlob, active, audioUrl } = this.state
     return (
+      // <Paper style={{backgroundColor: 'rgba(55, 107, 76, 0.6)'}}>
           <div className='recording-holder'>
-              { active ? (
-                <Tooltip title="Recording">
-                  <div className='loader' onClick={this.stopRecording}></div>
-                </Tooltip>
-              ) : <Tooltip title="Record"><MicIcon className='light-text' style={{color: '#cc0000'}} onClick={this.startRecording} /></Tooltip>}
-              {audioBlob ? <Tooltip title="Redo"><RedoIcon className='light-text' onClick={this.reset} /></Tooltip>  : null}
-              {audioBlob ? <VersionForm onSave={this.save} /> : null}
-              <br></br>
-              <audio id='audio' src={audioUrl} controls  />
+            { active ? (
+              <Tooltip title="Recording">
+                <div className='loader' onClick={this.stopRecording}></div>
+              </Tooltip>
+            ) : <Tooltip title="Record"><MicIcon  style={{color: 'Red'}} onClick={this.startRecording} /></Tooltip>}
+            {audioBlob ? <Tooltip title="Redo"><RedoIcon style={{color: 'white'}} onClick={this.reset} /></Tooltip>  : null}
+            {audioBlob ? <VersionForm onSave={this.save} /> : null}
+            <br></br>
+            <audio id='audio' src={audioUrl} controls  />
         </div> 
+      // </Paper>
     )
   }
 }

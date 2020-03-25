@@ -36,6 +36,26 @@
     transform: rotate(360deg);
   }
 }
+.chord-sheet {
+  max-height: 100%;
+}
+.paragraph {
+  height: 100%;
+}
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-3 {
+  height: calc(100vh - 70px);
+}
+.makeStyles-root-230 {
+  max-height: calc(100vh - 25%);
+}
+
+.MuiGrid-root.makeStyles-gridContainers-121.MuiGrid-container.MuiGrid-spacing-xs-3 {
+  height: calc(100vh - 52px);
+}
+/* .MuiGrid-spacing-xs-3 > .MuiGrid-item {
+  padding: 12px;
+  height: 80vh;
+} */
 
 /* .muiGrid-grid-xs-3 {
   flex-grow: 0;

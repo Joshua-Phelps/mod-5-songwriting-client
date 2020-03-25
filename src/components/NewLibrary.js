@@ -55,7 +55,7 @@ function NewLibrary(props){
         <Grid item sm={3}>
             <Paper className={classes.paper} >
               <Button 
-                className={classes.button} 
+                className={classes.text} 
                 onClick={handleOpenCollectionForm
                 }>
                 + New Collection
@@ -73,7 +73,7 @@ function NewLibrary(props){
           <Paper color='primary' className={classes.paper} >
           <Button 
             onClick={handleOpenSongForm} 
-            className={classes.button}
+            className={classes.text}
             >
             + New Song
           </Button>
@@ -108,9 +108,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
-  button: {
-    padding: theme.spacing(1),
-  },
   paper: {
     padding: theme.spacing(1),
     textAlign: 'left',
@@ -121,6 +118,9 @@ const useStyles = makeStyles(theme => ({
     '& > *': {
         margin: theme.spacing(1),
         width: 200,
-        backgroundColor: theme.palette.secondary.main
-  }}
+        backgroundColor: 'white'
+  }},
+  text: {
+    color: 'white'
+  }
 }));

@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
         height: [['60vh'], '!important'],
     },
     container: {
-        backgroundColor: theme.palette.primary.dark, 
+        backgroundColor: theme.palette.primary.main, 
         width: [['100%'], '!important'],
     },
     text: {
@@ -21,7 +21,8 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         textAlign: 'right',
-        paddingRight: '10px'
+        paddingRight: '10px',
+        backgroundColor: 'white'
     },
     divider: {
         backgroundColor: "white",
@@ -63,7 +64,7 @@ function SongLibrary (props) {
             const {id, title, collection_id } = song                
             return (
                 <Fragment key={song.id}>
-                    <ListItem key={song.id}>
+                    <ListItem className={classes.text} key={song.id}>
                         <ListItem id={song.id} button onClick={(e) => handleSongSelect(e, song)}>
                             <ListItemText primary={song.title} />
                         </ListItem>
@@ -111,7 +112,7 @@ function SongLibrary (props) {
                     title={title} 
                 />
             }
-            <Divider className={classes.divider} />
+            {/* <Divider className={classes.divider} /> */}
             <GridList className={classes.container} >         
                 <List className={classes.list} >
                     {props.songs && renderSongs()}

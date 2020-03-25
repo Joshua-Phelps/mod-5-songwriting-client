@@ -76,10 +76,10 @@ export default function LyricHelpers() {
   return (
     <Paper square className={classes.root}>
         <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField id="filled-basic" style={{borderColor: 'white'}} label="Search Word" onChange={handleWordChange} variant="filled" />
+            <TextField id="filled-basic" className={classes.text} label="Search Word" onChange={handleWordChange} variant="filled" />
         </form>
         <br></br>
-      <TableContainer className={"muiPaper-root-darker"} component={Paper} >
+      <TableContainer component={Paper} >
       <Tabs
         value={tabValue}
         className={'light-text'}
@@ -97,15 +97,15 @@ export default function LyricHelpers() {
       </Tabs>
       </TableContainer>
    
-      {tabValue === 0 ? (
+      {tabValue === 0 && (
         <div className={classes.root2}>
           <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
             {renderSynonyms()}
           </GridList>
         </div>        
-      ) : null}
+      )}
 
-      {(tabValue === 1) ? (
+      {tabValue === 1 && (
         <div className={classes.root2}>
           <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
             {oneSyl.length > 0 ? <h3 className={classes.root}>One Syllable</h3> : ''}
@@ -122,9 +122,9 @@ export default function LyricHelpers() {
             </GridList>
           </GridList>
         </div>
-      ) : null}
+      )}
 
-      {tabValue === 2 ? (
+      {tabValue === 2 && (
         <div className={classes.root2}>
           <GridList cols={1} cellHeight={'auto'} className={classes.gridList}>
             {nouns.length > 0 ? <h3 className={classes.root}>Noun</h3> : ''}
@@ -134,8 +134,8 @@ export default function LyricHelpers() {
             {adjectives.length > 0 ? <h3 className={classes.root}>Adjective</h3> : ''}              
             {renderDefinitions(adjectives)}          
           </GridList>
-        </div>
-        ) : null}
+        </div> 
+      )}
     </Paper>
   );
 }
@@ -146,18 +146,20 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 500,
     textAlign: 'center',
     padding: '2%',
-    backgroundColor: 'rgba(55, 107, 76, 0.9)',
+    backgroundColor: theme.palette.primary.dark,
+    maxHeight: 'calc(100vh - 20%)'
   },
   form: {
     '& > *': {
         margin: theme.spacing(1),
-        backgroundColor: '#f2f3f7'
+        backgroundColor: 'white'
         },
   },
   paper: {
     padding: theme.spacing(1),
     paddingTop: '5px',
-    textAlign: 'center'
+    textAlign: 'center',
+    height: '100%'
   },
   paper2: {
     padding: theme.spacing(1),
@@ -168,10 +170,14 @@ const useStyles = makeStyles(theme => ({
   },
   gridList: {
     width: '100%',
-    maxHeight: 530,
+    maxHeight: '59vh'
   },
   root2: {
     display: 'flex',
     overflow: 'hidden',
+    // maxHeight: 'calc(100vh - 20%)'
   },
+  text: {
+    borderColor: 'white'
+  }
 }));

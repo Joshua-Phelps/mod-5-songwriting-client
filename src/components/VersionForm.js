@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
   button: {
     backgroundColor: '#004d66',
     color: 'white'
+  },
+  save: {
+    color: 'white'
   }
 
 }));
@@ -55,7 +58,7 @@ export default function VersionForm(props) {
 
   return (
     <div>
-      <SaveIcon className='light-text' onClick={handleOpen} />
+      <SaveIcon className={classes.save} onClick={handleOpen} />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

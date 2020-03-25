@@ -43,9 +43,7 @@ export default function Login(props) {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-         
           <Typography component="h1" variant="h5">
-            {/* {error? alert('try again') : null } */}
             Sign in
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>         
