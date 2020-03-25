@@ -105,13 +105,13 @@ const useStyles = makeStyles(theme => ({
     table3: {
         overFlow: 'auto', 
         overFlowX: 'auto', 
-        maxHeight: '220px',
+        maxHeight: '20vh',
         backgroundColor: theme.palette.primary.dark
     },
     table4: {
         overFlow: 'auto', 
         overFlowX: 'auto', 
-        maxHeight: '220px',
+        maxHeight: '10vh',
         backgroundColor: theme.palette.primary.dark
     },
     displayLyrics : {

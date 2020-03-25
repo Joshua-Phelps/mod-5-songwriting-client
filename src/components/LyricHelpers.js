@@ -66,8 +66,8 @@ export default function LyricHelpers() {
   const renderDefinitions = (definitions) => {
     return definitions.map((def, idx) => {
       return (
-        <Grid key={idx} style={{paddingTop: '10px'}} item xs={12}>
-          <Paper style={{width: '90%'}} className={classes.paper2} > - {def.definition}</Paper>
+        <Grid key={idx} className={classes.definitions} item xs={12}>
+          <Paper className={classes.paper2} > - {def.definition}</Paper>
         </Grid>
       )
     })
@@ -82,7 +82,6 @@ export default function LyricHelpers() {
       <TableContainer component={Paper} >
       <Tabs
         value={tabValue}
-        className={'light-text'}
         onChange={handleTabChange}
         variant="scrollable"       
         classes={{
@@ -100,6 +99,7 @@ export default function LyricHelpers() {
       {tabValue === 0 && (
         <div className={classes.root2}>
           <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
+          {synonyms.length > 0 && <br></br> }
             {renderSynonyms()}
           </GridList>
         </div>        
@@ -164,20 +164,24 @@ const useStyles = makeStyles(theme => ({
   paper2: {
     padding: theme.spacing(1),
     textAlign: 'left',
+    width: '90%'
   },
   indicator: {
     backgroundColor: 'white',
   },
   gridList: {
     width: '100%',
-    maxHeight: '59vh'
+    maxHeight: '59vh',
+    paddingTop: '5px'
   },
   root2: {
     display: 'flex',
     overflow: 'hidden',
-    // maxHeight: 'calc(100vh - 20%)'
   },
   text: {
     borderColor: 'white'
-  }
+  },
+  definitions: {
+    paddingTop: '10px'
+  },
 }));
