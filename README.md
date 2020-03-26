@@ -1,4 +1,4 @@
-Welcome to Song Control. 
+Welcome to Song Control!
 
 This is a React App I built for my final project at Flatiron School. It uses a Rails API backend with a PostgreSQL database. 
 
