@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import EditForm from './EditForm';
-import DeleteForm from './DeleteForm';
-import { Button, List, ListItem, ListItemText, Divider, Tooltip, GridList } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import React, { useState } from 'react'
+import EditForm from './EditForm'
+import DeleteForm from './DeleteForm'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import { 
+    Button, 
+    List, 
+    ListItem, 
+    ListItemText, 
+    Divider, 
+    Tooltip, 
+    GridList,
+    makeStyles 
+} from '@material-ui/core'
+
 
 
 function CollectionLibrary (props) {
@@ -12,7 +21,7 @@ function CollectionLibrary (props) {
     const [openDelete, setOpenDelete] = useState(false)
     const [collectionName, setCollectionName] = useState('')
     const [collectionId, setCollectionId] = useState('')
-    const classes = useStyles();
+    const classes = useStyles()
 
     const renderCollections = () => {
         return props.collections.map(collection => {
@@ -88,7 +97,6 @@ function CollectionLibrary (props) {
                 onClick={(e) => handleClick(e, all)}>
                     All Collections
                 </Button>
-            {/* <Divider className={classes.divider} /> */}
             <GridList className={classes.conatiner}>         
                 <List className={classes.list} >
                     {props.collections ? renderCollections(): null}
@@ -104,7 +112,6 @@ const useStyles = makeStyles(theme => ({
     list: {
       width: [['100%'], '!important'],
       height: [['60vh'], '!important'],
-    //   maxHeight: [['60vh'], '!important'],
       backgroundColor: theme.palette.primary.light, 
     },
     divider: {
@@ -117,4 +124,4 @@ const useStyles = makeStyles(theme => ({
     text: {
         color: 'white'
     }
-  }));
+  }))

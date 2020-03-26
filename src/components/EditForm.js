@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { InputLabel } from '@material-ui/core';
+import React, { useState } from 'react'
+import { 
+  makeStyles, 
+  Modal, 
+  Backdrop, 
+  Fade, 
+  Select, 
+  MenuItem, 
+  Grid, 
+  Button, 
+  TextField, 
+  InputLabel 
+} from '@material-ui/core'
 
 
 
 export default function EditForm(props) {
-  const classes = useStyles();
+  const classes = useStyles()
   const [input, setInput] = useState(props.input)
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(true)
   const [collection, setCollection] = useState(props.collection)
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false)
     props.onCloseForm()
-  };
+  }
 
   const handleChange = e => {
       setInput(e.target.value)
@@ -32,8 +34,10 @@ export default function EditForm(props) {
     if (!input){
       alert('Please enter a title')
     } else {
-      props.form === 'Song' ? props.onEditInput(input, collection, props.songId) : props.onEditInput(input, props.id)
-      setOpen(false);
+      props.form === 'Song' 
+      ? props.onEditInput(input, collection, props.songId) 
+      : props.onEditInput(input, props.id)
+      setOpen(false)
     }
   }
 
@@ -65,7 +69,7 @@ export default function EditForm(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 className='form-header' id="transition-modal-title">Edit {props.form}</h2>
+            <h2 className={classes.header} id="transition-modal-title">Edit {props.form}</h2>
             <form className={classes.form} onSubmit={handleSubmit} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -81,23 +85,25 @@ export default function EditForm(props) {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                { props.form === 'Song' ? (
+                { props.form === 'Song' && 
                   <div>
-                    <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
+                    <InputLabel htmlFor='simple-select'>
+                      Select Collection
+                    </InputLabel>
                     <Grid item xs={12}>
                     <br></br>
                     </Grid>
                     <Select
                       labelId="simple-select"
                       id="simple-select"
-                      value={collection}
-                      style={{width: '100%', height:'140%'}}                   
+                      className={classes.select}
+                      value={collection}                         
                       onChange={handleSelect}                
                       >
                       {renderCollections()}
                     </Select>
                   </div>
-                  ) : (null)}               
+                }               
                 </Grid>
                 <Grid item xs={12}>
                 </Grid>
@@ -130,13 +136,21 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '8px solid #004d66',
+    border: `8px solid ${theme.palette.secondary.main}`,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     outline: 'none',
   },
   button: {
-    backgroundColor: '#004d66',
+    backgroundColor: theme.palette.secondary.main,
     color: 'white'
+  },
+  select: {
+    width: '100%', 
+    height:'140%'
+  },
+  header: {
+    color: theme.palette.secondary.main,
+    textAlignLast: 'center'
   }
-}));
+}))

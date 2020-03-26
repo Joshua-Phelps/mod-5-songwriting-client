@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import React, { Component } from 'react'
+import './App.css'
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
 import NavBar from './components/NavBar'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import SongHome from './components/SongHome'
 import NewRecordingDevice from './components/NewRecordingDevice'
-import NewLibrary from './components/NewLibrary'
+import Library from './components/Library'
 import EditAccount from './components/EditAccount'
-import { api } from "./services/api";
+import { api } from "./services/api"
 
 
 class App extends Component {
@@ -42,19 +42,19 @@ class App extends Component {
         const updatedState = { ...this.state.auth, user: user };
         this.setState({ 
           auth: updatedState,
-         });
+         })
       }).catch(error => console.log(error))
     } 
   }
 
   login = data => {
     const updatedState = { ...this.state.auth, user: data.user }
-    localStorage.setItem("token", data.jwt);
-    this.setState({ auth: updatedState });
+    localStorage.setItem("token", data.jwt)
+    this.setState({ auth: updatedState })
   };
 
   logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("token")
     this.setState(this.INITIAL_STATE)
   };
 
@@ -201,70 +201,98 @@ class App extends Component {
     return (
       <div >
         <Router>
-            <Route
-            path="/login"
-            exact
-            render={props => !token ? <Login {...props} onLogin={this.login} /> : <Redirect to="/home" />}
-            />
+          <Route
+          path="/login"
+          exact
+          render={props => !token ? <Login {...props} onLogin={this.login} /> : <Redirect to="/home" />}
+          />
 
-            <Route
-            path="/signup"
-            exact
-            render={props => !token ? <SignUp {...props} /> : <Redirect to="/home" />}
-            />                                         
-          
-            <Route
-            path="/"
-            render={props => (token ? <NavBar {...props} user={user} onLogout={this.logout} onLogin={this.login} /> : (props.location.pathname !== "/signup" ? <Redirect to="/login" /> : <Redirect to="/signup" /> ))}
-            />
+          <Route
+          path="/signup"
+          exact
+          render={props => !token ? <SignUp {...props} /> : <Redirect to="/home" />}
+          />                                         
+        
+          <Route
+          path="/"
+          render={props => (
+            token 
+            ? <NavBar {...props} user={user} onLogout={this.logout} onLogin={this.login} /> 
+            : props.location.pathname !== "/signup" 
+              ? <Redirect to="/login" /> 
+              : <Redirect to="/signup" /> 
+            )}
+          />
 
-            <Route
-            path="/home"
-            exact
-            render={(props) => (token ? <NewLibrary 
-              {...props} 
-              collections={user.collections}
-              onCollectionSelect={this.collectionSelect}
-              onAddCollection={this.addCollection}
-              onAddSong={this.addSong}
-              onEditSong={this.editSong}
-              userId={user.id}
-              songs={songs}
-              onDeleteSong={this.deleteSong}
-              onEditCollection={this.editCollection}
-              onDeleteCollection={this.deleteCollection}
-              onSelectSong={this.selectSong}
-              onSearch={this.setSongSearch}
-              /> : <Redirect to="/login" />)}
-            />
-
-            <Route
-              path="/songs/:id"
-              exact
-              render={(props) => ( token ? <SongHome onSelectSong={this.selectSong} username={user.username} {...props} /> : <Redirect to="/login" /> )}
-            />
-
-            <Route
-              path="/recording"
-              exact
-              render={(props) => ( token ? <NewRecordingDevice {...props}  /> : <Redirect to="/login" />)}
+          <Route
+          path="/home"
+          exact
+          render={(props) => (
+            token 
+            ? <Library 
+            {...props} 
+            collections={user.collections}
+            onCollectionSelect={this.collectionSelect}
+            onAddCollection={this.addCollection}
+            onAddSong={this.addSong}
+            onEditSong={this.editSong}
+            userId={user.id}
+            songs={songs}
+            onDeleteSong={this.deleteSong}
+            onEditCollection={this.editCollection}
+            onDeleteCollection={this.deleteCollection}
+            onSelectSong={this.selectSong}
+            onSearch={this.setSongSearch}
             /> 
+            : <Redirect to="/login" />
+            )}
+          />
 
-            <Route 
-                path='/edit-account'
-                exact 
-                render={(props) => (token ? <EditAccount onDelete={this.deleteAccount} id={user.id} username={user.username} {...props} /> : <Redirect to="/login" />)}
-              />        
+          <Route
+            path="/songs/:id"
+            exact
+            render={(props) => ( 
+              token 
+              ? <SongHome 
+              onSelectSong={this.selectSong} 
+              username={user.username} {...props} /> 
+              : <Redirect to="/login" /> 
+            )}
+          />
 
-            <Route
-            path="/"
-            render={props => this.tokenPathCheck(props) ? <Redirect to="/home" /> : null}
-            />    
+          <Route
+            path="/recording"
+            exact
+            render={(props) => ( 
+              token 
+              ? <NewRecordingDevice {...props}  /> 
+              : <Redirect to="/login" />
+            )}
+          /> 
+
+          <Route 
+              path='/edit-account'
+              exact 
+              render={(props) => (
+                token 
+                ? <EditAccount 
+                onDelete={this.deleteAccount} 
+                id={user.id} 
+                username={user.username} 
+                {...props} /> 
+                : <Redirect to="/login" />
+              )}
+          />        
+
+          <Route
+          path="/"
+          render={props => this.tokenPathCheck(props) && <Redirect to="/home" />}
+          />    
         </Router>
       </div>
-    );
+    )
   }
 }
 
-export default App; 
+export default App
 

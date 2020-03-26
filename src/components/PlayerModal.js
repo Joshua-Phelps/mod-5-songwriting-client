@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Grid from '@material-ui/core/Grid';
+import React, { useState } from 'react'
 import Player from './Player'
+import { 
+  makeStyles, 
+  Modal, 
+  Backdrop, 
+  Fade, 
+  Grid 
+} from '@material-ui/core'
 
 export default function Form(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false)
     props.onClose()
-  };
+  }
 
 
   return (
@@ -26,9 +28,7 @@ export default function Form(props) {
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        BackdropProps={{ timeout: 500 }}
       >
         <Fade in={open}>
         <div className={classes.paper}>
@@ -36,8 +36,7 @@ export default function Form(props) {
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Player recording={props.version.recording} />
-                    </Grid>
-                  
+                    </Grid>                 
                     <Grid item xs={12}>
                     </Grid>
                 </Grid>           
@@ -49,18 +48,18 @@ export default function Form(props) {
 }
  
 const useStyles = makeStyles(theme => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        outline: 'none',
-      },
-      paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '8px solid #004d66',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        outline: 'none',
-        width: '35%'
-      },
-}));
+  modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      outline: 'none',
+    },
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      border: '8px solid #004d66',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+      outline: 'none',
+      width: '35%'
+    },
+}))

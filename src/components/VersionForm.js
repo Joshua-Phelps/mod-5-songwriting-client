@@ -1,59 +1,28 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import SaveIcon from '@material-ui/icons/Save';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-
-
-
-const useStyles = makeStyles(theme => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '8px solid #004d66',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    outline: 'none',
-  },
-  button: {
-    backgroundColor: '#004d66',
-    color: 'white'
-  },
-  save: {
-    color: 'white'
-  }
-
-}));
+import React from 'react'
+import SaveIcon from '@material-ui/icons/Save'
+import { makeStyles, Modal, Backdrop, Fade, Button, TextField, Grid } from '@material-ui/core'
 
 export default function VersionForm(props) {
-  const classes = useStyles();
+  const classes = useStyles()
   const [input, setInput] = React.useState('')
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false)
   };
 
   const handleChange = e => {
-      setInput(e.target.value)
+    setInput(e.target.value)
   }
 
   const handleSubmit = e => {
     e.preventDefault()
     props.onSave(input)
-    setOpen(false);
+    setOpen(false)
   }
 
   return (
@@ -95,7 +64,6 @@ export default function VersionForm(props) {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  // color="primary"
                   className={classes.button}
                 >
                   Submit
@@ -110,5 +78,27 @@ export default function VersionForm(props) {
         </Fade>
       </Modal>
     </div>
-  );
+  )
 }
+
+const useStyles = makeStyles(theme => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '8px solid #004d66',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: 'none',
+  },
+  button: {
+    backgroundColor: '#004d66',
+    color: 'white'
+  },
+  save: {
+    color: 'white'
+  }
+}))

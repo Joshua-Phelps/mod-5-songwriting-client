@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import { InputLabel } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import { 
+  makeStyles, 
+  Modal, 
+  Backdrop, 
+  Fade, 
+  Select, 
+  MenuItem, 
+  TextField, 
+  InputLabel, 
+  Grid, 
+  Button 
+} from '@material-ui/core'
 
 export default function Form(props) {
-  const classes = useStyles();
+  const classes = useStyles()
   const [input, setInput] = useState('')
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(true)
   const [collection, setCollection] = useState('')
 
 
@@ -68,13 +70,13 @@ export default function Form(props) {
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        BackdropProps={{timeout: 500}}
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 className='form-header' id="transition-modal-title">Create New {props.form}</h2>
+            <h2 className={classes.header} id="transition-modal-title">
+              Create New {props.form}
+            </h2>
               <form className={classes.form} onSubmit={handleSubmit} noValidate>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -90,7 +92,7 @@ export default function Form(props) {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                  { props.form === 'Song' ? (
+                  { props.form === 'Song' && 
                     <div>
                       <InputLabel htmlFor='simple-select'>Select Collection</InputLabel>
                       <Grid item xs={12}>
@@ -106,10 +108,10 @@ export default function Form(props) {
                         {renderCollections()}
                       </Select>                  
                     </div>
-                      ) :  null}
+                  }
                   </Grid>
                 </Grid>
-                {props.form === 'Song' ?  <Grid item xs={12}><br></br></Grid> : null }
+                {props.form === 'Song' && <Grid item xs={12}><br></br></Grid> }
                 <Button
                   type="submit"
                   fullWidth
@@ -127,7 +129,7 @@ export default function Form(props) {
         </Fade>
       </Modal>
     </div>
-  );
+  )
 }
  
 const useStyles = makeStyles(theme => ({
@@ -138,13 +140,17 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '8px solid #004d66',
+    border: `8px solid ${theme.palette.secondary.main}`,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     outline: 'none',
   },
   button: {
-    backgroundColor: '#004d66',
+    backgroundColor: theme.palette.secondary.main,
     color: 'white'
+  },
+  header: {
+    color: theme.palette.secondary.main,
+    textAlignLast: 'center'
   }
-}));
+}))

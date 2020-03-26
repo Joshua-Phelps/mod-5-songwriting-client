@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import DeleteIcon from '@material-ui/icons/Delete';
-import DeleteForm from './DeleteForm';
+import React, { useState } from 'react'
+import DeleteForm from './DeleteForm'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { 
+    makeStyles, 
+    Typography, 
+    CssBaseline, 
+    Container, 
+    List, 
+    ListItem, 
+    ListItemIcon, 
+    ListItemText 
+} from '@material-ui/core'
 
 
 function EditAccount(props) {
     const [openDelete, setOpenDelete] = useState(false)
-    const classes = useStyles();
+    const classes = useStyles()
 
     const handleDelete = () => {
         setOpenDelete(!openDelete)
@@ -22,13 +24,13 @@ function EditAccount(props) {
 
     return (
         <div>
-            {openDelete ? <DeleteForm 
+            {openDelete && <DeleteForm 
                 onDelete={props.onDelete} 
                 message={'This will permenently delete your account'} 
                 onCloseForm={handleDelete} 
                 id={props.id} 
-                title={`${props.username}'s account`} /> : null}
-            
+                title={`${props.username}'s account`} />
+            }
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className={classes.paper}>

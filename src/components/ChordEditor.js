@@ -1,17 +1,15 @@
 import React, { Fragment, useState } from 'react'
+import { api } from '../services/api'
 import ChordSheetJS from 'chordsheetjs'
-import SaveIcon from '@material-ui/icons/Save';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import { api } from '../services/api';
-import Tooltip from '@material-ui/core/Tooltip';
-import TableContainer from '@material-ui/core/TableContainer';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import SaveIcon from '@material-ui/icons/Save'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
+import { makeStyles, Tooltip, TableContainer } from '@material-ui/core'
+
 
 
 function ChordEditor(props){
-    const classes = useStyles();
+    const classes = useStyles()
     const [lyrics, setLyrics] = useState('')
     const [hideText, setHideText] = useState(false)
     const [saving, setSaving] = useState(false)
@@ -67,12 +65,10 @@ function ChordEditor(props){
             </div>
             <div className={classes.maxWidth} >
                 <h3 className={classes.text}>{props.song.title} Lyrics</h3>
-                <TableContainer className={ props.openRecording ? ( hideText ? classes.table4 : classes.table3 ) : classes.table2 }>
+                <TableContainer className={ props.openRecording ? ( hideText ? classes.table1 : classes.table3 ) : ( hideText ? classes.table1 : classes.table2 ) }>
                 <div
                     className={classes.displayLyrics}
-                    // style={{width: '100%', height: '100%', color: "white", fontFamily: 'monospace', fontSize:'150%'}}        
-                    dangerouslySetInnerHTML={getChordMarkup()}
-                    
+                    dangerouslySetInnerHTML={getChordMarkup()}                    
                 />            
                 </TableContainer>         
             </div>
@@ -95,11 +91,16 @@ const useStyles = makeStyles(theme => ({
     table: {
       overFlow: 'auto'
     },
+    table1: {
+        overFlow: 'auto', 
+        overFlowX: 'auto', 
+        maxHeight: '70vh',
+        backgroundColor: theme.palette.primary.dark
+      },
     table2: {
       overFlow: 'auto', 
       overFlowX: 'auto', 
-    //   maxHeight: '365px',
-      maxHeight: '40vh',
+      maxHeight: '39vh',
       backgroundColor: theme.palette.primary.dark
     },
     table3: {

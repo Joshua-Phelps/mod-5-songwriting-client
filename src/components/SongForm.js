@@ -1,24 +1,21 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import React, { useState } from 'react'
+import { makeStyles, Modal, Backdrop, Fade } from '@material-ui/core'
 
 export default function SongForm(props) {
-  const classes = useStyles();
-  const [input, setInput] = React.useState('')
-  const [open, setOpen] = React.useState(true);
+  const classes = useStyles()
+  const [input, setInput] = useState('')
+  const [open, setOpen] = useState(true)
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpen(true)
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false)
   };
 
   const handleChange = e => {
-      setInput(e.target.value)
+    setInput(e.target.value)
   }
 
   const handleSubmit = e => {
@@ -37,9 +34,7 @@ export default function SongForm(props) {
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        BackdropProps={{ timeout: 500 }}
       >
         <Fade in={open}>
           <div className={classes.paper}>
@@ -47,8 +42,7 @@ export default function SongForm(props) {
             <form onSubmit={handleSubmit}>
             <input onChange={handleChange} value={input} ></input>
             <button type='submit'>Submit</button>
-            </form>
-        
+            </form>        
           </div>
         </Fade>
       </Modal>
@@ -64,9 +58,9 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '8px solid #004d66',
+    border: `8px solid ${theme.palette.secondary.main}`,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     outline: 'none',
   },
-}));
+}))

@@ -1,21 +1,23 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react'
+import {
+  Button, 
+  Dialog, 
+  DialogActions, 
+  DialogContent, 
+  DialogContentText, 
+  DialogTitle,
+  makeStyles
+} from '@material-ui/core'
 
 export default function DeleteForm(props) {
-  const [open, setOpen] = React.useState(true);
-  const classes = useStyles();
+  const [open, setOpen] = useState(true)
+  const classes = useStyles()
 
 
   const handleClose = () => {
     setOpen(false);
     props.onCloseForm()
-  };
+  }
 
   const handleDelete = () => {
     setOpen(false)
@@ -55,15 +57,15 @@ export default function DeleteForm(props) {
         </DialogActions>
       </Dialog>
     </div>
-  );
+  )
 }
 
 const useStyles = makeStyles(theme => ({
   border: {
-    border: '8px solid #004d66',
+    border: `8px solid ${theme.palette.secondary.main}`
   },
   root: { },
   color: {
-    color: '#004d66'
+    color: theme.palette.secondary.main
   }
-}));
+}))

@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
-import { api } from '../services/api';
-import { makeStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import TableContainer from '@material-ui/core/TableContainer'
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import React, { useState } from 'react'
+import { api } from '../services/api'
+import { 
+  makeStyles, 
+  Tabs, 
+  Tab, 
+  TextField, 
+  Grid, 
+  TableContainer, 
+  GridList, 
+  GridListTile, 
+  Paper 
+} from '@material-ui/core'
 
 
 export default function LyricHelpers() {
-  const classes = useStyles();
+  const classes = useStyles()
   const [word, setWord] = useState('')
   const [rhymes, setRhymes] = useState([])
   const [definitions, setDefinitions] = useState([])
   const [synonyms, setSynonyms] = useState([])
-  const [tabValue, setTabValue] = useState(0);
+  const [tabValue, setTabValue] = useState(0)
 
   const oneSyl = rhymes.filter(word => word.numSyllables === 1)
   const twoSyl = rhymes.filter(word => word.numSyllables === 2)
@@ -26,13 +28,9 @@ export default function LyricHelpers() {
   const nouns = definitions.filter(def => def.partOfSpeech === 'noun')
   const verbs = definitions.filter(def => def.partOfSpeech === 'verb')
 
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
+  const handleTabChange = (event, newValue) => setTabValue(newValue)
 
-  const handleWordChange = e => {
-    setWord(e.target.value)
-  }
+  const handleWordChange = e => setWord(e.target.value)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -84,9 +82,7 @@ export default function LyricHelpers() {
         value={tabValue}
         onChange={handleTabChange}
         variant="scrollable"       
-        classes={{
-          indicator: classes.indicator
-        }}
+        classes={{ indicator: classes.indicato }}
         scrollButtons="auto"
         aria-label="icon label tabs example"
       >
@@ -96,16 +92,16 @@ export default function LyricHelpers() {
       </Tabs>
       </TableContainer>
    
-      {tabValue === 0 && (
+      {tabValue === 0 && 
         <div className={classes.root2}>
           <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
           {synonyms.length > 0 && <br></br> }
             {renderSynonyms()}
           </GridList>
         </div>        
-      )}
+      }
 
-      {tabValue === 1 && (
+      {tabValue === 1 && 
         <div className={classes.root2}>
           <GridList cols={3} cellHeight={'auto'} className={classes.gridList}>
             {oneSyl.length > 0 ? <h3 className={classes.root}>One Syllable</h3> : ''}
@@ -122,9 +118,9 @@ export default function LyricHelpers() {
             </GridList>
           </GridList>
         </div>
-      )}
+      }
 
-      {tabValue === 2 && (
+      {tabValue === 2 && 
         <div className={classes.root2}>
           <GridList cols={1} cellHeight={'auto'} className={classes.gridList}>
             {nouns.length > 0 ? <h3 className={classes.root}>Noun</h3> : ''}
@@ -135,9 +131,9 @@ export default function LyricHelpers() {
             {renderDefinitions(adjectives)}          
           </GridList>
         </div> 
-      )}
+      }
     </Paper>
-  );
+  )
 }
 
 const useStyles = makeStyles(theme => ({
@@ -153,7 +149,7 @@ const useStyles = makeStyles(theme => ({
     '& > *': {
         margin: theme.spacing(1),
         backgroundColor: 'white'
-        },
+    }
   },
   paper: {
     padding: theme.spacing(1),
@@ -184,4 +180,4 @@ const useStyles = makeStyles(theme => ({
   definitions: {
     paddingTop: '10px'
   },
-}));
+}))

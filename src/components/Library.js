@@ -2,15 +2,11 @@ import React, { useState } from 'react'
 import CollectionLibrary from './CollectionLibrary'
 import SongLibrary from './SongLibrary'
 import Form from './Form'
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles, Paper, Grid, Button, TextField } from '@material-ui/core'
 
 
-function NewLibrary(props){
-  const classes = useStyles();
+function Library(props){
+  const classes = useStyles()
   const [openSongForm, setOpenSongForm] = useState(false)
   const [openCollectionForm, setOpenCollectionForm] = useState(false)
 
@@ -55,45 +51,45 @@ function NewLibrary(props){
         <Grid item sm={3}>
             <Paper className={classes.paper} >
               <Button 
-                className={classes.text} 
-                onClick={handleOpenCollectionForm
-                }>
-                + New Collection
+              className={classes.text} 
+              onClick={handleOpenCollectionForm}
+              >
+              + New Collection
               </Button>
               <br></br>
               <CollectionLibrary 
-                onCollectionSelect={props.onCollectionSelect} 
-                collections={props.collections} 
-                onEditCollection={props.onEditCollection}
-                onDeleteCollection={props.onDeleteCollection}
-                />
+              onCollectionSelect={props.onCollectionSelect} 
+              collections={props.collections} 
+              onEditCollection={props.onEditCollection}
+              onDeleteCollection={props.onDeleteCollection}
+              />
             </Paper>
         </Grid>
         <Grid item sm={8}>
           <Paper color='primary' className={classes.paper} >
           <Button 
-            onClick={handleOpenSongForm} 
-            className={classes.text}
-            >
-            + New Song
+          onClick={handleOpenSongForm} 
+          className={classes.text}
+          >
+          + New Song
           </Button>
           <form className={classes.form} >
             <TextField 
-              id="filled-basic"  
-              onChange={handleSearch} 
-              label="Search Song" 
-              variant="filled" 
+            id="filled-basic"  
+            onChange={handleSearch} 
+            label="Search Song" 
+            variant="filled" 
             />
           </form>
           <br></br>
             <SongLibrary 
-              {...props} 
-              onEditSong={props.onEditSong} 
-              onCloseForm={handleCloseSongForm} 
-              collections={props.collections} 
-              songs={props.songs} 
-              onDeleteSong={props.onDeleteSong}
-              onSongSelect={props.onSongSelect}
+            {...props} 
+            onEditSong={props.onEditSong} 
+            onCloseForm={handleCloseSongForm} 
+            collections={props.collections} 
+            songs={props.songs} 
+            onDeleteSong={props.onDeleteSong}
+            onSongSelect={props.onSongSelect}
             />
           </Paper>
         </Grid>
@@ -101,7 +97,7 @@ function NewLibrary(props){
     </div>
   )
 }
-export default NewLibrary
+export default Library
 
 
 const useStyles = makeStyles(theme => ({
@@ -123,4 +119,4 @@ const useStyles = makeStyles(theme => ({
   text: {
     color: 'white'
   }
-}));
+}))

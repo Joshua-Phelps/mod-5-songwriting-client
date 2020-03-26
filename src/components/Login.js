@@ -1,43 +1,43 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import { api } from '../services/api';
 import { Link } from "react-router-dom";
+import { 
+  makeStyles, 
+  Avatar, 
+  Button, 
+  CssBaseline, 
+  TextField, 
+  Paper, 
+  Grid, 
+  Typography 
+} from '@material-ui/core';
 
 
 export default function Login(props) {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
-  const classes = useStyles();
+  const classes = useStyles()
 
 
   const handleSubmit = e => {
     if (error) setError(true)
-    e.preventDefault();
+    e.preventDefault()
     api.auth.login({login, password}).then(res => {
       if (!res.error) {
-        props.onLogin(res);
+        props.onLogin(res)
         props.history.push('/home');
       } else {
         setError('true')
-        // alert('try again')
       }
-    });
-  };
+    })
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className='login-image' />
-      {/* <Grid item xs={false} sm={4} md={7} className={classes.image} /> */}
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -60,7 +60,7 @@ export default function Login(props) {
               autoComplete="username"
               value={login}
               autoFocus
-              onChange={(e) => setLogin(e.target.value)}
+              onChange={(e) => setLogin(e.target.value.replace(/\s+/g, ''))}
             />
             <TextField
               helperText={ error ? "Incorrect entry." : null}
@@ -75,7 +75,7 @@ export default function Login(props) {
               id="password"
               value={password}
               autoComplete="current-password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value.replace(/\s+/g, ''))}
             />
             <Button
               type="submit"
@@ -99,7 +99,7 @@ export default function Login(props) {
         </div>
       </Grid>
     </Grid>
-  );
+  )
 }
 
 
@@ -118,10 +118,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
