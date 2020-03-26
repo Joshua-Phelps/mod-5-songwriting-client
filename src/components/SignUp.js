@@ -22,7 +22,8 @@ export default function SignUp(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    api.auth.signup(username, password, password2).then(res => {
+    if (password !== password2) return alert("Your passwords do not match")
+    api.auth.signup(username, password).then(res => {
       if (res.password) {
         setPassword('')
         setPassword2('')

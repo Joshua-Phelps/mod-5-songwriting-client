@@ -38,7 +38,7 @@ class App extends Component {
     const token = localStorage.getItem("token");
     if (token) {
       api.auth.getCurrentUser().then(user => {
-        if (user.error) return alert(user.error)
+        if (user.error) return localStorage.removeItem("token")
         const updatedState = { ...this.state.auth, user: user };
         this.setState({ 
           auth: updatedState,
