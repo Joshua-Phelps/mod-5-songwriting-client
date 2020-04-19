@@ -48,7 +48,7 @@ function Library(props){
           />
       }
        <Grid container spacing={3} className={classes.root}>
-        <Grid item sm={3}>
+        <Grid item xs={12} sm={3}>
             <Paper className={classes.paper} >
               <Button 
               className={classes.text} 
@@ -65,7 +65,7 @@ function Library(props){
               />
             </Paper>
         </Grid>
-        <Grid item sm={8}>
+        <Grid item xs={12} sm={8}>
           <Paper color='primary' className={classes.paper} >
           <Button 
           onClick={handleOpenSongForm} 

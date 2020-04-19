@@ -111,7 +111,7 @@ function SongHome(props){
 				/>}
 						
 				<Grid container className={classes.gridContainers} spacing={3}>
-						<Grid item  xs={3}>
+						<Grid item xs={12} sm={3}>
 							<VersionsLibrary 
 							versions={versions} 
 							song={song} 
@@ -121,7 +121,7 @@ function SongHome(props){
 							onOpenRecording={handleOpenRecording} 
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} sm={6}>
 						{openRecording && 
 							<Paper className={classes.recordingContainer}>
 								<h3 className={classes.heading}>Record New Verison</h3>
@@ -136,7 +136,7 @@ function SongHome(props){
 
 						<LyricSheet song={song} openRecording={openRecording} />
 						</Grid>
-						<Grid item xs={3}>                      
+						<Grid item xs={12} sm={3}>                      
 							<LyricHelpers />                    
 						</Grid>
 				</Grid>      
