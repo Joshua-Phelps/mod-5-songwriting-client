@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import CollectionLibrary from './CollectionLibrary'
 import SongLibrary from './SongLibrary'
+import Spinner from './Spinner'
 import Form from './Form'
 import { makeStyles, Paper, Grid, Button, TextField } from '@material-ui/core'
 
@@ -32,11 +33,15 @@ function Library(props){
 
   return (
     <div>
+      {props.loading ?
+        <Spinner />
+      : 
+      <>
       {openSongForm && <Form 
-          form='Song' 
-          onAddInput={props.onAddSong} 
-          collections={props.collections}  
-          onCloseForm={handleCloseSongForm} 
+        form='Song' 
+        onAddInput={props.onAddSong} 
+        collections={props.collections}  
+        onCloseForm={handleCloseSongForm} 
         />
       }
 
@@ -46,7 +51,7 @@ function Library(props){
           id={props.userId}  
           onCloseForm={handleCloseCollectionForm} 
           />
-      }
+        }
        <Grid container spacing={3} className={classes.root}>
         <Grid item xs={12} sm={3}>
             <Paper className={classes.paper} >
@@ -94,6 +99,8 @@ function Library(props){
           </Paper>
         </Grid>
       </Grid>
+      </>
+      }
     </div>
   )
 }

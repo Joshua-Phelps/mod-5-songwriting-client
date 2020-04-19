@@ -25,7 +25,8 @@ class App extends Component {
     },
     selectedCollectionId: false,
     selectedSong: {collection_id: null, id: null, lyrics: null, title: null},
-    search: ''  
+    search: '',
+    loading: false 
   }
 
   constructor(){
@@ -50,13 +51,17 @@ class App extends Component {
   login = data => {
     const updatedState = { ...this.state.auth, user: data.user }
     localStorage.setItem("token", data.jwt)
-    this.setState({ auth: updatedState })
+    this.setState({ auth: updatedState, loading: false})
   };
 
   logout = () => {
     localStorage.removeItem("token")
     this.setState(this.INITIAL_STATE)
   };
+
+  setLoading = boolean => {
+    this.setState({loading: boolean})
+  }
 
   addCollection = (collectionName, userId) => {
     api.collections.addCollection(collectionName, userId)
@@ -204,7 +209,7 @@ class App extends Component {
           <Route
           path="/login"
           exact
-          render={props => !token ? <Login {...props} onLogin={this.login} /> : <Redirect to="/home" />}
+          render={props => !token ? <Login {...props} setLoading={this.setLoading} onLogin={this.login} /> : <Redirect to="/home" />}
           />
 
           <Route
@@ -243,6 +248,7 @@ class App extends Component {
             onDeleteCollection={this.deleteCollection}
             onSelectSong={this.selectSong}
             onSearch={this.setSongSearch}
+            loading={this.state.loading}
             /> 
             : <Redirect to="/login" />
             )}
