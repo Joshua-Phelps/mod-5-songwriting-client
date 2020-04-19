@@ -8,6 +8,7 @@ import SongHome from './components/SongHome'
 import NewRecordingDevice from './components/NewRecordingDevice'
 import Library from './components/Library'
 import EditAccount from './components/EditAccount'
+import Spinner from './components/Spinner'
 import { api } from "./services/api"
 
 
@@ -205,13 +206,14 @@ class App extends Component {
 
     return (
       <div >
+          {!this.state.loading ? 
         <Router>
           <Route
           path="/login"
           exact
           render={props => !token ? <Login {...props} setLoading={this.setLoading} onLogin={this.login} /> : <Redirect to="/home" />}
           />
-
+          
           <Route
           path="/signup"
           exact
@@ -224,11 +226,11 @@ class App extends Component {
             token 
             ? <NavBar {...props} user={user} onLogout={this.logout} onLogin={this.login} /> 
             : props.location.pathname !== "/signup" 
-              ? <Redirect to="/login" /> 
-              : <Redirect to="/signup" /> 
+            ? <Redirect to="/login" /> 
+            : <Redirect to="/signup" /> 
             )}
-          />
-
+            />
+            
           <Route
           path="/home"
           exact
@@ -252,9 +254,9 @@ class App extends Component {
             /> 
             : <Redirect to="/login" />
             )}
-          />
-
-          <Route
+            />
+            
+            <Route
             path="/songs/:id"
             exact
             render={(props) => ( 
@@ -263,23 +265,23 @@ class App extends Component {
               onSelectSong={this.selectSong} 
               username={user.username} {...props} /> 
               : <Redirect to="/login" /> 
-            )}
-          />
-
-          <Route
-            path="/recording"
-            exact
-            render={(props) => ( 
-              token 
-              ? <NewRecordingDevice {...props}  /> 
-              : <Redirect to="/login" />
-            )}
-          /> 
-
-          <Route 
-              path='/edit-account'
-              exact 
-              render={(props) => (
+              )}
+              />
+              
+              <Route
+              path="/recording"
+              exact
+              render={(props) => ( 
+                token 
+                ? <NewRecordingDevice {...props}  /> 
+                : <Redirect to="/login" />
+                )}
+                /> 
+                
+                <Route 
+                path='/edit-account'
+                exact 
+                render={(props) => (
                 token 
                 ? <EditAccount 
                 onDelete={this.deleteAccount} 
@@ -287,16 +289,17 @@ class App extends Component {
                 username={user.username} 
                 {...props} /> 
                 : <Redirect to="/login" />
-              )}
+                )}
           />        
-
+          
           <Route
           path="/"
           render={props => this.tokenPathCheck(props) && <Redirect to="/home" />}
           />    
-        </Router>
+          </Router>
+        : <Spinner />}
       </div>
-    )
+      )
   }
 }
 

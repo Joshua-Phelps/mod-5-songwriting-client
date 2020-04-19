@@ -24,7 +24,7 @@ export default function Login(props) {
   const handleSubmit = e => {
     if (error) setError(true)
     e.preventDefault()
-    props.setLoading(false)
+    props.setLoading(true)
     api.auth.login({login, password}).then(res => {
       if (!res.error) {
         props.onLogin(res)
