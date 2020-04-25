@@ -14,8 +14,6 @@ import {
     makeStyles 
 } from '@material-ui/core'
 
-
-
 function CollectionLibrary (props) {
     const [openEdit, setOpenEdit] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)

@@ -25,7 +25,6 @@ export default function DeleteForm(props) {
     props.onCloseForm()
   }
 
-
   return (
     <div>
       <Dialog

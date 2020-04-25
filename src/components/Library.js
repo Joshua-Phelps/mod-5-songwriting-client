@@ -11,25 +11,15 @@ function Library(props){
   const [openSongForm, setOpenSongForm] = useState(false)
   const [openCollectionForm, setOpenCollectionForm] = useState(false)
 
-  const handleOpenSongForm = () => {
-    setOpenSongForm(!openSongForm)
-  } 
+  const handleOpenSongForm = () => setOpenSongForm(!openSongForm)
 
-  const handleCloseSongForm = () => {
-    setOpenSongForm(false)
-  }
+  const handleCloseSongForm = () => setOpenSongForm(false)
 
-  const handleOpenCollectionForm = () => {
-    setOpenCollectionForm(!openCollectionForm)
-  } 
+  const handleOpenCollectionForm = () => setOpenCollectionForm(!openCollectionForm)
 
-  const handleCloseCollectionForm = () => {
-    setOpenCollectionForm(false)
-  }
+  const handleCloseCollectionForm = () => setOpenCollectionForm(false)
 
-  const handleSearch = e => {
-    props.onSearch(e.target.value)
-  }
+  const handleSearch = e => props.onSearch(e.target.value)
 
   return (
     <div>

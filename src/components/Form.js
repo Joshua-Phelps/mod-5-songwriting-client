@@ -24,9 +24,7 @@ export default function Form(props) {
     props.onCloseForm()
   };
 
-  const handleChange = e => {
-      setInput(e.target.value)
-  }
+  const handleChange = e => setInput(e.target.value)
 
   const handleSubmit = e => {
     e.preventDefault()

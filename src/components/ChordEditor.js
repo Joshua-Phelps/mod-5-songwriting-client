@@ -14,13 +14,9 @@ function ChordEditor(props){
     const [hideText, setHideText] = useState(false)
     const [saving, setSaving] = useState(false)
 
-    const handleChange = e => {
-        setLyrics(e.target.value)
-    }
+    const handleChange = e => setLyrics(e.target.value)
 
-    const handleHideText = () => {
-        setHideText(!hideText)
-    }
+    const handleHideText = () => setHideText(!hideText)
     
     const getChordMarkup = () => {
         if (lyrics !== ''){
@@ -125,4 +121,4 @@ const useStyles = makeStyles(theme => ({
     maxWidth: {
       maxWidth: '100%'
     }
-  }));
+  }))
