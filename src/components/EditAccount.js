@@ -16,7 +16,7 @@ import {
 function EditAccount(props) {
     const [openDelete, setOpenDelete] = useState(false)
     const classes = useStyles()
-    
+
     const handleDelete = () => setOpenDelete(!openDelete)
 
     return (
@@ -71,4 +71,4 @@ const useStyles = makeStyles(theme => ({
     list: {
         paddingTop: '10%'
     }
-}));
+}))

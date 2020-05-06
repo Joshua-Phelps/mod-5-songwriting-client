@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import UnderContruction from './UnderConstruction'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { api } from '../services/api';
 import { Link } from "react-router-dom";
@@ -41,13 +42,14 @@ export default function Login(props) {
       <Grid item xs={false} sm={4} md={7} className='login-image' />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+          <UnderContruction />
+          {/* <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
-          </Typography>
-          <form className={classes.form} onSubmit={handleSubmit} noValidate>         
+          </Typography> */}
+          {/* <form className={classes.form} onSubmit={handleSubmit} noValidate>         
             <TextField
               helperText={ error ? "Incorrect entry." : null}
               error={error}
@@ -96,7 +98,7 @@ export default function Login(props) {
                 </Link>
               </Grid>
             </Grid>
-          </form>
+          </form> */}
         </div>
       </Grid>
     </Grid>
