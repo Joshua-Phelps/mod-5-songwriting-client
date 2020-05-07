@@ -6,6 +6,5 @@ This app was designed to assist songwriters in their creative process. A user ca
 
 Check out the demo at https://www.youtube.com/watch?v=u5eMMfXUyk4
 
-Song Control is live at https://song-control-client.herokuapp.com/
 
-Backend available at https://github.com/Joshua-Phelps/mod-5-songwriting-backend
+Backend repo available at https://github.com/Joshua-Phelps/mod-5-songwriting-backend
