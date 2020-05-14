@@ -5,12 +5,11 @@ class Player extends Component {
 
     render(){
         const splitStart = this.props.recording.url.split('arn://')
-        const url = splitStart[1].split('?')
 
         return(
             <div className='recording-holder'>
-                <audio src={`https://${url[0]}`} preload="auto" controls />
-                {/* <audio src={``} controls /> */}
+                <audio src={`http://${splitStart[1]}`} preload="auto" controls />
+                {/* <audio src={this.props.recording.url} controls /> */}
             </div>
         )
     }
