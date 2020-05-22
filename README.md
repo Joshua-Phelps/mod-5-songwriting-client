@@ -7,7 +7,7 @@ This app was designed to assist songwriters in their creative process. A user ca
 I wanted to build this app because I am a songwriter myself and was tired of sifting through the numerous versions of songs that I had recorded. I often times will come up with alternate verses or choruses for a particular song. I wanted an apllication that could store all those versions in one place for quick and easy access. 
 
 ## Screenshots
-![ScreenShot1](./src/images/ScreenShot1.png?raw=true "Screen Shot 1")
+![ScreenShot1](https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot1.png "Screen Shot 1")
 
 ## Tech/framework used
 
