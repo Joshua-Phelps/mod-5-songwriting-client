@@ -7,24 +7,16 @@ This app was designed to assist songwriters in their creative process. A user ca
 I wanted to build this app because I am a songwriter myself and was tired of sifting through the numerous versions of songs that I had recorded. I often times will come up with alternate verses or choruses for a particular song. I wanted an apllication that could store all those versions in one place for quick and easy access. 
 
 ## Screenshots
-<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot1.png" alt="ScreenShot1"
-	title="ScreenShot1" width="600" height="400" />
 
-<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot2.png" alt="ScreenShot1"
-	title="ScreenShot2" width="600" height="400" />
+![ScreenShot1](https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot1.png "Screen Shot 1")
 
-<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot3.png" alt="ScreenShot1"
-title="ScreenShot3" width="600" height="400" />
+![ScreenShot2](https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot2.png "Screen Shot 2")
 
-<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot4.png" alt="ScreenShot1"
-	title="ScreenShot4" width="600" height="400" />
+![ScreenShot3](https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot3.png "Screen Shot 3")
 
-<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot5.png" alt="ScreenShot1"
-	title="ScreenShot5" width="600" height="400" />
+![ScreenShot4](https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot4.png "Screen Shot 4")
 
-
-
-
+![ScreenShot5](https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot5.png "Screen Shot 5")
 
 ## Tech/framework used
 
