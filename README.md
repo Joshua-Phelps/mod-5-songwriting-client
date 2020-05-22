@@ -10,7 +10,6 @@ I wanted to build this app because I am a songwriter myself and was tired of sif
 Include logo/demo screenshot etc.
 
 ## Tech/framework used
-Ex. -
 
 <b>Built with</b>
 - [React](https://reactjs.org/)
