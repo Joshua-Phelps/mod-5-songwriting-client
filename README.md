@@ -8,7 +8,19 @@ I wanted to build this app because I am a songwriter myself and was tired of sif
 
 ## Screenshots
 <img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot1.png" alt="ScreenShot1"
-	title="ScreenShot1" width="450" height="300" />
+	title="ScreenShot1" width="600" height="400" />
+
+<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot2.png" alt="ScreenShot1"
+	title="ScreenShot2" width="600" height="400" />
+
+<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot3.png" alt="ScreenShot1"
+title="ScreenShot3" width="600" height="400" />
+
+<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot4.png" alt="ScreenShot1"
+	title="ScreenShot4" width="600" height="400" />
+
+<img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot5.png" alt="ScreenShot1"
+	title="ScreenShot5" width="600" height="400" />
 
 
 
