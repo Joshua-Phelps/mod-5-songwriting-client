@@ -8,8 +8,8 @@ I wanted to build this app because I am a songwriter myself and was tired of sif
 
 ## Screenshots
 <img src="https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot1.png" alt="ScreenShot1"
-	title="ScreenShot1" width="150" height="100" />
-![ScreenShot1](https://github.com/Joshua-Phelps/mod-5-songwriting-client/blob/master/src/images/ScreenShot1.png "Screen Shot 1")
+	title="ScreenShot1" width="450" height="300" />
+
 
 
 
