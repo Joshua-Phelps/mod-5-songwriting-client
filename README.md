@@ -41,7 +41,7 @@ I wanted to build this app because I am a songwriter myself and was tired of sif
 ## Credits
  - [ChordSheetJS](https://github.com/martijnversluis/ChordSheetJS)
 
-## How to use?
+## 
 Check out the [Demo](https://youtu.be/181d-tg6OPc)
 
 Try it live at https://song-control-client.herokuapp.com/ 
